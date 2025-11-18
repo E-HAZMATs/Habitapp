@@ -13,7 +13,7 @@ const Habit = sequelize.define('Habit', {
   dayOfMonth: { type: DataTypes.INTEGER, allowNull: true }, 
   timeOfDay: { type: DataTypes.TIME, allowNull: true }, 
 }, {
-  tableName: 'habits',
+  tableName: 'Habits',
   timestamps: true,
 });
 

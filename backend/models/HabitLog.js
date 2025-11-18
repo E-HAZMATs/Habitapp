@@ -7,7 +7,7 @@ const HabitLog = sequelize.define('HabitLog', {
   habitId: { type: DataTypes.INTEGER, allowNull: false },
   completedAt: { type: DataTypes.DATE, allowNull: false },
 }, {
-  tableName: 'habit_logs',
+  tableName: 'HabitLogs',
   timestamps: true,
 });
 
