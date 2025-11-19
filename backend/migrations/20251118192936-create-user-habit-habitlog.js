@@ -6,7 +6,7 @@ const { sequelize } = require('../models');
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
-      id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement},
+      id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
       name: {type: Sequelize.STRING(100), allowNull: false},
       email: {type: Sequelize.STRING, unique: true, allowNull: false},
       password: {type: Sequelize.STRING(250), allowNull: false},
