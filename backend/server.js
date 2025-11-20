@@ -2,7 +2,7 @@ const express = require ('express');
 const cors = require('cors');
 require('dotenv').config();
 const {sequelize} = require('./models')
-const userRouter = require('./routers/User')
+const userRouter = require('./routers/user.router')
 async function connectToDB(){
     try{
         await sequelize.authenticate();
