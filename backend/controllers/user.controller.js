@@ -10,6 +10,10 @@ const registerSchema = Joi.object({
 exports.register = async (req, res) => {
     const { error } = registerSchema.validate(req.body)
     if(error) return res.status(400).send(error.details[0].message); 
+
+    const emailAlreadyUsed = await userService.isEmailUsed(req.body.email)
+    if (emailAlreadyUsed) return res.status(400).send('Email already used')
+
     try{
         const user = await userService.createUser(req.body)
         

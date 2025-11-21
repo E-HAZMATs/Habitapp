@@ -10,3 +10,6 @@ exports.createUser = async (data) => {
     })
 }
 
+exports.isEmailUsed = (email) => {
+    return User.findOne({ where: { email } }) !== null
+}
