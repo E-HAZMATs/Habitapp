@@ -12,7 +12,7 @@ exports.register = async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message); 
 
     const emailAlreadyUsed = await userService.isEmailUsed(req.body.email)
-    if (emailAlreadyUsed) return res.status(400).send('Email already used')
+    if (emailAlreadyUsed) return res.status(400).send(req.__("email_used"))
 
     try{
         const user = await userService.createUser(req.body)
@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
             })
         }
         else{
-            res.status(400).send('Registration faild.')
+            res.status(400).send(req.__("register_fail"))
         }
     }
         catch(e){
