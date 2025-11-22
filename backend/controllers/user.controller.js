@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
             const token = Jwt.sign(
                 {id: user.id, email: user.email},
                 process.env.JWT_KEY,
-                { expiresIn: '8h'}
+                { expiresIn: '8h'} //TODO: IMPLEMENT HTTP ONLY COOKIE LONG LIVED TOKEN TO PREVENT XSS?
             );
             return res.status(200).send({
                 token

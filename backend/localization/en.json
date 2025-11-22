@@ -2,4 +2,6 @@
   "register_fail": "Registration failed.",
   "email_used": "Email already used.",
   "wrong_login_creds": "Email or password are wrong."
+  ,"access_denied": "Access denied"
+  ,"invalid_token": "Invalid token"
 }
