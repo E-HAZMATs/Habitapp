@@ -1,4 +1,5 @@
 {
   "register_fail": "Registration failed.",
-  "email_used": "Email already used."
+  "email_used": "Email already used.",
+  "wrong_login_creds": "Email or password are wrong."
 }

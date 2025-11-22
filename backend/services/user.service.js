@@ -10,6 +10,16 @@ exports.createUser = async (data) => {
     })
 }
 
+exports.loginUser = async (data) => {
+    const user = await User.findOne({ where: {email : data.email}})
+    if (await bcrypt.compare(data.password, user.password)){
+        return user
+    }
+    else {
+        return null;
+    }
+}
+
 exports.isEmailUsed = (email) => {
     return User.findOne({ where: { email } }) !== null
 }

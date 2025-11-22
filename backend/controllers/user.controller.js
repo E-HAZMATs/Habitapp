@@ -7,6 +7,33 @@ const registerSchema = Joi.object({
     password: Joi.string().min(1).required() //set up min as 1 for now. quicker.
 });
 
+//SO FAR, LOGIN IS VIA EMAIL+PASS ALONE.
+const loginSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(1).required()
+})
+
+exports.login = async (req, res) => {
+    const { error } = loginSchema.validate(req.body);
+    if(error) {return res.status(400).send(error.details[0].message)}
+
+    const emailExists = await userService.isEmailUsed(req.body.email)
+    if(!emailExists) {return res.status(401).send(req.__("wrong_login_creds"))}
+    try{
+        const user = await userService.loginUser(req.body)
+        if (user){
+            res.status(200).send({
+                id: user.id,
+                email: user.email,
+                username: user.username
+            })
+        }
+        return res.status(401).send(req.__("wrong_login_creds"))
+    }
+    catch(e){
+        res.status(500).send(e.message)
+    }
+}
 exports.register = async (req, res) => {
     const { error } = registerSchema.validate(req.body)
     if(error) return res.status(400).send(error.details[0].message); 
@@ -34,3 +61,5 @@ exports.register = async (req, res) => {
         return res.status(500).send(e.message)
     }
 }
+
+

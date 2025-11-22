@@ -14,5 +14,6 @@ user.get('/', (req, res) => {
 })
 
 user.post('/register', controller.register)
+user.post('/login', controller.login)
 
 module.exports = user;
