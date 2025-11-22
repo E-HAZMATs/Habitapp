@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const Jwt = require('jsonwebtoken')
 const userService = require('../services/user.service')
 
 const registerSchema = Joi.object({
@@ -22,10 +23,14 @@ exports.login = async (req, res) => {
     try{
         const user = await userService.loginUser(req.body)
         if (user){
-            res.status(200).send({
-                id: user.id,
-                email: user.email,
-                username: user.username
+            
+            const token = Jwt.sign(
+                {id: user.id, email: user.email},
+                process.env.JWT_KEY,
+                { expiresIn: '8h'}
+            );
+            return res.status(200).send({
+                token
             })
         }
         return res.status(401).send(req.__("wrong_login_creds"))
@@ -45,7 +50,6 @@ exports.register = async (req, res) => {
         const user = await userService.createUser(req.body)
         
         if (user){
-            console.log("user:", user)
             res.status(200).send({
                 id: user.id,
                 email: user.email,
