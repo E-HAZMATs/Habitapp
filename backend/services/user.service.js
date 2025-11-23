@@ -20,6 +20,10 @@ exports.loginUser = async (data) => {
     }
 }
 
-exports.isEmailUsed = (email) => {
-    return User.findOne({ where: { email } }) !== null
+exports.isEmailUsed = async (email) => {
+    return await User.findOne({ where: { email } }) !== null
+}
+
+exports.findById = (id) => {
+    return User.findByPk(id);
 }

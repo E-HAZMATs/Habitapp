@@ -1,8 +1,9 @@
 {
-	"register_fail": "فشل التسجيل.",
-	"email_used": "البريد الإلكتروني مسجل مسبقاً.",
-	"wrong_login_creds": "البريد أو كلمة المرور غير صحيحان",
-	"access_denied": "الوصول مرفوض",
-	"invalid_token": "إثبات الدخول (JWT Token) غير صحيح",
-	"invalid_rt": "invalid_rt"
+  "register_fail": "فشل التسجيل.",
+  "email_used": "البريد الإلكتروني مسجل مسبقاً.",
+  "wrong_login_creds": "البريد أو كلمة المرور غير صحيحان",
+  "access_denied": "الوصول مرفوض",
+  "invalid_token": "إثبات الدخول (JWT Token) غير صحيح",
+  "invalid_rt": "invalid_rt couldn't refresh session.",
+  "no-refresh-token": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب."
 }

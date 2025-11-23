@@ -1,6 +1,6 @@
 const Joi = require('joi');
-const Jwt = require('jsonwebtoken')
 const userService = require('../services/user.service')
+const tokenService = require('../services/token.service')
 
 const registerSchema = Joi.object({
     email: Joi.string().email().required(),
@@ -24,13 +24,10 @@ exports.login = async (req, res) => {
         const user = await userService.loginUser(req.body)
         if (user){
             
-            const token = Jwt.sign(
-                {id: user.id, email: user.email},
-                process.env.JWT_KEY,
-                { expiresIn: '8h'} //TODO: IMPLEMENT HTTP ONLY COOKIE LONG LIVED TOKEN TO PREVENT XSS?
-            );
+            const { accessToken, refreshToken } = tokenService.createTokens(user);
+            tokenService.setRtCookie(res, refreshToken);
             return res.status(200).send({
-                token
+                accessToken
             })
         }
         return res.status(401).send(req.__("wrong_login_creds"))
@@ -39,6 +36,7 @@ exports.login = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
 exports.register = async (req, res) => {
     const { error } = registerSchema.validate(req.body)
     if(error) return res.status(400).send(error.details[0].message); 

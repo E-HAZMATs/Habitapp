@@ -1,7 +1,9 @@
 {
   "register_fail": "Registration failed.",
   "email_used": "Email already used.",
-  "wrong_login_creds": "Email or password are wrong."
-  ,"access_denied": "Access denied"
-  ,"invalid_token": "Invalid token"
+  "wrong_login_creds": "Email or password are wrong.",
+  "access_denied": "Access denied",
+  "invalid_token": "Invalid token",
+  "invalid_rt": "invalid_rt couldn't refresh session.",
+  "no-refresh-token": "failed to refresh login session. No RT in request."
 }
