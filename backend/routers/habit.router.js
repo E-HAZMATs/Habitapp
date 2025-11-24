@@ -5,5 +5,5 @@ const { authMiddleware } = require('../middlewares/auth.middleware')
 
 router.use(authMiddleware)
 router.post('/create', habitController.create)
-
+router.delete('/delete/:id', habitController.delete)
 module.exports = router

@@ -6,4 +6,7 @@
   "invalid_token": "Invalid token",
   "invalid_rt": "invalid_rt couldn't refresh session.",
   "no-refresh-token": "failed to refresh login session. No RT in request."
+  ,"CantDeleteOtherUsersHabits": "Users can only delete their own habits."
+  ,"HabitNoExist": "Habit does not exist"
+  ,"DeletedDone": "Done deletion"
 }

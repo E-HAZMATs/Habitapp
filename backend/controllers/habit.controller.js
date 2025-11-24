@@ -34,3 +34,20 @@ exports.create = async (req, res) => {
         res.status(500).send(e.message)
     }
 }
+
+exports.delete = async (req, res) => {
+    const habitId = req.params.id
+    try{
+        const response = await habitService.delete(habitId, req.user.id)
+        if(response === -1){
+            return res.status(400).send(req.__('CantDeleteOtherUsersHabits'))
+        }
+        else if (response === 0){
+            res.status(404).send(req.__('HabitNoExist'))
+        }
+        res.status(200).send(req.__("   "))
+    }
+    catch(e){
+        return res.status(500).send(e.message)
+    }
+}
