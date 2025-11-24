@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     completedAt: { type: DataTypes.DATE, allowNull: false }
   }, {
     tableName: 'HabitLogs',
-    timestamps: true
+    timestamps: true,
+    paranoid: true
   });
 
   HabitLog.associate = (models) => {

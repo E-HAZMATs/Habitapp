@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     password: { type: DataTypes.STRING, allowNull: false }
   }, {
     tableName: 'Users',
-    timestamps: true
+    timestamps: true,
+    paranoid: true
   });
 
   User.associate = (models) => {

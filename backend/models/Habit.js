@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     timeOfDay: { type: DataTypes.TIME, allowNull: true }
   }, {
     tableName: 'Habits',
-    timestamps: true
+    timestamps: true,
+    paranoid: true,
   });
 
   Habit.associate = (models) => {
