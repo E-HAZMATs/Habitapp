@@ -6,13 +6,13 @@ const registerSchema = Joi.object({
     email: Joi.string().email().required(),
     username: Joi.string().required(), // 
     password: Joi.string().min(1).required() //set up min as 1 for now. quicker.
-});
+}).required();
 
 //SO FAR, LOGIN IS VIA EMAIL+PASS ALONE.
 const loginSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(1).required()
-})
+}).required();
 
 exports.login = async (req, res) => {
     const { error } = loginSchema.validate(req.body);
