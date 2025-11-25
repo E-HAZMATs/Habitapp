@@ -11,7 +11,7 @@ const habitCreateSchema = Joi.object({
   timeOfDay: Joi.string(), // How to validate Time datatype in Joi?
 }).required();
 
-const habitIdSchema = Joi.number().integer().positive().required();
+const habitIdSchema = Joi.string().uuid({ version: 'uuidv4' }).required();
 
 exports.create = async (req, res) => {
   const { error } = habitCreateSchema.validate(req.body);
