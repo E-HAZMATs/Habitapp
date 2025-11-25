@@ -4,7 +4,7 @@ const habitService = require("../services/habit.service");
 const habitCreateSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string(),
-  frequencyType: Joi.string().max(50).required(),
+  frequencyType: Joi.string().valid("daily", "weekly", "monthly").required(),
   frequencyAmount: Joi.number().min(1).required(),
   dayOfWeek: Joi.number().min(0).max(6),
   dayOfMonth: Joi.number().min(0).max(30),
