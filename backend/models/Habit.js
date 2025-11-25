@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Habit = sequelize.define('Habit', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    userId: { type: DataTypes.INTEGER, allowNull: false },
+    id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+    userId: { type: DataTypes.UUID, allowNull: false },
     name: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.TEXT, allowNull: true },
     frequencyType: { type: DataTypes.ENUM('daily', 'weekly', 'monthly'), allowNull: false },
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'Habits',
     timestamps: true,
-    paranoid: true,
+    paranoid: true
   });
 
   Habit.associate = (models) => {

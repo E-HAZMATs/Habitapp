@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const HabitLog = sequelize.define('HabitLog', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    habitId: { type: DataTypes.INTEGER, allowNull: false },
+    id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+    habitId: { type: DataTypes.UUID, allowNull: false },
     completedAt: { type: DataTypes.DATE, allowNull: false }
   }, {
     tableName: 'HabitLogs',
