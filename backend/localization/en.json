@@ -1,12 +1,14 @@
 {
-  "register_fail": "Registration failed.",
-  "email_used": "Email already used.",
-  "wrong_login_creds": "Email or password are wrong.",
-  "access_denied": "Access denied",
-  "invalid_token": "Invalid token",
-  "invalid_rt": "invalid_rt couldn't refresh session.",
-  "no-refresh-token": "failed to refresh login session. No RT in request."
-  ,"CantDeleteOtherUsersHabits": "Users can only delete their own habits."
-  ,"HabitNoExist": "Habit does not exist"
-  ,"DeletedDone": "Done deletion"
+  "registerFail": "Registration failed.",
+  "emailUsed": "Email already used.",
+  "wrongLoginCreds": "Email or password are wrong.",
+  "accessDenied": "Access denied",
+  "invalidToken": "Invalid token",
+  "invalidRt": "invalid_rt couldn't refresh session.",
+  "noRefreshToken": "Failed to refresh login session. No RT in request.",
+  "cantEditOtherUsersHabits": "Users can only edit their own habits.",
+  "habitNoExist": "Habit does not exist",
+  "deletedDone": "Done deletion",
+  "operationSuccess": "Operation success"
+  ,"invalidHabitId": "Invalid habit id"
 }

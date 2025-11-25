@@ -20,7 +20,7 @@ async function startServer() {
 
     i18n.configure({
         locales: ['ar', 'en'],
-        defaultLocale: 'ar',
+        defaultLocale: 'en',
         directory: path.join(__dirname, 'localization'),
         header: 'accept-language',
         queryParameter: 'lang',

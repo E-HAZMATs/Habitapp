@@ -1,12 +1,14 @@
 {
-	"register_fail": "فشل التسجيل.",
-	"email_used": "البريد الإلكتروني مسجل مسبقاً.",
-	"wrong_login_creds": "البريد أو كلمة المرور غير صحيحان",
-	"access_denied": "الوصول مرفوض",
-	"invalid_token": "إثبات الدخول (JWT Token) غير صحيح",
-	"invalid_rt": "invalid_rt couldn't refresh session.",
-	"no-refresh-token": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب.",
-	"CantDeleteOtherUsersHabits": "لا يمكن لك حذف عادات مستخدم آخر"
-	,"HabitNoExist": "العادة غير موجودة"
-	,"DeletedDone": "تم الحذف"
+  "registerFail": "فشل التسجيل.",
+  "emailUsed": "البريد الإلكتروني مسجل مسبقاً.",
+  "wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان",
+  "accessDenied": "الوصول مرفوض",
+  "invalidToken": "إثبات الدخول (JWT Token) غير صحيح",
+  "invalidRt": "invalid_rt couldn't refresh session.",
+  "noRefreshToken": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب.",
+  "cantEditOtherUsersHabits": "المستخدم مسموح له تعديل عاداته فقط",
+  "habitNoExist": "العادة غير موجودة",
+  "deletedDone": "تم الحذف",
+  "operationSuccess": "تمت العملية"
+  ,"invalidHabitId": "هوية العادة (id) غير صحيحة"
 }

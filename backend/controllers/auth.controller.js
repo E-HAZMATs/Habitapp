@@ -4,7 +4,7 @@ const userService = require('../services/user.service');
 
 exports.refresh = async (req, res) => {
     const RT = req.cookies.rt;
-    if(!RT) return res.status(401).send(req.__('no-refresh-token'));
+    if(!RT) return res.status(401).send(req.__('noRefreshToken'));
     try{
         const decodedRT = jwt.verify(RT, process.env.RT_KEY)
         console.log(decodedRT)
@@ -20,6 +20,6 @@ exports.refresh = async (req, res) => {
         }
     }
     catch(e){
-        return res.status(403).send(req.__('invalid_rt'))
+        return res.status(403).send(req.__('invalidRt'))
     }
 }

@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
     if(error) {return res.status(400).send(error.details[0].message)}
 
     const emailExists = await userService.isEmailUsed(req.body.email)
-    if(!emailExists) {return res.status(401).send(req.__("wrong_login_creds"))}
+    if(!emailExists) {return res.status(401).send(req.__("wrongLoginCreds"))}
     try{
         const user = await userService.loginUser(req.body)
         if (user){
@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
                 accessToken
             })
         }
-        return res.status(401).send(req.__("wrong_login_creds"))
+        return res.status(401).send(req.__("wrongLoginCreds"))
     }
     catch(e){
         res.status(500).send(e.message)
@@ -42,7 +42,7 @@ exports.register = async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message); 
 
     const emailAlreadyUsed = await userService.isEmailUsed(req.body.email)
-    if (emailAlreadyUsed) return res.status(400).send(req.__("email_used"))
+    if (emailAlreadyUsed) return res.status(400).send(req.__("emailUsed"))
 
     try{
         const user = await userService.createUser(req.body)
@@ -55,7 +55,7 @@ exports.register = async (req, res) => {
             })
         }
         else{
-            res.status(400).send(req.__("register_fail"))
+            res.status(400).send(req.__("registerFail"))
         }
     }
         catch(e){
