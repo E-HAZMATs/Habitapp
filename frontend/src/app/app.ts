@@ -7,6 +7,7 @@ import {
     TranslatePipe,
     TranslateDirective
 } from "@ngx-translate/core";
+import { LocalizationService } from './core/services/localization-service';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +17,5 @@ import {
 })
 
 export class App {
-  private translateService = inject(TranslateService)
-  constructor(){
-    this.translateService.addLangs(["ar", 'en']);
-    this.translateService.setFallbackLang( 'en');
-
-    const browserLang = this.translateService.getBrowserLang()
-    this.translateService.use('en')
-    console.log('brwoser' , browserLang)
-  }
-
+  private localizationService = inject(LocalizationService)
 }
