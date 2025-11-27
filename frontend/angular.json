@@ -6,10 +6,16 @@
     "frontend": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:*": {
+          "skipTests": true
+        },
         "@schematics/angular:component": {
           "skipTests": true
         },
         "@schematics/angular:service": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
           "skipTests": true
         }
       },

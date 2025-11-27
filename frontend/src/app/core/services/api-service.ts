@@ -1,0 +1,32 @@
+import { inject, Injectable } from '@angular/core';
+import { env } from '../../../environments/env';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ApiService {
+  
+  private apiUrl = env.apiBaseUrl;
+  private http = inject(HttpClient)
+
+  get<T>(path: string, params?: any){
+    return this.http.get<T>(this.apiUrl + path, {
+      params,
+    })
+  }
+
+  post<T>(path: string, body: any){
+    return this.http.post<T>(this.apiUrl + path, body, {
+    });
+  }
+
+    put<T>(path: string, body: any) {
+    return this.http.put<T>(this.apiUrl + path, body, {
+    });
+  }
+
+  delete<T>(path: string, id: string | number) {
+    return this.http.delete<T>(this.apiUrl + path + `/${id}`);
+  }
+}

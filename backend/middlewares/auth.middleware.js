@@ -13,6 +13,6 @@ exports.authMiddleware = (req, res, next) => {
         next();
     }   
     catch(e){
-        return res.status(403).send(req.__("invalidToken"))
+        return res.status(401).send(req.__("invalidToken"))
     }
 }

@@ -7,7 +7,6 @@ exports.refresh = async (req, res) => {
     if(!RT) return res.status(401).send(req.__('noRefreshToken'));
     try{
         const decodedRT = jwt.verify(RT, process.env.RT_KEY)
-        console.log(decodedRT)
         let user = null;
         try{
             user = await userService.findById(decodedRT.id)
