@@ -29,13 +29,13 @@ async function startServer() {
     const app = express();
     
     app.use(cors({
-        origin: 'http://localhost:4000', // My angular URL. Didn't set it up yet.
+        origin: process.env.CLIENT_URL,
         credentials: true
     }));
     app.use(i18n.init)
     app.use(cookieParser())
     app.use(express.json())
-    app.use(routers)
+    app.use('/api',routers)
     app.get('/', (req, res) => {
         res.send('server running...')
     })
