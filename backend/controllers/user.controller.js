@@ -64,4 +64,8 @@ exports.register = async (req, res) => {
     }
 }
 
+exports.logout = async (req, res) => {
+    res.clearCookies('rt')
+}
+
 

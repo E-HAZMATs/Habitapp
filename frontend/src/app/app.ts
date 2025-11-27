@@ -8,6 +8,7 @@ import {
     TranslateDirective
 } from "@ngx-translate/core";
 import { LocalizationService } from './core/services/localization-service';
+import { AuthService } from './core/services/auth-service';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,18 @@ import { LocalizationService } from './core/services/localization-service';
 
 export class App {
   private localizationService = inject(LocalizationService)
+  private authService = inject(AuthService)
+  constructor(){
+  this.authService.login({
+    "email": "mail@gmail.com",
+    "password": "password"
+})
+
+this.authService.register({
+    "username": "newUser",
+    "email": "mail3@gmail.com",
+    "password": "password"
+})
+    
+  }
 }
