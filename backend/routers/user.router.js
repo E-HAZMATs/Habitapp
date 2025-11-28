@@ -7,7 +7,7 @@ user.get('/', (req, res) => {
     res.send('user router here.')
 })
 
-// maybe i should move the authentication endpoints to auth service?
+// TODO?: maybe i should move the authentication endpoints to auth service?
 // keep user service for existing user data operations?
 user.post('/register', controller.register)
 user.post('/login', controller.login)
