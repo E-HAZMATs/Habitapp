@@ -13,20 +13,25 @@ export class ApiService {
   get<T>(path: string, params?: any){
     return this.http.get<T>(this.apiUrl + path, {
       params,
-    })
+      withCredentials: true
+    },)
   }
 
   post<T>(path: string, body: any){
     return this.http.post<T>(this.apiUrl + path, body, {
+      withCredentials: true
     });
   }
 
     put<T>(path: string, body: any) {
     return this.http.put<T>(this.apiUrl + path, body, {
+      withCredentials: true
     });
   }
 
   delete<T>(path: string, id: string | number) {
-    return this.http.delete<T>(this.apiUrl + path + `/${id}`);
+    return this.http.delete<T>(this.apiUrl + path + `/${id}`, {
+      withCredentials: true
+    });
   }
 }

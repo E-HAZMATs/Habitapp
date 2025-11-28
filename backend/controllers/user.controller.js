@@ -1,10 +1,10 @@
 const Joi = require('joi');
 const userService = require('../services/user.service')
 const tokenService = require('../services/token.service')
-
+// TODO: Unify response messages format
 const registerSchema = Joi.object({
     email: Joi.string().email().required(),
-    username: Joi.string().required(), // 
+    username: Joi.string().required(), 
     password: Joi.string().min(1).required() //set up min as 1 for now. quicker.
 }).required();
 
@@ -65,7 +65,17 @@ exports.register = async (req, res) => {
 }
 
 exports.logout = async (req, res) => {
-    res.clearCookies('rt')
+    try{
+        res.clearCookie("rt", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+        });
+        res.status(200).send("RT Cleared")
+    }
+    catch(e){
+        res.status(500).send(e.message)
+    }
 }
 
 

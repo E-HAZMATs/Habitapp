@@ -20,6 +20,7 @@ export class AuthService {
     })
   }
 
+  //Todo implement navigtation. And error handling.
   register(registerDto: registerDto){
     this.api.post<registerResponseDto>('/user/register', registerDto)
     .subscribe({
@@ -28,7 +29,12 @@ export class AuthService {
     })
   }
 
+  // Todo: implement logging out navigation.
   logout(){
-    
+    this.api.post('/user/logout', {})
+    .subscribe({
+      next: (val) => console.log(val),
+      error: (err) => console.error(err)
+    })
   }
 }
