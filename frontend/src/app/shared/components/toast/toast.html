@@ -1,0 +1,7 @@
+@if (visible()){
+    <div class="toast-container">
+      <div class="toast" [class.success]="type === 'success'" [class.error]="type === 'error'">
+        {{ message }}
+      </div>
+    </div>
+}
