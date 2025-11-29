@@ -4,7 +4,7 @@
   "wrongLoginCreds": "Email or password are wrong.",
   "accessDenied": "Access denied",
   "invalidToken": "Invalid token",
-  "invalidRt": "invalid_rt couldn't refresh session.",
+  "invalidRt": "invalid rt couldn't refresh session.",
   "noRefreshToken": "Failed to refresh login session. No RT in request.",
   "cantEditOtherUsersHabits": "Users can only edit their own habits.",
   "habitNoExist": "Habit does not exist",

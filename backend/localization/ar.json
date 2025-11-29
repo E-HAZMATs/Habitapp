@@ -4,7 +4,7 @@
   "wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان",
   "accessDenied": "الوصول مرفوض",
   "invalidToken": "إثبات الدخول (JWT Token) غير صحيح",
-  "invalidRt": "invalid_rt couldn't refresh session.",
+  "invalidRt": "invalid rt couldn't refresh session.",
   "noRefreshToken": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب.",
   "cantEditOtherUsersHabits": "المستخدم مسموح له تعديل عاداته فقط",
   "habitNoExist": "العادة غير موجودة",
