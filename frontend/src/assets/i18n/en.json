@@ -1,4 +1,7 @@
 {
     "login": "Sign in",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registered successfully",
+    "logoutSuccess": "Logged out successfully"
 }

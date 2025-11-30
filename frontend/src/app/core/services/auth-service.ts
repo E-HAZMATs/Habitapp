@@ -2,6 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { loginDto, loginResponseDto } from '../models/login.model';
 import { TokenService } from './token-service';
+import { ToastService } from './toast-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +11,19 @@ import { TokenService } from './token-service';
 export class AuthService {
   private api = inject(ApiService)
   private tokenService = inject(TokenService)
+  private toastService = inject(ToastService)
+  private translateService = inject(TranslateService)
 
   login(loginDto: loginDto){
      this.api.post<loginResponseDto>('/user/login', loginDto)
     .subscribe({
       next: (value) => {
+        // TODO: Navigation after successful login
         this.tokenService.setToken(value.accessToken)
+        const msg = this.translateService.instant('loginSuccess')
+        this.toastService.show(msg, 'success')
       },
-      error: (err) => console.log(err), // TODO: implement a toast service for exceptions?
+      error: (err) => this.toastService.show(err.error, 'error')
     })
   }
 
@@ -24,7 +31,10 @@ export class AuthService {
   register(registerDto: registerDto){
     this.api.post<registerResponseDto>('/user/register', registerDto)
     .subscribe({
-      next: (value) => console.log(value),
+      next: (value) => {
+        const msg = this.translateService.instant('registerSuccess')
+        this.toastService.show(msg, 'success')
+      },
       error: (err) => console.error(err)
     })
   }
@@ -33,7 +43,12 @@ export class AuthService {
   logout(){
     this.api.post('/user/logout', {})
     .subscribe({
-      next: (val) => console.log(val),
+      next: () => {
+        // TODO: I'm getting a silent error in the log, cus even if the request is successful
+        // angular expects the response to json.
+        const msg = this.translateService.instant('logoutSuccess')
+        this.toastService.show(msg, "success")
+      },
       error: (err) => console.error(err)
     })
   }

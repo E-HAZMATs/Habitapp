@@ -1,4 +1,7 @@
 {
     "login": "تسجيل دخول",
-    "logout": "تسجيل خروج"
+    "logout": "تسجيل خروج",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "registerSuccess": "تم التسجيل",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح"
 }

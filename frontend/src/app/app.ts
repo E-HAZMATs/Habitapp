@@ -25,9 +25,13 @@ export class App implements OnInit{
   private toastService = inject(ToastService)
   constructor(){
   }
-  ngOnInit(): void {
-    console.log('hu')
-    this.toastService.show('Logged in successfully', 'success');
-    this.toastService.show('Invalid password', 'error', 5000);
+  ngOnInit() {
+    // this.toastService.show('Logged in successfully', 'success');
+    // this.toastService.show('Invalid password', 'error', 5000);
+    //   this.authService.login({
+    //   email: "mail@gmail.com",
+    //   password: 'password'
+    // })
+    this.authService.logout()
   }
 }
