@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const habitService = require("../services/habit.service");
+const { sendError, sendSuccess } = require("../utils/responseHandler");
 
 const habitCreateSchema = Joi.object({
   name: Joi.string().required(),
@@ -15,7 +16,7 @@ const habitIdSchema = Joi.string().uuid({ version: 'uuidv4' }).required();
 
 exports.create = async (req, res) => {
   const { error } = habitCreateSchema.validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return sendError(res, 400, error.details[0].message)
   try {
     const userId = req.user.id;
     const data = req.body;
@@ -30,7 +31,9 @@ exports.create = async (req, res) => {
       timeOfDay: data.timeOfDay,
     });
 
-    return res.status(201).send(habit);
+    return sendSuccess(res, 201, undefined, {
+      habit: habit
+    })
   } catch (e) {
     return res.status(500).send(e.message);
   }

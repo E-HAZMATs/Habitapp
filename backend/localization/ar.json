@@ -10,5 +10,7 @@
   "habitNoExist": "العادة غير موجودة",
   "deletedDone": "تم الحذف",
   "operationSuccess": "تمت العملية"
-  ,"invalidHabitId": "هوية العادة (id) غير صحيحة"
+  ,"invalidHabitId": "هوية العادة (id) غير صحيحة",
+  "routeNotFound": "النقطة لم تجد",
+  "InternalServerError": "خطأ في الخادم"
 }

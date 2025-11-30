@@ -6,6 +6,8 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const {sequelize} = require('./models')
 const routers =  require('./routers')
+const { errorHandler } = require('./utils/responseHandler')
+
 async function connectToDB(){
     try{
         await sequelize.authenticate();
@@ -39,6 +41,14 @@ async function startServer() {
         res.send('server running...')
     })
     
+    app.use((req, res) => {
+      res.status(404).json({
+        success: false,
+        message: req.__('routeNotFound'),
+        timestamp: new Date().toISOString(),
+      });
+    });
+    app.use(errorHandler);
     const PORT = process.env.PORT || 3333;
     
     await connectToDB();

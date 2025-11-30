@@ -1,5 +1,6 @@
 const { User } = require('../models')
 const bcrypt = require('bcryptjs')
+const { AppError } = require('../utils/responseHandler')
 
 exports.createUser = async (data) => {
     const hashed = await bcrypt.hash(data.password, 10)
@@ -11,7 +12,7 @@ exports.createUser = async (data) => {
 }
 
 exports.loginUser = async (data) => {
-    const user = await User.findOne({ where: {email : data.email}})
+    const user = await User.findOne({ where: {email : 'dumb'}})
     if (await bcrypt.compare(data.password, user.password)){
         return user
     }

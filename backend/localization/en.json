@@ -10,5 +10,7 @@
   "habitNoExist": "Habit does not exist",
   "deletedDone": "Done deletion",
   "operationSuccess": "Operation success"
-  ,"invalidHabitId": "Invalid habit id"
+  ,"invalidHabitId": "Invalid habit id",
+  "routeNotFound": "Route not found",
+  "InternalServerError": "Internal Server Error"
 }
