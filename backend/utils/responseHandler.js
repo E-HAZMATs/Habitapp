@@ -22,7 +22,6 @@ exports.sendError = (res, statusCode = 500, message = 'Internal Server Error', e
 
 exports.errorHandler = (err, req, res, next) => {
   const isDevelopment = process.env.NODE_ENV === 'development';
-  console.log(new Date().toISOString())
   if (isDevelopment) {
     console.error('*** ERROR ***');
     console.error(err);
