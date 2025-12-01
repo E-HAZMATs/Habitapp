@@ -1,7 +1,7 @@
 {
-    "login": "Sign in",
-    "logout": "Sign out",
-    "loginSuccess": "Login successful",
-    "registerSuccess": "Registered successfully",
-    "logoutSuccess": "Logged out successfully"
+	"login": "Sign in",
+	"loginSuccess": "Login successful",
+	"logout": "Sign out",
+	"logoutSuccess": "Logged out successfully",
+	"registerSuccess": "Registered successfully"
 }

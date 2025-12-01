@@ -1,16 +1,16 @@
 {
-  "registerFail": "فشل التسجيل.",
-  "emailUsed": "البريد الإلكتروني مسجل مسبقاً.",
-  "wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان",
-  "accessDenied": "الوصول مرفوض",
-  "invalidToken": "إثبات الدخول (JWT Token) غير صحيح",
-  "invalidRt": "invalid rt couldn't refresh session.",
-  "noRefreshToken": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب.",
-  "cantEditOtherUsersHabits": "المستخدم مسموح له تعديل عاداته فقط",
-  "habitNoExist": "العادة غير موجودة",
-  "deletedDone": "تم الحذف",
-  "operationSuccess": "تمت العملية"
-  ,"invalidHabitId": "هوية العادة (id) غير صحيحة",
-  "routeNotFound": "النقطة لم تجد",
-  "InternalServerError": "خطأ في الخادم"
+	"accessDenied": "الوصول مرفوض",
+	"cantEditOtherUsersHabits": "المستخدم مسموح له تعديل عاداته فقط",
+	"deletedDone": "تم الحذف",
+	"emailUsed": "البريد الإلكتروني مسجل مسبقاً.",
+	"habitNoExist": "العادة غير موجودة",
+	"InternalServerError": "خطأ في الخادم",
+	"invalidHabitId": "هوية العادة (id) غير صحيحة",
+	"invalidRt": "invalid rt couldn't refresh session.",
+	"invalidToken": "إثبات الدخول (JWT Token) غير صحيح",
+	"noRefreshToken": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب.",
+	"operationSuccess": "تمت العملية",
+	"registerFail": "فشل التسجيل.",
+	"routeNotFound": "النقطة لم تجد",
+	"wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان"
 }
