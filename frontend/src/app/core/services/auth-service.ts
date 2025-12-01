@@ -19,7 +19,7 @@ export class AuthService {
     .subscribe({
       next: (value) => {
         // TODO: Navigation after successful login
-        this.tokenService.setToken(value.accessToken)
+        this.tokenService.setToken(value.token)
         const msg = this.translateService.instant('loginSuccess')
         this.toastService.show(msg, 'success')
       },

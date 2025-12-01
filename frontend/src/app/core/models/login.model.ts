@@ -4,5 +4,5 @@ export interface loginDto {
 }
 
 export interface loginResponseDto {
-    accessToken: string
+    token: string
 }

@@ -23,6 +23,7 @@ exports.sendError = (res, statusCode = 500, message = 'Internal Server Error', e
 exports.errorHandler = (err, req, res, next) => {
   const isDevelopment = process.env.NODE_ENV === 'development';
   if (isDevelopment) {
+    console.error('==== ERROR MIDDLEWARE REACHED ====')
     console.error('*** ERROR ***');
     console.error(err);
     console.error('************');
