@@ -4,6 +4,7 @@ import { loginDto, loginResponseDto } from '../models/login.model';
 import { TokenService } from './token-service';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +16,11 @@ export class AuthService {
   private translateService = inject(TranslateService)
 
   login(loginDto: loginDto){
-     this.api.post<loginResponseDto>('/user/login', loginDto)
+     this.api.post<ApiResponse<loginResponseDto>>('/user/login', loginDto)
     .subscribe({
       next: (value) => {
         // TODO: Navigation after successful login
-        this.tokenService.setToken(value.token)
+        this.tokenService.setToken(value.data!.token)
         const msg = this.translateService.instant('loginSuccess')
         this.toastService.show(msg, 'success')
       },
@@ -29,7 +30,7 @@ export class AuthService {
 
   //Todo implement navigtation. And error handling.
   register(registerDto: registerDto){
-    this.api.post<registerResponseDto>('/user/register', registerDto)
+    this.api.post<ApiResponse<registerResponseDto>>('/user/register', registerDto)
     .subscribe({
       next: (value) => {
         const msg = this.translateService.instant('registerSuccess')
