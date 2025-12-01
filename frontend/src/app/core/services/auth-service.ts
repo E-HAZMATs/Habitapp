@@ -16,11 +16,11 @@ export class AuthService {
   private translateService = inject(TranslateService)
 
   login(loginDto: loginDto){
-     this.api.post<ApiResponse<loginResponseDto>>('/user/login', loginDto)
+     this.api.post<ApiResponse<loginResponseDto>>('/auth/login', loginDto)
     .subscribe({
       next: (value) => {
         // TODO: Navigation after successful login
-        this.tokenService.setToken(value.data!.token)
+        this.tokenService.setToken(value.data!.token) // TODO: Implement handling if response.data doesn't exist?
         const msg = this.translateService.instant('loginSuccess')
         this.toastService.show(msg, 'success')
       },
@@ -30,7 +30,7 @@ export class AuthService {
 
   //Todo implement navigtation. And error handling.
   register(registerDto: registerDto){
-    this.api.post<ApiResponse<registerResponseDto>>('/user/register', registerDto)
+    this.api.post<ApiResponse<registerResponseDto>>('/auth/register', registerDto)
     .subscribe({
       next: (value) => {
         const msg = this.translateService.instant('registerSuccess')
@@ -42,7 +42,7 @@ export class AuthService {
 
   // Todo: implement logging out navigation.
   logout(){
-    this.api.post('/user/logout', {})
+    this.api.post('/auth/logout', {})
     .subscribe({
       next: () => {
         // TODO: I'm getting a silent error in the log, cus even if the request is successful
