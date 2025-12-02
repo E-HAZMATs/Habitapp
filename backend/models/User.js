@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
     username: { type: DataTypes.STRING, allowNull: false, unique: true },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false }
+    password: { type: DataTypes.STRING, allowNull: false },
+    roleId: { type: DataTypes.UUID, references: { model: 'Roles', key: "id" }, allowNull: true }
   }, {
     tableName: 'Users',
     timestamps: true,
@@ -12,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.hasMany(models.Habit, { foreignKey: 'userId' });
+    User.belongsTo(models.Role, {foreignKey: 'roleId'})
   };
 
   return User;
