@@ -3,5 +3,6 @@
 	"loginSuccess": "تم تسجيل الدخول بنجاح",
 	"logout": "تسجيل خروج",
 	"logoutSuccess": "تم تسجيل الخروج بنجاح",
-	"registerSuccess": "تم التسجيل"
+	"registerSuccess": "تم التسجيل",
+	"unexpectedServerError": "خطا غير متوقع في الخادم"
 }

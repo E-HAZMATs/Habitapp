@@ -24,7 +24,7 @@ export class AuthService {
         const msg = this.translateService.instant('loginSuccess')
         this.toastService.show(msg, 'success')
       },
-      error: (err) => this.toastService.show(err.error, 'error')
+      error: (err) => this.handleErrorToast(err)
     })
   }
 
@@ -36,7 +36,7 @@ export class AuthService {
         const msg = this.translateService.instant('registerSuccess')
         this.toastService.show(msg, 'success')
       },
-      error: (err) => console.error(err)
+      error: (err) => this.handleErrorToast(err)
     })
   }
 
@@ -50,7 +50,12 @@ export class AuthService {
         const msg = this.translateService.instant('logoutSuccess')
         this.toastService.show(msg, "success")
       },
-      error: (err) => console.error(err)
+      error: (err) => this.handleErrorToast(err)
     })
+  }
+  
+  private handleErrorToast = (err: any) =>{
+        const backendMsg = err.error?.message || this.translateService.instant('unexpectedServerError')
+        this.toastService.show(backendMsg, 'error')
   }
 }

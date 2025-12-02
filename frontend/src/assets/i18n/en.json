@@ -3,5 +3,6 @@
 	"loginSuccess": "Login successful",
 	"logout": "Sign out",
 	"logoutSuccess": "Logged out successfully",
-	"registerSuccess": "Registered successfully"
+	"registerSuccess": "Registered successfully",
+	"unexpectedServerError": "Unexpected server error"
 }
