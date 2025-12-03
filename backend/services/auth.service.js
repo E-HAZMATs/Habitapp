@@ -1,6 +1,6 @@
-const { User } = require('../models')
 const bcrypt = require('bcryptjs')
-
+const userService = require('./user.service')
+const { User } = require('../models')
 exports.createUser = async (data) => {
     const hashed = await bcrypt.hash(data.password, 10)
     return User.create({
@@ -11,13 +11,14 @@ exports.createUser = async (data) => {
 }
 
 exports.loginUser = async (data) => {
-    const user = await User.findOne({ where: {email : data.email}})
+    const user = await userService.findByEmail(data.email)
     if(!user) return null
     else if (await bcrypt.compare(data.password, user.password)){
         return user
     }
 }
 
+// TODO: Move to user service.
 exports.isEmailUsed = async (email) => {
     return await User.findOne({ where: { email } }) !== null
 }

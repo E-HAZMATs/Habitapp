@@ -1,5 +1,7 @@
 {
 	"accessDenied": "Access denied",
+	"cantDeleteOtherUsers": "Only admin can delete other users.",
+	"cantDeleteSysUsers": "Cannot delete system users.",
 	"cantEditOtherUsersHabits": "Users can only edit their own habits.",
 	"deletedDone": "Done deletion",
 	"emailUsed": "Email already used.",
@@ -12,5 +14,6 @@
 	"operationSuccess": "Operation success",
 	"registerFail": "Registration failed.",
 	"routeNotFound": "Route not found",
+	"userNotExist": "User does not exist.",
 	"wrongLoginCreds": "Email or password are wrong."
 }

@@ -35,6 +35,36 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>cantDeleteOtherUsers</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>cantDeleteSysUsers</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>cantEditOtherUsersHabits</name>
 						<description/>
 						<comment/>
@@ -201,6 +231,21 @@
 					</concept_node>
 					<concept_node>
 						<name>routeNotFound</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>userNotExist</name>
 						<description/>
 						<comment/>
 						<translations>

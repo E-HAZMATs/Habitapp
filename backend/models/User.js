@@ -3,7 +3,7 @@ const { AppError } = require("../utils/responseHandler");
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-    username: { type: DataTypes.STRING, allowNull: false, unique: true },
+    username: { type: DataTypes.STRING, allowNull: false, unique: true }, // CHECK: Username should be unique? cus in the hook i use username to stop deleting admins.
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: { type: DataTypes.STRING, allowNull: false },
     roleId: { type: DataTypes.UUID, references: { model: 'Roles', key: "id" }, allowNull: true },
@@ -14,9 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true,
     paranoid: true,
     hooks: {
+      // TODOIMP: Add a hook for bulk destroys? "beforeDestroy" only applies when deleting a user by getting it first then user.Destroy().
       beforeDestroy: async (user, options) => {
         if (user.username === 'admin' || user.isSystemUser){
-          throw new AppError("Can't soft delete system users.") // TODO: Localize
+          throw new AppError("Can't delete system users.", 403) // TODO: Localize
         }
       },
     }

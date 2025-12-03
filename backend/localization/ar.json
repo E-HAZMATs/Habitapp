@@ -1,5 +1,7 @@
 {
 	"accessDenied": "الوصول مرفوض",
+	"cantDeleteOtherUsers": "فقط المسؤول يمكن له حذف مستخدمين آخرين.",
+	"cantDeleteSysUsers": "لا يمكن حذف مستخدم النظام.",
 	"cantEditOtherUsersHabits": "المستخدم مسموح له تعديل عاداته فقط",
 	"deletedDone": "تم الحذف",
 	"emailUsed": "البريد الإلكتروني مسجل مسبقاً.",
@@ -12,5 +14,6 @@
 	"operationSuccess": "تمت العملية",
 	"registerFail": "فشل التسجيل.",
 	"routeNotFound": "النقطة لم تجد",
+	"userNotExist": "المستخدم غير موجود.",
 	"wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان"
 }
