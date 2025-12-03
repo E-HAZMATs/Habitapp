@@ -23,7 +23,8 @@ module.exports = {
 
     const roleId = adminRole[0]?.id || adminRoleId;
 
-    const defaultAdminId = process.env.DEFAULT_ADMIN_ID || v4();
+    // const defaultAdminId = process.env.DEFAULT_ADMIN_ID || v4();
+    const defaultAdminId = v4();
     const hashedPassword = await bcrypt.hash(
       process.env.DEFAULT_ADMIN_PASSWORD || 'Pa$$w0rd',
       10
@@ -36,7 +37,8 @@ module.exports = {
       password: hashedPassword,
       roleId: roleId,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      isSystemUser: true
     }], {
       ignoreDuplicates: true
     });
