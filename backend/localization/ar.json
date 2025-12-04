@@ -5,6 +5,7 @@
 	"cantEditOtherUsersHabits": "المستخدم مسموح له تعديل عاداته فقط",
 	"deletedDone": "تم الحذف",
 	"emailUsed": "البريد الإلكتروني مسجل مسبقاً.",
+	"Forbidden": "الوصول ممنوع.",
 	"habitNoExist": "العادة غير موجودة",
 	"InternalServerError": "خطأ في الخادم",
 	"invalidHabitId": "هوية العادة (id) غير صحيحة",

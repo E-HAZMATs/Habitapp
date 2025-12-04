@@ -5,6 +5,7 @@
 	"cantEditOtherUsersHabits": "Users can only edit their own habits.",
 	"deletedDone": "Done deletion",
 	"emailUsed": "Email already used.",
+	"Forbidden": "Access is forbidden.",
 	"habitNoExist": "Habit does not exist",
 	"InternalServerError": "Internal Server Error",
 	"invalidHabitId": "Invalid habit id",
@@ -15,5 +16,6 @@
 	"registerFail": "Registration failed.",
 	"routeNotFound": "Route not found",
 	"userNotExist": "User does not exist.",
-	"wrongLoginCreds": "Email or password are wrong."
+	"wrongLoginCreds": "Email or password are wrong.",
+	"forbidden": "forbidden"
 }
