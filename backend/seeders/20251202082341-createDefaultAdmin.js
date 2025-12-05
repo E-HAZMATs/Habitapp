@@ -2,7 +2,6 @@
 const bcrypt = require('bcryptjs');
 const { v4 } = require('uuid');
 
-// TODO: Add member role? default one for existing users.
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {

@@ -1,7 +1,7 @@
 const userService = require("../services/user.service");
 const Joi = require('joi');
 const { sendError, sendSuccess } = require("../utils/responseHandler");
-const roleService = require('../services/role.service')
+// const roleService = require('../services/role.service')
 const userIdSchema = Joi.string().uuid({ version: "uuidv4" }).required();
 
 exports.delete = async (req, res) => {

@@ -5,7 +5,6 @@ const userService = require('../services/user.service')
 const { sendError, sendSuccess } = require("../utils/responseHandler");
 const Joi = require("joi");
 
-// TODO: Implement roles.
 // TODO: Joi arabic localization support? Make custom messages?
 const registerSchema = Joi.object({
   email: Joi.string().email().required(),
