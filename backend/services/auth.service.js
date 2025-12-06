@@ -18,7 +18,3 @@ exports.loginUser = async (data) => {
     }
 }
 
-// TODO: Move to user service.
-exports.isEmailUsed = async (email) => {
-    return await User.findOne({ where: { email } }) !== null
-}

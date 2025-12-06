@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
     return sendError(res, 400, error.details[0].message);
   }
 
-  const emailExists = await authService.isEmailUsed(req.body.email);
+  const emailExists = await userService.isEmailUsed(req.body.email);
   if (!emailExists) {
     return sendError(res, 401, req.__("wrongLoginCreds"));
   }
@@ -43,7 +43,7 @@ exports.register = async (req, res) => {
   const { error } = registerSchema.validate(req.body);
   if (error) return sendError(res, 400, error.details[0].message); //TODO: Maybe return a list of errors too?
 
-  const emailAlreadyUsed = await authService.isEmailUsed(req.body.email);
+  const emailAlreadyUsed = await userService.isEmailUsed(req.body.email);
   if (emailAlreadyUsed) return sendError(res, 400, req.__("emailUsed"));
 
   const user = await authService.createUser(req.body);
