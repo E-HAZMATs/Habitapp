@@ -95,7 +95,37 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>emailRequired</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>emailUsed</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>forbidden</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -141,6 +171,21 @@
 					</concept_node>
 					<concept_node>
 						<name>InternalServerError</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>invalidEmail</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -230,6 +275,36 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>passwordRequired</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>passwordShort</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>registerFail</name>
 						<description/>
 						<comment/>
@@ -246,6 +321,21 @@
 					</concept_node>
 					<concept_node>
 						<name>routeNotFound</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>ar-SA</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>usernameRequired</name>
 						<description/>
 						<comment/>
 						<translations>
