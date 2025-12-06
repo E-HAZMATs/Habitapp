@@ -1,5 +1,6 @@
 const Joi = require("joi");
 
+// TODO: Add roles to validation?
 exports.registerSchema = Joi.object({
   email: Joi.string().email().required().messages({
     "string.email": 'invalidEmail',

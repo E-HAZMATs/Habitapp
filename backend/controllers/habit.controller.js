@@ -1,18 +1,6 @@
-const Joi = require("joi");
 const habitService = require("../services/habit.service");
 const { sendError, sendSuccess } = require("../utils/responseHandler");
-
-const habitCreateSchema = Joi.object({
-  name: Joi.string().required(),
-  description: Joi.string(),
-  frequencyType: Joi.string().valid("daily", "weekly", "monthly").required(),
-  frequencyAmount: Joi.number().min(1).required(),
-  dayOfWeek: Joi.number().min(0).max(6),
-  dayOfMonth: Joi.number().min(0).max(30),
-  timeOfDay: Joi.string(), // How to validate Time datatype in Joi?
-}).required();
-
-const habitIdSchema = Joi.string().uuid({ version: "uuidv4" }).required();
+const { habitCreateSchema, habitIdSchema } = require('../validation/habit.validation')
 
 exports.create = async (req, res) => {
   const { error } = habitCreateSchema.validate(req.body);
