@@ -1,0 +1,21 @@
+<mat-card appearance="filled" >
+    <mat-card-content>
+        <!-- NOTE: Ang material does not works well with tailwind. u can't apply tailwind classes to ang mat comps. -->
+        <div class="flex items-center">
+            <div class="me-auto">
+                <mat-card-title>{{ 'appName' | translate }}</mat-card-title>
+            </div>
+            <div class="flex gap-2">
+                <button matMiniFab (click)="toggleLanguage()">
+                    
+                    <mat-icon fontIcon="language"></mat-icon>
+                </button>
+                <button matMiniFab (click)="toggleTheme()">
+                    <mat-icon [fontIcon]="themeBtnIcon()"></mat-icon>
+                </button>
+            </div>
+
+            
+        </div>
+    </mat-card-content>
+</mat-card> 
