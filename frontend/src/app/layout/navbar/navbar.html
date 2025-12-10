@@ -1,10 +1,12 @@
 <mat-card appearance="filled" >
+    <!-- CHECKIMP: Maybe use something other than card? -->
     <mat-card-content>
         <!-- NOTE: Ang material does not works well with tailwind. u can't apply tailwind classes to ang mat comps. -->
         <div class="flex items-center">
-            <div class="me-auto">
+            <div class="me-auto flex">
                 <mat-card-title>{{ 'appName' | translate }}</mat-card-title>
-
+                <button matButton routerLink="/dashboard">{{ 'dashboard' | translate }}</button>
+                <button matButton routerLink="/habit-logs">{{ 'habitLog' | translate }}</button>
                 
             </div>
             <!-- Icon btns -->
@@ -13,9 +15,10 @@
                 <button matMiniFab [matMenuTriggerFor]="menu">
                     <mat-icon fontIcon="account_circle"/>
                 </button>
+                <!-- TODO: Implement navigation. -->
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>Item 1</button>
-                    <button mat-menu-item>Item 2</button>
+                    <button mat-menu-item> {{ 'profile' | translate }}</button>
+                    <button mat-menu-item>{{ 'signOut' | translate }}</button>
                 </mat-menu>
                 <button matMiniFab (click)="toggleLanguage()">
                     <!-- TODO: Find icons for each language. fonts google, which is used by ang mat, doesn't have arabic icon. -->

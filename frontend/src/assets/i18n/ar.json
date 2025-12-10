@@ -5,5 +5,9 @@
 	"logout": "تسجيل خروج",
 	"logoutSuccess": "تم تسجيل الخروج بنجاح",
 	"registerSuccess": "تم التسجيل",
-	"unexpectedServerError": "خطا غير متوقع في الخادم"
+	"unexpectedServerError": "خطا غير متوقع في الخادم",
+	"signOut": "تسجيل خروج",
+	"profile": "الحساب",
+	"dashboard": "لوحة المعلومات",
+	"habitLog": "السجل"
 }

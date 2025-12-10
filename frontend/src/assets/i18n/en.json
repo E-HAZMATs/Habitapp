@@ -5,5 +5,9 @@
 	"logout": "Sign out",
 	"logoutSuccess": "Logged out successfully",
 	"registerSuccess": "Registered successfully",
-	"unexpectedServerError": "Unexpected server error"
+	"unexpectedServerError": "Unexpected server error",
+	"signOut": "Sign Out",
+	"profile": "Profile",
+	"dashboard": "dashboard",
+	"habitLog": "Habit Logs"
 }
