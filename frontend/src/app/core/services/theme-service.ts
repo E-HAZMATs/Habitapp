@@ -1,12 +1,16 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, computed } from '@angular/core';
 
 export type Theme = 'light' | 'dark';
+export type ThemeIconName = 'dark_mode' | 'light_mode'; 
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private readonly THEME_KEY = 'theme';
   currentTheme = signal<Theme>(this.getInitialTheme());
-
+  themeIcon = computed<ThemeIconName>(() =>
+    this.currentTheme() === 'light' ? 'dark_mode' : 'light_mode'
+  );
+  
   constructor() {
     effect(() => this.applyTheme(this.currentTheme()));
   }

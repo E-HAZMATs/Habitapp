@@ -3,7 +3,7 @@
 html {
   @include mat.theme((
     color: (
-      primary: mat.$azure-palette, // TODO: Maybe add a palette for warnnings and errors?
+      primary: mat.$azure-palette, // TODO: Maybe add a palette for warnnings and errors? new ang mat does that implicitly.
       tertiary: mat.$blue-palette,
     ),
     typography: Roboto,
