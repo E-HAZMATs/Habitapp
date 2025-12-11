@@ -11,6 +11,17 @@ html {
   ));
 }
 
+html[lang="ar"]{
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Mada,
+    density: 0,
+  ));
+}
+
 body {
   color-scheme: light;
   background-color: var(--mat-sys-surface);
@@ -21,4 +32,9 @@ body {
 
 html[data-theme="dark"] body {
   color-scheme: dark;
+}
+
+.active-link .mdc-button__label{
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
 }

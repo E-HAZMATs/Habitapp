@@ -6,11 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { ThemeService } from '../../core/services/theme-service';
 import { LocalizationService } from '../../core/services/localization-service';
 import { MatMenuModule } from '@angular/material/menu';
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatCard, MatCardContent, TranslatePipe, MatCardTitle, MatMenuModule, MatMiniFabButton, MatIconModule, TranslateModule, MatButtonModule, MatButton, RouterLink],
+  imports: [MatCard, MatCardContent, TranslatePipe, MatCardTitle, MatMenuModule, MatMiniFabButton, MatIconModule, TranslateModule, MatButtonModule, MatButton, RouterLink, RouterLinkActive],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })

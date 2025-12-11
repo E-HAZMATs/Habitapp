@@ -1,22 +1,24 @@
-<mat-card appearance="filled" >
+<mat-card appearance="filled"  >
     <!-- CHECKIMP: Maybe use something other than card? -->
     <mat-card-content>
         <!-- NOTE: Ang material does not works well with tailwind. u can't apply tailwind classes to ang mat comps. -->
-        <div class="flex items-center">
-            <div class="me-auto flex">
-                <mat-card-title>{{ 'appName' | translate }}</mat-card-title>
-                <button matButton routerLink="/dashboard">{{ 'dashboard' | translate }}</button>
-                <button matButton routerLink="/habit-logs">{{ 'habitLog' | translate }}</button>
-                
-            </div>
+        <div class="flex items-center px-10 w-full">
+            <div class="flex items-center justify-between w-full">
+                <div class="">
+                    <mat-card-title>{{ 'appName' | translate }}</mat-card-title>
+                </div>
+                <div>
+                    <button matButton routerLink="/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">{{ 'dashboard' | translate }}</button>
+                    <button matButton routerLink="/habit-logs" routerLinkActive="active-link">{{ 'habitLog' | translate }}</button>
+                </div>
             <!-- Icon btns -->
-            <div class="flex gap-3">
+            <div class="hidden md:flex gap-3">
                 <!-- Profile drop down. -->
                 <button matMiniFab [matMenuTriggerFor]="menu">
                     <mat-icon fontIcon="account_circle"/>
                 </button>
                 <!-- TODO: Implement navigation. -->
-                <mat-menu #menu="matMenu">
+                <mat-menu #menu="matMenu">   
                     <button mat-menu-item> {{ 'profile' | translate }}</button>
                     <button mat-menu-item>{{ 'signOut' | translate }}</button>
                 </mat-menu>
@@ -30,8 +32,7 @@
                 </button>
 
             </div>
-
-            
+            </div>
         </div>
     </mat-card-content>
 </mat-card> 
