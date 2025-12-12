@@ -5,7 +5,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [MatCard, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

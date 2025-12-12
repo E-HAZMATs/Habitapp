@@ -43,3 +43,8 @@ html[data-theme="dark"] body {
 .navbar .mat-toolbar-row{
   background-color: var(--mat-sys-surface-container-low);
 }
+
+.main-container{
+  // margin-top: var(--mat-toolbar-standard-height, 64px);
+  // margin-top: 30px;
+}
