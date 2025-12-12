@@ -35,6 +35,11 @@ html[data-theme="dark"] body {
 }
 
 .active-link .mdc-button__label{
-  color: var(--md-sys-color-primary);
+  color: var(--mat-sys-primary);
+  border-bottom: 1px solid var(--mat-sys-primary) !important;
   font-weight: 600;
+}
+
+.navbar .mat-toolbar-row{
+  background-color: var(--mat-sys-surface-container-low);
 }
