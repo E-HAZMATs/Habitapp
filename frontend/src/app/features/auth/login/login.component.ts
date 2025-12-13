@@ -4,19 +4,40 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatIcon } from "@angular/material/icon";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-login',
-  imports: [MatCard, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput, TranslatePipe, MatIcon],
+  imports: [MatCard, ReactiveFormsModule, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput, TranslatePipe, MatIcon, MatAnchor],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class Login {
   protected hidePass: WritableSignal<boolean> = signal(true)
+  
+  protected form = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  })
 
   toggleHidePass(event: MouseEvent){
     this.hidePass.set(!this.hidePass())
     console.log(this.hidePass())
     // event.preventDefault();
+  }
+
+  submit(){
+    if(this.form.invalid) return; // CHECK: IS THIS FINE?
+
+    const { email, password }= this.form.getRawValue();
+    console.log(email)
+    console.log(password)
   }
 }
