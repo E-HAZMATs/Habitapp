@@ -9,5 +9,7 @@
 	"signOut": "تسجيل خروج",
 	"profile": "الحساب",
 	"dashboard": "لوحة المعلومات",
-	"habitLog": "السجل"
+	"habitLog": "السجل",
+	"enterEmail": "ادخل بريدك الإلكتروني",
+	"enterPassword": "أدخل كلمة مرورك"
 }

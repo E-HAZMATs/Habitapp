@@ -9,5 +9,7 @@
 	"signOut": "Sign Out",
 	"profile": "Profile",
 	"dashboard": "dashboard",
-	"habitLog": "Habit Logs"
+	"habitLog": "Habit Logs",
+	"enterEmail": "Enter your email",
+	"enterPassword": "Enter your password"
 }
