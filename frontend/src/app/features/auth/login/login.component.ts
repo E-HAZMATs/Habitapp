@@ -9,7 +9,7 @@ import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-login',
-  imports: [MatCard, ReactiveFormsModule, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput, TranslatePipe, MatIcon, MatAnchor],
+  imports: [MatCard, ReactiveFormsModule, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput, TranslatePipe, MatIcon, MatAnchor, MatError],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -23,17 +23,17 @@ export class Login {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required], //TODO: Add min length validation.
     }),
   })
 
   toggleHidePass(event: MouseEvent){
     this.hidePass.set(!this.hidePass())
-    console.log(this.hidePass())
     // event.preventDefault();
   }
 
   submit(){
+    console.log(this.form)
     if(this.form.invalid) return; // CHECK: IS THIS FINE?
 
     const { email, password }= this.form.getRawValue();
