@@ -11,5 +11,8 @@
 	"dashboard": "لوحة المعلومات",
 	"habitLog": "السجل",
 	"enterEmail": "ادخل بريدك الإلكتروني",
-	"enterPassword": "أدخل كلمة مرورك"
+	"enterPassword": "أدخل كلمة مرورك",
+	"emailRequired": "البريد الإلكتروني مطلوب",
+	"emailInvalid": "صيغة البريد خاطئة",
+	"passwordRequired": "كلمة المرور مطلوبة"
 }

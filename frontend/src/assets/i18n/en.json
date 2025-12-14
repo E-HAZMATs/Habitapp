@@ -11,5 +11,8 @@
 	"dashboard": "dashboard",
 	"habitLog": "Habit Logs",
 	"enterEmail": "Enter your email",
-	"enterPassword": "Enter your password"
+	"enterPassword": "Enter your password",
+	"emailRequired": "Email is required",
+	"emailInvalid": "Invalid email",
+	"passwordRequired": "Password is required."
 }
