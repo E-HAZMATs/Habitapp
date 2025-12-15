@@ -27,7 +27,7 @@ export class Login {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required], //TODO: Add min length validation.
+      validators: [Validators.required], //TODO: Add min length validation later. But for now I allow 1 char passwords for quickness.
     }),
   })
 
