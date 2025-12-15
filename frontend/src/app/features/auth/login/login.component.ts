@@ -1,12 +1,13 @@
-import { Component, inject, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInput } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatIcon } from "@angular/material/icon";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAnchor } from "@angular/material/button";
 import { AuthService } from '../../../core/services/auth-service';
+import { ValidationErrorService } from '../../../core/services/validation-error-service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { AuthService } from '../../../core/services/auth-service';
 export class Login {
   protected hidePass: WritableSignal<boolean> = signal(true)
   protected authService = inject(AuthService)
+  private validationErrorService = inject(ValidationErrorService)
   
   protected form = new FormGroup({
     email: new FormControl('', {
@@ -39,9 +41,10 @@ export class Login {
     if(this.form.invalid) return; // CHECK: IS THIS FINE?
 
     const { email, password }= this.form.getRawValue();
-
     this.authService.login({email, password})
-    console.log(email)
-    console.log(password)
+  }
+
+  getEmailValidationError(control: AbstractControl, fieldName: 'email' | 'password'): string | null {
+    return this.validationErrorService.getValidationError(control, fieldName);
   }
 }

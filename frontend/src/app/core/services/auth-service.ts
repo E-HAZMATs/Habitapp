@@ -5,6 +5,7 @@ import { TokenService } from './token-service';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiResponse } from '../models/api-response';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +15,15 @@ export class AuthService {
   private tokenService = inject(TokenService)
   private toastService = inject(ToastService)
   private translateService = inject(TranslateService)
-
+  private router = inject(Router)
   login(loginDto: loginDto){
      this.api.post<ApiResponse<loginResponseDto>>('/auth/login', loginDto)
     .subscribe({
       next: (value) => {
-        // TODO: Navigation after successful login
         this.tokenService.setToken(value.data!.token) // TODO: Implement handling if response.data doesn't exist?
         const msg = this.translateService.instant('loginSuccess')
         this.toastService.show(msg, 'success')
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => this.handleErrorToast(err)
     })
