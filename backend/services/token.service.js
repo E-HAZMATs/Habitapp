@@ -21,6 +21,7 @@ exports.setRtCookie = (res, refreshToken) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", //maybe set false for now since i'm not using https?
     sameSite: "lax",
+    path: '/',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };
