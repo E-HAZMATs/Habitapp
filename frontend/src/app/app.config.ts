@@ -1,10 +1,15 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { provideTranslateHttpLoader, TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideTranslateCompiler, provideTranslateService } from '@ngx-translate/core';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
+import { AuthService } from './core/services/auth-service';
+
+export const authInit = (auth: AuthService) => {
+  return () => auth.restoreSession();
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +24,10 @@ export const appConfig: ApplicationConfig = {
       }),
       fallbackLang: 'en',
       lang: 'en',
+    }),
+    provideAppInitializer(() => {
+    const authService = inject(AuthService);
+    return authService.restoreSession();
     })
   ]
 };

@@ -6,6 +6,7 @@ import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiResponse } from '../models/api-response';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -58,5 +59,17 @@ export class AuthService {
   private handleErrorToast = (err: any) =>{
         const backendMsg = err.error?.message || this.translateService.instant('unexpectedServerError')
         this.toastService.show(backendMsg, 'error')
+  }
+
+  async restoreSession(): Promise<void> {
+    try{
+      const res = await firstValueFrom(
+        this.api.get<{ token: string }>('/auth/refresh')
+      );
+      this.tokenService.setToken(res.token);
+    }
+    catch {
+      
+    }
   }
 }

@@ -18,7 +18,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     catchError(err => {
       if (err.status === 401) {
 
-        return api.post<{ accessToken: string }>('/auth/refresh', {}).pipe(
+        // CHECKIMP: The refresh endpoint is a GET lmao. Did I test this?
+        return api.get<{ accessToken: string }>('/auth/refresh', {}).pipe(
           switchMap(res => {
             tokenService.setToken(res.accessToken)
             const retryReq = req.clone({
