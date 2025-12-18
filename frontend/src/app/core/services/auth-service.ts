@@ -49,7 +49,7 @@ export class AuthService {
         this.tokenService.clearToken();
         const msg = this.translateService.instant('logoutSuccess')
         this.toastService.show(msg, "success")
-        this.router.navigate(['/login'])
+        this.router.navigate(['/auth', 'login'])
       },
       error: (err) => this.handleErrorToast(err)
     })
@@ -63,9 +63,9 @@ export class AuthService {
   async restoreSession(): Promise<void> {
     try{
       const res = await firstValueFrom(
-        this.api.get<{ token: string }>('/auth/refresh')
+        this.api.get<ApiResponse<{ token: string }>>('/auth/refresh')
       );
-      this.tokenService.setToken(res.token);
+      this.tokenService.setToken(res.data!.token);
     }
     catch {
       
