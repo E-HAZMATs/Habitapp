@@ -8,6 +8,7 @@ import { LocalizationService } from '../../core/services/localization-service';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AuthService } from '../../core/services/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 export class Navbar {
   protected themeService = inject(ThemeService)
   private localizationService = inject(LocalizationService)
+  protected authService = inject(AuthService)
 
   protected toggleTheme(){
     this.themeService.toggleTheme();
@@ -25,5 +27,9 @@ export class Navbar {
 
   protected toggleLanguage(){
     this.localizationService.toggleLanguage()
+  }
+
+  protected logout(){
+    this.authService.logout();
   }
 }

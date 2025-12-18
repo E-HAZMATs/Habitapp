@@ -22,7 +22,7 @@
                     <!-- TODO: Implement navigation. -->
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item> {{ 'profile' | translate }}</button>
-                        <button mat-menu-item>{{ 'signOut' | translate }}</button>
+                        <button mat-menu-item (click)="logout()">{{ 'signOut' | translate }}</button>
                     </mat-menu>
                     <button matMiniFab (click)="toggleLanguage()">
                         <!-- TODO: Find icons for each language. fonts google, which is used by ang mat, doesn't have arabic icon. -->

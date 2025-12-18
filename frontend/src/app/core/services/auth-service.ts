@@ -42,15 +42,14 @@ export class AuthService {
     })
   }
 
-  // Todo: implement logging out navigation.
   logout(){
     this.api.post('/auth/logout', {})
     .subscribe({
       next: () => {
-        // TODO: I'm getting a silent error in the log, cus even if the request is successful
-        // angular expects the response to json.
+        this.tokenService.clearToken();
         const msg = this.translateService.instant('logoutSuccess')
         this.toastService.show(msg, "success")
+        this.router.navigate(['/login'])
       },
       error: (err) => this.handleErrorToast(err)
     })

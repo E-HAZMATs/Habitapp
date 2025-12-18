@@ -9,6 +9,7 @@ import { MatAnchor } from "@angular/material/button";
 import { AuthService } from '../../../core/services/auth-service';
 import { ValidationErrorService } from '../../../core/services/validation-error-service';
 
+// TODO?: Should there be a guard for login page to redirect to dashboard for authed users?
 @Component({
   selector: 'app-login',
   imports: [MatCard, ReactiveFormsModule, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput, TranslatePipe, MatIcon, MatAnchor, MatError],
