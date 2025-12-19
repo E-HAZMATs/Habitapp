@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 // TODO: Outsource this to shared?
-type Field = 'email' | 'password' // need better way?
+type Field = 'email' | 'password' | 'confirmPassword' | 'username'  // need better way?
 export const VALIDATION_ERROR_KEYS = {
   // CHECK: If i have multiple email input fields, do I need to have different names for them?
   // so thye have a different scope here? or are will all email fields have the same validation?
@@ -12,8 +12,15 @@ export const VALIDATION_ERROR_KEYS = {
     email: "emailInvalid"
   },
   password: {
-    required: "passwordRequired"
+    required: "passwordRequired",
   },
+  confirmPassword: {
+    required: "confirmPasswordRequired",
+    passwordMismatch: "passwordMismatch"
+  },
+  username: {
+    required: "usernameRequired", //TODO: Add min length for pass and this.
+  }
   // TODO: Add fallback/default validation messages?
 } as const
 
