@@ -28,7 +28,7 @@ export class Login {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required], //TODO: Add min length validation later. But for now I allow 1 char passwords for quickness.
+      validators: [Validators.required, /*Validators.minLength(6)*/], //TODO: Add min length validation later. But for now I allow 1 char passwords for quickness.
     }),
   })
 
@@ -38,14 +38,13 @@ export class Login {
   }
 
   submit(){
-    console.log(this.form)
     if(this.form.invalid) return; // CHECK: IS THIS FINE?
 
     const { email, password }= this.form.getRawValue();
     this.authService.login({email, password})
   }
 
-  getEmailValidationError(control: AbstractControl, fieldName: 'email' | 'password'): string | null {
+  getValidationError(control: AbstractControl, fieldName: 'email' | 'password'): string | null {
     return this.validationErrorService.getValidationError(control, fieldName);
   }
 }

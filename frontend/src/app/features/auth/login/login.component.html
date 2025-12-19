@@ -8,7 +8,7 @@
             <mat-form-field>
                 <mat-label>{{ 'enterEmail' | translate }}</mat-label>
                 <input matInput type="text" formControlName="email" />
-                @let emailError = getEmailValidationError(this.form.controls.email, 'email');
+                @let emailError = getValidationError(this.form.controls.email, 'email');
                 @if(emailError){
                 <mat-error>{{ emailError }}</mat-error>
                 }
@@ -20,7 +20,7 @@
                 <button matIconButton (click)="toggleHidePass($event)">
                     <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                @let passwordError = getEmailValidationError(this.form.controls.password, 'password');
+                @let passwordError = getValidationError(this.form.controls.password, 'password');
                 @if(passwordError){
                 <mat-error>{{ passwordError }}</mat-error>
                 }

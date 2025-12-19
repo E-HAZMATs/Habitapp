@@ -1,1 +1,55 @@
-<p>register.component works!</p>
+<mat-card-header class="mb-5">
+    <mat-card-title>{{ 'register' | translate }}</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+    <div class="flex flex-col">
+        <form class="flex flex-col gap-2" [formGroup]="form" (ngSubmit)="submit()">
+
+            <mat-form-field>
+                <mat-label>{{ 'enterUsername' | translate }}</mat-label>
+                <input matInput type="text" formControlName="username" />
+                @let usernameError = getValidationError(this.form.controls.username, 'username');
+                @if(usernameError){
+                <mat-error>{{ usernameError }}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'enterEmail' | translate }}</mat-label>
+                <input matInput type="text" formControlName="email" />
+                @let emailError = getValidationError(this.form.controls.email, 'email');
+                @if(emailError){
+                <mat-error>{{ emailError }}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'enterPassword' | translate }}</mat-label>
+                <input matInput [type]="hidePass() ? 'password' : 'text'" formControlName="password" />
+                <button mat-icon-button matSuffix (click)="toggleHidePass($event)" type="button">
+                    <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                @let passwordError = getValidationError(this.form.controls.password, 'password');
+                @if(passwordError){
+                <mat-error>{{ passwordError }}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ 'confirmPassword' | translate }}</mat-label>
+                <input matInput [type]="hideConfirmPass() ? 'password' : 'text'" formControlName="confirmPassword" />
+                <button mat-icon-button matSuffix (click)="toggleHideConfirmPass($event)" type="button">
+                    <mat-icon>{{hideConfirmPass() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                @let confirmPasswordError = getValidationError(this.form.controls.confirmPassword, 'confirmPassword');
+                @if(confirmPasswordError){
+                <mat-error>{{ confirmPasswordError }}</mat-error>
+                }
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ 'register' | translate}}</button>
+
+            <!-- TODO: Add navigation to login page.  -->
+        </form>
+    </div>
+</mat-card-content>
