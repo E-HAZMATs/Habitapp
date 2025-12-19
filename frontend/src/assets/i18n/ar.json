@@ -14,5 +14,11 @@
 	"enterPassword": "أدخل كلمة مرورك",
 	"emailRequired": "البريد الإلكتروني مطلوب",
 	"emailInvalid": "صيغة البريد خاطئة",
-	"passwordRequired": "كلمة المرور مطلوبة"
+	"passwordRequired": "كلمة المرور مطلوبة",
+	"confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
+	"passwordMismatch": "كلمات المرور غير متطابقة",
+	"usernameRequired": "اسم المستخدم مطلوب",
+	"confirmPassword": "تأكيد كلمة المرور",
+	"enterUsername": "ادخل اسم المستخدم",
+	"register": "تسجيل"
 }

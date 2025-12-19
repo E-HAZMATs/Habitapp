@@ -14,5 +14,11 @@
 	"enterPassword": "Enter your password",
 	"emailRequired": "Email is required",
 	"emailInvalid": "Invalid email",
-	"passwordRequired": "Password is required."
+	"passwordRequired": "Password is required",
+	"usernameRequired": "User name is required",
+	"confirmPasswordRequired": "Confirm password is required",
+	"passwordMismatch": "Passwords don't match",
+	"confirmPassword": "Confirm Password",
+	"enterUsername": "Enter your user name",
+	"register": "Register"
 }
