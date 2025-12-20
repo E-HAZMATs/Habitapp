@@ -72,7 +72,7 @@ export class Register {
     // TODOIMP: Add validation for confirm pass mismatch.
     confirmPassword: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, this.confirmPasswordMatchValidator],
     }),
   });
 
@@ -99,4 +99,20 @@ export class Register {
   ): string | null {
     return this.validationErrorService.getValidationError(control, fieldName);
   }
+
+private confirmPasswordMatchValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  if (!control.parent) return null;
+
+  const password = control.parent.get('password')?.value;
+  const confirmPassword = control.value;
+
+  if (!confirmPassword) return null;
+
+  return password === confirmPassword
+    ? null
+    : { passwordMismatch: true };
+}
+
 }
