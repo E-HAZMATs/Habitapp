@@ -30,7 +30,6 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-register',
   imports: [
-    MatCard,
     ReactiveFormsModule,
     MatCardContent,
     MatCardTitle,
@@ -69,7 +68,6 @@ export class Register {
       nonNullable: true,
       validators: [Validators.required /*Validators.minLength(6)*/],
     }),
-    // TODOIMP: Add validation for confirm pass mismatch.
     confirmPassword: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, this.confirmPasswordMatchValidator],

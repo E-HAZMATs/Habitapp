@@ -20,5 +20,7 @@
 	"usernameRequired": "اسم المستخدم مطلوب",
 	"confirmPassword": "تأكيد كلمة المرور",
 	"enterUsername": "ادخل اسم المستخدم",
-	"register": "تسجيل"
+	"register": "تسجيل",
+	"alreadyHaveAnAccount": "لديك حساب مسبقا؟",
+	"YouHaveNoAccount": "ليس عندك حساب؟"
 }

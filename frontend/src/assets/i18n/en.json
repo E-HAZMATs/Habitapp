@@ -20,5 +20,8 @@
 	"passwordMismatch": "Passwords don't match",
 	"confirmPassword": "Confirm Password",
 	"enterUsername": "Enter your user name",
-	"register": "Register"
+	"register": "Register",
+	"alreadyHaveAnAccount": "Already have an account?",
+	"YouHaveNoAccount": "You don't have an account?"
+
 }

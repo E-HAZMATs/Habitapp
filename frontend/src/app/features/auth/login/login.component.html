@@ -17,7 +17,7 @@
                 <mat-label>{{ 'enterPassword' | translate }}</mat-label>
                 <input matInput [type]="hidePass() ? 'password' : 'text'" formControlName="password" />
                 <!-- TODO: Fix the layout of this hide button. Its not on the same level of the input.[appearance]="" -->
-                <button matIconButton (click)="toggleHidePass($event)">
+                <button mat-icon-button matSuffix (click)="toggleHidePass($event)">
                     <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 @let passwordError = getValidationError(this.form.controls.password, 'password');
@@ -27,6 +27,11 @@
             </mat-form-field>
 
             <button mat-raised-button type="submit">{{ 'login' | translate}}</button>
+
+            <div class="text-center mt-2">
+                <span>{{ 'YouHaveNoAccount' | translate }} </span>
+                <a mat-button routerLink="/auth/register">{{ 'register' | translate }}</a>
+            </div>
         </form>
     </div>
 </mat-card-content>
