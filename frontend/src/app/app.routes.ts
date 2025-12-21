@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
+import { alreadyAuthenticatedGuard } from './core/guards/already-authenticated-guard';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () => import('./features/auth/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
+    canActivate: [alreadyAuthenticatedGuard],
     children: [
       {
         path: '',
@@ -22,7 +24,7 @@ export const routes: Routes = [
       },
       {
         path: 'register',
-        loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent)
+        loadComponent: () => import('./features/auth/register/register.component').then(m => m.Register)
       },
 
     ]
