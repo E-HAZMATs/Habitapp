@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../../core/services/auth-service';
+import { APP_ROUTES } from '../../core/constants/app-routes';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ import { AuthService } from '../../core/services/auth-service';
   styleUrl: './navbar.css',
 })
 export class Navbar {
+  ROUTES = APP_ROUTES;
   protected themeService = inject(ThemeService)
   private localizationService = inject(LocalizationService)
   protected authService = inject(AuthService)

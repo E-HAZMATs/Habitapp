@@ -31,7 +31,7 @@
              <!-- TODO: Make a general loader component. -->
             <div class="text-center mt-2">
                 <span>{{ 'YouHaveNoAccount' | translate }} </span>
-                <a mat-button routerLink="/auth/register">{{ 'register' | translate }}</a>
+                <a mat-button [routerLink]="ROUTES.REGISTER">{{ 'register' | translate }}</a>
             </div>
         </form>
     </div>

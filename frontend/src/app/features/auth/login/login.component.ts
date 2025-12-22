@@ -9,8 +9,7 @@ import { MatAnchor, MatIconButton } from "@angular/material/button";
 import { AuthService } from '../../../core/services/auth-service';
 import { ValidationErrorService } from '../../../core/services/validation-error-service';
 import { RouterLink } from '@angular/router';
-
-// TODO?: Should there be a guard for login page to redirect to dashboard for authed users?
+import { APP_ROUTES } from '../../../core/constants/app-routes';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, MatCardContent, MatCardTitle, MatCardHeader, MatFormField, MatLabel, MatInput, TranslatePipe, MatIcon, MatAnchor, MatError, MatSuffix, MatIconButton, RouterLink],
@@ -18,6 +17,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class Login {
+  ROUTES = APP_ROUTES
   protected hidePass: WritableSignal<boolean> = signal(true)
   protected authService = inject(AuthService)
   private validationErrorService = inject(ValidationErrorService)

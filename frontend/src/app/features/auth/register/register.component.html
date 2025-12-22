@@ -51,8 +51,7 @@
             
             <div class="text-center mt-2">
                 <span>{{ 'alreadyHaveAnAccount' | translate }} </span>
-                <!-- CHECK: Best way to centralize routes in navigation? if i change the path, which I might do, it's bothersome to change each instance. -->
-                <a mat-button routerLink="/auth/login">{{ 'login' | translate }}</a>
+                <a mat-button [routerLink]="ROUTES.LOGIN">{{ 'login' | translate }}</a>
             </div>
         </form>
     </div>

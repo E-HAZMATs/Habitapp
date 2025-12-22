@@ -1,6 +1,7 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { TokenService } from '../services/token-service';
 import { inject } from '@angular/core';
+import { APP_ROUTES } from '../constants/app-routes';
 
 export const alreadyAuthenticatedGuard: CanActivateFn = (route, state) => {
   const tokenService = inject(TokenService)
@@ -8,7 +9,7 @@ export const alreadyAuthenticatedGuard: CanActivateFn = (route, state) => {
   const token = tokenService.getToken();
   if (!token) return true
   else{
-    router.navigate(['/dashborad'])
+    router.navigateByUrl(APP_ROUTES.DASHBOARD);
     return false;
   }
 };
