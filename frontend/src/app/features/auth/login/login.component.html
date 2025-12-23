@@ -16,8 +16,7 @@
             <mat-form-field>
                 <mat-label>{{ 'enterPassword' | translate }}</mat-label>
                 <input matInput [type]="hidePass() ? 'password' : 'text'" formControlName="password" />
-                <!-- TODO: Fix the layout of this hide button. Its not on the same level of the input.[appearance]="" -->
-                <button mat-icon-button matSuffix (click)="toggleHidePass($event)">
+                <button mat-icon-button matSuffix (click)="toggleHidePass($event)" type="button">
                     <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 @let passwordError = getValidationError(this.form.controls.password, 'password');
@@ -26,7 +25,14 @@
                 }
             </mat-form-field>
 
-            <button mat-raised-button type="submit" disabled="false">{{ 'login' | translate}}</button>
+            <button mat-raised-button type="submit" disabled="false">
+                @if(!this.isLoading()){
+                    {{ 'login' | translate}}
+                }
+                @else {
+                    <mat-spinner diameter="20"></mat-spinner>
+                }
+            </button>
             <!-- TODOIMP: Disable button when submit. -->
              <!-- TODO: Make a general loader component. -->
             <div class="text-center mt-2">

@@ -7,29 +7,34 @@ import { TranslateService } from '@ngx-translate/core';
 import { ApiResponse } from '../models/api-response';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { APP_ROUTES } from '../constants/app-routes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  ROUTES = APP_ROUTES;
   private api = inject(ApiService)
   private tokenService = inject(TokenService)
   private toastService = inject(ToastService)
   private translateService = inject(TranslateService)
   private router = inject(Router)
-  login(loginDto: loginDto){
-     this.api.post<ApiResponse<loginResponseDto>>('/auth/login', loginDto)
-    .subscribe({
-      next: (value) => {
-        this.tokenService.setToken(value.data!.token) // TODO: Implement handling if response.data doesn't exist?
-        const msg = this.translateService.instant('loginSuccess')
-        this.toastService.show(msg, 'success')
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => this.handleErrorToast(err)
-    })
-  }
 
+async login(loginDto: loginDto) {
+  try {
+    const value = await firstValueFrom(
+      this.api.post<ApiResponse<loginResponseDto>>('/auth/login', loginDto)
+    );
+    
+    this.tokenService.setToken(value.data!.token);
+    const msg = this.translateService.instant('loginSuccess');
+    this.toastService.show(msg, 'success');
+    this.router.navigateByUrl(this.ROUTES.DASHBOARD)
+  } catch (err) {
+    this.handleErrorToast(err);
+    throw err;
+  }
+}
   //Todo implement navigtation. And error handling.
   register(registerDto: registerDto){
     this.api.post<ApiResponse<registerResponseDto>>('/auth/register', registerDto)
