@@ -47,7 +47,13 @@
                 }
             </mat-form-field>
 
-            <button mat-raised-button type="submit">{{ 'register' | translate}}</button>
+            <button mat-raised-button type="submit">
+                @if(!this.isLoading()){
+                    {{ 'register' | translate}}
+                } @else {
+                    <mat-spinner diameter="20"></mat-spinner>
+                }
+            </button>
             
             <div class="text-center mt-2">
                 <span>{{ 'alreadyHaveAnAccount' | translate }} </span>

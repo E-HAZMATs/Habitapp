@@ -36,15 +36,19 @@ async login(loginDto: loginDto) {
   }
 }
   //Todo implement navigtation. And error handling.
-  register(registerDto: registerDto){
-    this.api.post<ApiResponse<registerResponseDto>>('/auth/register', registerDto)
-    .subscribe({
-      next: (value) => {
-        const msg = this.translateService.instant('registerSuccess')
-        this.toastService.show(msg, 'success')
-      },
-      error: (err) => this.handleErrorToast(err)
-    })
+  async register(registerDto: registerDto){
+
+    try{
+      const value = await firstValueFrom(
+        this.api.post<ApiResponse<registerResponseDto>>('/auth/register', registerDto)
+      )
+      const msg = this.translateService.instant('registerSuccess')
+      this.toastService.show(msg, 'success')
+
+    } catch (err) {
+      this.handleErrorToast(err)
+      throw err
+    }
   }
 
   logout(){

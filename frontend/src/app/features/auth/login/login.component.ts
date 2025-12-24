@@ -76,7 +76,7 @@ async submit() {
   
   this.isLoading.set(true);
   const { email, password } = this.form.getRawValue();
-  
+  // TODO: Handle exception returned from service login (wrong creds). Show toast is enough?
   try {
     await this.authService.login({ email, password });
   } finally {

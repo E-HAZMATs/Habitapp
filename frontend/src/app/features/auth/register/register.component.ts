@@ -27,6 +27,7 @@ import { AuthService } from '../../../core/services/auth-service';
 import { ValidationErrorService } from '../../../core/services/validation-error-service';
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../core/constants/app-routes';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-register',
   imports: [
@@ -45,12 +46,14 @@ import { APP_ROUTES } from '../../../core/constants/app-routes';
     MatSuffix,
     MatButton,
     RouterLink,
+    MatProgressSpinnerModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
 export class Register {
   ROUTES = APP_ROUTES
+  protected isLoading: WritableSignal<boolean> = signal(false);
   protected hidePass: WritableSignal<boolean> = signal(true);
   protected hideConfirmPass: WritableSignal<boolean> = signal(true);
   protected authService = inject(AuthService);
@@ -85,11 +88,15 @@ export class Register {
     this.hideConfirmPass.set(!this.hideConfirmPass());
   }
 
-  submit() {
+  async submit() {
     if (this.form.invalid) return;
-
+    this.isLoading.set(true)
     const { username, email, password } = this.form.getRawValue();
-    this.authService.register({ username, email, password });
+    try{
+       await this.authService.register({ username, email, password });
+    } finally {
+        this.isLoading.set(false)
+    }
   }
 
   getValidationError(
