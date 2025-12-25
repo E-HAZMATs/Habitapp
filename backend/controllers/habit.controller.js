@@ -26,26 +26,25 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   const habitId = req.params.id;
   const { error: idError } = habitIdSchema.validate(habitId);
-  if (idError) return res.status(400).send(req.__("invalidHabitId"));
+  if (idError) return sendError(res, 400, req.__('invalidHabitId'))
 
   const { error } = habitCreateSchema.validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return sendError(res, 400, error.details[0].message)
 
   const response = await habitService.update(habitId, req.user.id, req.body);
-  console.log(response);
-  if (response === 0) return res.status(404).send(req.__("habitNoExist"));
+  if (response === 0) return sendError(res, 404, req.__('habitNoExist'));
   else if (response === -1)
-    return res.status(400).send(req.__("cantEditOtherUsersHabits"));
-  else return res.status(200).send(req.__("operationSuccess"));
+    return sendError(res, 400, req.__("cantEditOtherUsersHabits"))
+  else return sendSuccess(res, 200, req.__("operationSuccess"))
 };
 
 exports.delete = async (req, res) => {
   const habitId = req.params.id;
   const response = await habitService.delete(habitId, req.user.id);
   if (response === -1) {
-    return res.status(400).send(req.__("cantEditOtherUsersHabits"));
+    return sendError(res, 400, req.__("cantEditOtherUsersHabits"))
   } else if (response === 0) {
-    return res.status(404).send(req.__("habitNoExist"));
+    return sendError(res, 404, req.__("habitNoExist"));
   }
-  return res.status(200).send(req.__("operationSuccess"));
+  return sendSuccess(res, 200, req.__("operationSuccess"));
 };
