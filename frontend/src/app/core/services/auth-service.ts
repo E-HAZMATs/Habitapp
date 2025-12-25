@@ -4,7 +4,7 @@ import { loginDto, loginResponseDto } from '../models/login.model';
 import { TokenService } from './token-service';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
-import { ApiResponse } from '../models/api-response';
+import { ApiResponse } from '../models/api-response.model';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { APP_ROUTES } from '../constants/app-routes';
