@@ -29,6 +29,12 @@ export class ApiService {
     });
   }
 
+  patch<T>(path: string, body: any) {
+    return this.http.patch<T>(this.apiUrl + path, body, {
+      withCredentials: true
+    })
+  }
+
   delete<T>(path: string, id: string | number) {
     return this.http.delete<T>(this.apiUrl + path + `/${id}`, {
       withCredentials: true
