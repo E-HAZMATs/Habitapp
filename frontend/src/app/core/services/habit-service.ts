@@ -8,6 +8,7 @@ import {
   createHabitDto, 
   habit, 
   habitResponse,
+  updateHabitDto,
 } from '../models/habit.model';
 
 @Injectable({
@@ -24,10 +25,24 @@ export class HabitService {
         this.api.post<ApiResponse<habitResponse>>('/habit/create', habitDto)
       );
       
-      const msg = this.translateService.instant('habitCreatedSuccess');
+      const msg = response.message;
       this.toastService.show(msg, 'success');
       
       return response.data!.habit;
+    } catch (err) {
+      this.handleErrorToast(err);
+      throw err;
+    }
+  }
+
+    async update(habitId: string, habitDto: updateHabitDto): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this.api.patch<ApiResponse<void>>(`/habit/update/${habitId}`, habitDto)
+      );
+      
+      const msg = response.message;
+      this.toastService.show(msg, 'success');
     } catch (err) {
       this.handleErrorToast(err);
       throw err;
