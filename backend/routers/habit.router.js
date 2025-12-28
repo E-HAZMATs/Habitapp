@@ -9,4 +9,5 @@ router.use(authMiddleware)
 router.post('/create', wrappedController.create)
 router.patch('/update/:id', wrappedController.update)
 router.delete('/delete/:id', wrappedController.delete)
+router.get('getAllByUser', wrappedController.getAllByUser)
 module.exports = router

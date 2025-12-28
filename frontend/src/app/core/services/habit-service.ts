@@ -49,6 +49,19 @@ export class HabitService {
     }
   }
 
+    async delete(habitId: string): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this.api.delete<ApiResponse<void>>('/habit/delete', habitId)
+      );
+      const msg = response.message;
+      this.toastService.show(msg, 'success');
+    } catch (err) {
+      this.handleErrorToast(err);
+      throw err;
+    }
+  }
+
   private handleErrorToast = (err: any): void => {
     const backendMsg = 
       err.error?.message || 

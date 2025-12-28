@@ -41,3 +41,10 @@ exports.delete = async (id, userId) => {
         }
     })
 }
+
+exports.getAllByUser = async (userId) => {
+    const habits = await Habit.findAll({
+        where: {id: userId}
+    })
+    console.log(habits)
+}

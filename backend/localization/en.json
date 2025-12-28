@@ -22,5 +22,6 @@
 	"routeNotFound": "Route not found",
 	"usernameRequired": "Username is required.",
 	"userNotExist": "User does not exist.",
-	"wrongLoginCreds": "Email or password are wrong."
+	"wrongLoginCreds": "Email or password are wrong.",
+	"AuthRequired": "Authentication is required"
 }

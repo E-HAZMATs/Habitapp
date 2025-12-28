@@ -22,5 +22,6 @@
 	"routeNotFound": "النقطة لم تجد",
 	"usernameRequired": "اسم المستخدم مطلوب.",
 	"userNotExist": "المستخدم غير موجود.",
-	"wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان"
+	"wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان",
+	"AuthRequired": "تسجيل الدخول مطلوب"
 }
