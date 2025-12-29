@@ -27,7 +27,6 @@ exports.login = async (req, res) => {
   return sendError(res, 401, req.__("wrongLoginCreds"));
 };
 
-// TODOIMP: MAKE THE ENDPOINT GIVE USERS THEIR ROLE.
 exports.register = async (req, res) => {
   const { error } = registerSchema.validate(req.body);
   if (error) {

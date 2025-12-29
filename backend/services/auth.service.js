@@ -1,12 +1,16 @@
 const bcrypt = require('bcryptjs')
 const userService = require('./user.service')
-const { User } = require('../models')
+const { User, Role } = require('../models')
 exports.createUser = async (data) => {
     const hashed = await bcrypt.hash(data.password, 10)
+    const memberRoleId = await Role.findOne({
+        where: {name: 'member'}
+    })
     return User.create({
         email: data.email,
         username: data.username,
-        password: hashed
+        password: hashed,
+        roleId: memberRoleId.id // For now since I have only one admin, all other users are members.
     })
 }
 
