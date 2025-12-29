@@ -44,7 +44,7 @@ exports.delete = async (id, userId) => {
 
 exports.getAllByUser = async (userId) => {
     const habits = await Habit.findAll({
-        where: {id: userId}
+        where: {userId}
     })
-    console.log(habits)
+    return habits;
 }

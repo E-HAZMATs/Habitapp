@@ -52,7 +52,6 @@ exports.delete = async (req, res) => {
 exports.getAllByUser = async (req, res) => {
   const userId = req.user.id;
   if (!userId) {return sendError(res, 401, req.__('AuthRequired'))}
-
-  
-    
+  const habits = await habitService.getAllByUser(userId)
+  return sendSuccess(res, 200, req.__('operationSuccess'), habits)
 }

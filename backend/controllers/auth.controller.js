@@ -5,14 +5,13 @@ const userService = require('../services/user.service')
 const { sendError, sendSuccess } = require("../utils/responseHandler");
 const { registerSchema, loginSchema } = require('../validation/auth.validation')
 
-
 exports.login = async (req, res) => {
   const { error } = loginSchema.validate(req.body);
   if (error) {
     const localizationKey = error.details[0].message
     return sendError(res, 400, req.__(localizationKey));
   }
-
+  
   const emailExists = await userService.isEmailUsed(req.body.email);
   if (!emailExists) {
     return sendError(res, 401, req.__("wrongLoginCreds"));
@@ -28,6 +27,7 @@ exports.login = async (req, res) => {
   return sendError(res, 401, req.__("wrongLoginCreds"));
 };
 
+// TODOIMP: MAKE THE ENDPOINT GIVE USERS THEIR ROLE.
 exports.register = async (req, res) => {
   const { error } = registerSchema.validate(req.body);
   if (error) {
