@@ -35,7 +35,22 @@ export class HabitService {
     }
   }
 
-    async update(habitId: string, habitDto: updateHabitDto): Promise<void> {
+  async getAllByUser(): Promise<habit[]> {
+    try{
+      const response = await firstValueFrom(
+        this.api.get<ApiResponse<habit[]>>('/habit/getAllByUser')
+      )
+      const msg = response.message;
+      this.toastService.show(msg, 'success');
+      return response.data!;
+    }
+    catch (err) {
+      this.handleErrorToast(err)
+      throw err;
+    }
+  }
+
+  async update(habitId: string, habitDto: updateHabitDto): Promise<void> {
     try {
       const response = await firstValueFrom(
         this.api.patch<ApiResponse<void>>(`/habit/update/${habitId}`, habitDto)
@@ -49,7 +64,7 @@ export class HabitService {
     }
   }
 
-    async delete(habitId: string): Promise<void> {
+  async delete(habitId: string): Promise<void> {
     try {
       const response = await firstValueFrom(
         this.api.delete<ApiResponse<void>>('/habit/delete', habitId)
