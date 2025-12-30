@@ -23,5 +23,7 @@
 	"usernameRequired": "اسم المستخدم مطلوب.",
 	"userNotExist": "المستخدم غير موجود.",
 	"wrongLoginCreds": "البريد أو كلمة المرور غير صحيحان",
-	"AuthRequired": "تسجيل الدخول مطلوب"
+	"AuthRequired": "تسجيل الدخول مطلوب",
+	"notFound": "المورد غير موجود.",
+	"notAuthorized": "الوصول غير مصرح."
 }

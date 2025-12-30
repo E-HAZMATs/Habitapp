@@ -48,3 +48,8 @@ exports.getAllByUser = async (userId) => {
     })
     return habits;
 }
+
+exports.getById = async (id) => {
+    const habit = await Habit.findByPk(id)
+    return habit
+}

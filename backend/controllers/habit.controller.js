@@ -55,3 +55,17 @@ exports.getAllByUser = async (req, res) => {
   const habits = await habitService.getAllByUser(userId)
   return sendSuccess(res, 200, req.__('operationSuccess'), habits)
 }
+
+exports.getById = async (req, res) => {
+  const habitId = req.params.id
+  const { error: idError } = habitIdSchema.validate(habitId);  
+  if (idError) return sendError(res, 400, req.__('invalidHabitId'))
+
+  const habit = await habitService.getById(habitId);
+  if (!habit) return sendError(res, 404, req.__('notFound'))
+    
+  if (habit.userId !== req.user.id){
+    if(req.user.role !== 'admin') return sendError(res, 401, req.__("notAuthorized"))
+  }
+  return sendSuccess(res, 200, req.__('operationSuccess'), habit)
+}
