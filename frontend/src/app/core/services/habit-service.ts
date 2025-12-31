@@ -50,6 +50,20 @@ export class HabitService {
     }
   }
 
+  async getById(id: string): Promise<habit> {
+    try{
+      const response = await firstValueFrom(
+        this.api.get<ApiResponse<habit>>('/habit/getById/' + id)
+      )
+      this.toastService.show(response.message, 'success');
+      return response.data!;
+    }
+    catch (err) {
+      this.handleErrorToast(err);
+      throw err;
+    }
+  }
+
   async update(habitId: string, habitDto: updateHabitDto): Promise<void> {
     try {
       const response = await firstValueFrom(
