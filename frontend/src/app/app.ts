@@ -1,20 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Login } from "./features/auth/components/login/login";
 import { TranslateModule } from '@ngx-translate/core';
-import {
-    TranslateService,
-    TranslatePipe,
-    TranslateDirective
-} from "@ngx-translate/core";
 import { LocalizationService } from './core/services/localization-service';
 import { AuthService } from './core/services/auth-service';
 import { Toast } from './shared/components/toast/toast';
 import { ToastService } from './core/services/toast-service';
+import { Navbar } from "./layout/navbar/navbar";
 
 @Component({
   selector: 'app-root',
-  imports: [TranslateModule, Toast],
+  imports: [TranslateModule, Toast, RouterOutlet, Navbar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
