@@ -5,6 +5,7 @@ import { TokenService } from '../services/token-service';
 import { catchError, switchMap, throwError } from 'rxjs';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
+  if (req.url.includes('/auth/refresh')) return next(req);
   const api = inject(ApiService);
   const tokenService = inject(TokenService)
   const token = tokenService.getToken();
@@ -17,8 +18,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   return next(reqCopy).pipe(
     catchError(err => {
       if (err.status === 401) {
-
-        // CHECKIMP: The refresh endpoint is a GET lmao. Did I test this?
         return api.get<{ accessToken: string }>('/auth/refresh', {}).pipe(
           switchMap(res => {
             tokenService.setToken(res.accessToken)
