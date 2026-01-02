@@ -27,6 +27,6 @@ export class App implements OnInit{
     //   email: "mail@gmail.com",
     //   password: 'password'
     // })
-    this.authService.logout()
+    // this.authService.logout()
   }
 }

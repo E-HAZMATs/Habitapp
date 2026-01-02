@@ -7,6 +7,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideTranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/services/auth-service';
 import { tokenInterceptor } from './core/interceptors/token-interceptor';
+import { languageInterceptor } from './core/interceptors/language-interceptor';
 
 export const authInit = (auth: AuthService) => {
   return () => auth.restoreSession();
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([tokenInterceptor])
+      withInterceptors([tokenInterceptor, languageInterceptor])
     ),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
