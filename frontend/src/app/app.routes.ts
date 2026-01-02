@@ -36,6 +36,7 @@ export const routes: Routes = [
   },
   {
     path: 'habit-logs',
+    canActivate: [authGuard],
     loadComponent: () => import('./features/habit/habit-logs/habit-logs.component').then(m => m.HabitLogsComponent)
   },
   {
