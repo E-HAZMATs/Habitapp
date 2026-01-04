@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { MatRadioButton } from '@angular/material/radio';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -20,7 +21,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatFormField,
     MatLabel,
     MatInput,
-    TranslatePipe
+    TranslatePipe,
+    MatRadioButton
   ],
   templateUrl: './create-habit-modal.html',
   styleUrl: './create-habit-modal.css',
@@ -31,6 +33,12 @@ export class CreateHabitModal {
       nonNullable: true,
       validators: [Validators.required],
     }),
+    descritpion: new FormControl('', {
+      
+    }),
+    frequency: new FormControl('daily', {
+      
+    })
   });
 
   submit() {}

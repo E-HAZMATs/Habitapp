@@ -25,5 +25,9 @@
 	"YouHaveNoAccount": "ليس عندك حساب؟",
 	"description": "الوصف",
 	"name": "الاسم",
-	"addHabit": "أضف عادة"
+	"addHabit": "أضف عادة",
+	"frequency": "الوتيرة",
+	"daily": "يومي",
+	"weekly": "أسبوعي",
+	"monthly": "شهري"
 }

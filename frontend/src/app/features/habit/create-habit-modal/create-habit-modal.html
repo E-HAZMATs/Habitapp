@@ -1,16 +1,32 @@
     <!-- Add Habit. Mat ang dialog?. -->
-<h2 mat-dialog-title>{{ 'addHabit' | translate }}</h2>
+<h2 mat-dialog-title class="self-center">{{ 'addHabit' | translate }}</h2>
 <mat-dialog-content class="mat-typography">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-        <mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-3 gap-1">
+        <mat-form-field class="col-span-3">
             <mat-label>{{ 'name' | translate }}</mat-label>
             <input matInput type="text" formControlName="name"/>
         </mat-form-field>
         
-        <mat-form-field>
+        <mat-form-field class="col-span-3">
             <mat-label>{{ 'description' | translate }}</mat-label>
-            <input matInput type="text" formControlName="description"/>
+            <textarea matInput type="text" formControlName="description"></textarea>
         </mat-form-field>
+
+        <div class="frequency-field col-span-3">
+            <label class="frequency-label">{{ 'frequency' | translate }}</label>
+            <mat-radio-group formControlName="frequencyType" class="frequency-group">
+                <mat-radio-button value="daily">
+                {{ 'daily' | translate }}
+                </mat-radio-button>
+                <mat-radio-button value="weekly">
+                {{ 'weekly' | translate }}
+                </mat-radio-button>
+                <mat-radio-button value="monthly">
+                {{ 'monthly' | translate }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
     </form>
  
 </mat-dialog-content>

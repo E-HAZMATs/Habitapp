@@ -25,6 +25,10 @@
 	"YouHaveNoAccount": "You don't have an account?",
 	"description": "Description",
 	"name": "Name",
-	"addHabit": "Add habit"
+	"addHabit": "Add habit",
+	"frequency": "Frequency",
+	"daily": "Daily",
+	"weekly": "Weekly",
+	"monthly": "Monthly"
 
 }
