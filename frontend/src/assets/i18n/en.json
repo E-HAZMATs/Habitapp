@@ -22,6 +22,9 @@
 	"enterUsername": "Enter your user name",
 	"register": "Register",
 	"alreadyHaveAnAccount": "Already have an account?",
-	"YouHaveNoAccount": "You don't have an account?"
+	"YouHaveNoAccount": "You don't have an account?",
+	"description": "Description",
+	"name": "Name",
+	"addHabit": "Add habit"
 
 }

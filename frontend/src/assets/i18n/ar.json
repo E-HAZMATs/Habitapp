@@ -22,5 +22,8 @@
 	"enterUsername": "ادخل اسم المستخدم",
 	"register": "تسجيل",
 	"alreadyHaveAnAccount": "لديك حساب مسبقا؟",
-	"YouHaveNoAccount": "ليس عندك حساب؟"
+	"YouHaveNoAccount": "ليس عندك حساب؟",
+	"description": "الوصف",
+	"name": "الاسم",
+	"addHabit": "أضف عادة"
 }
