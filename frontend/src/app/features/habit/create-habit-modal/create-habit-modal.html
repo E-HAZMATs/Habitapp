@@ -13,7 +13,7 @@
         </mat-form-field>
 
         <div class="frequency-field col-span-3">
-            <label class="frequency-label">{{ 'frequency' | translate }}</label>
+            <!-- <label class="frequency-label">{{ 'frequency' | translate }}</label> -->
             <mat-radio-group formControlName="frequencyType" class="frequency-group">
                 <mat-radio-button value="daily">
                 {{ 'daily' | translate }}
@@ -26,6 +26,23 @@
                 </mat-radio-button>
             </mat-radio-group>
         </div>
+
+        <mat-form-field class="col-span-1">
+            <mat-label>Frequency amount</mat-label>
+            <input matInput type="number" formControlName="frequencyAmount" />
+            <mat-hint>
+                some hint
+            </mat-hint>
+        </mat-form-field>
+
+        <!-- show time of day if frequency type = daily, else if weekly show days of week, else show day of month (what if pick 30th and then feburary wouldn't work!) -->
+        @if (currentFrequencyType === 'daily'){
+            <mat-form-field class="col-span-2">
+                <mat-label>time of day</mat-label>
+                <input matInput type="time" formControlName="timeOfDay"/>
+                <mat-hint>some hint</mat-hint>
+            </mat-form-field>
+            }
 
     </form>
  
