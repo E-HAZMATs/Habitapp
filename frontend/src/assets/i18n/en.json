@@ -29,6 +29,15 @@
 	"frequency": "Frequency",
 	"daily": "Daily",
 	"weekly": "Weekly",
-	"monthly": "Monthly"
+	"monthly": "Monthly",
+	"timeOfDay": "Time of the Day",
+	"frequencyAmount": "Frequency Amount",
+	"repeatEvery": "Repeat every",
+	"month": "month",
+	"months": "months",
+	"week": "week",
+	"weeks": "weeks",
+	"day": "day",
+	"days": "days"
 
 }

@@ -29,5 +29,14 @@
 	"frequency": "الوتيرة",
 	"daily": "يومي",
 	"weekly": "أسبوعي",
-	"monthly": "شهري"
+	"monthly": "شهري",
+	"timeOfDay": "وقت اليوم",
+	"frequencyAmount": "كمية التكرار",
+	"repeatEvery": "كرر كل",
+	"month": "شهر",
+	"months": "أشهر",
+	"week": "أسبوع",
+	"weeks": "أسابيع",
+	"day": "يوم",
+	"days": "أيام"
 }

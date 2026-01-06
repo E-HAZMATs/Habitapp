@@ -48,4 +48,12 @@ export class CreateHabitModal {
   get currentFrequencyType() {
     return this.form.controls.frequencyType.value;
   }
+
+  get currentFrequencyLocalizationKey() {
+    const frequencyType = this.form.controls.frequencyType.value;
+    const frequencyAmount = this.form.controls.frequencyAmount.value!;
+    if (frequencyType == 'daily') return frequencyAmount > 1 ? "days" : "day";
+    else if (frequencyType == 'weekly') return frequencyAmount > 1 ? "weeks" : "week";
+    else return frequencyAmount > 1 ? "months" : "month";
+  }
 }
