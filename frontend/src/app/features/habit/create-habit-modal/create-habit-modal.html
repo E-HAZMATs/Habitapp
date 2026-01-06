@@ -26,9 +26,10 @@
                 </mat-radio-button>
             </mat-radio-group>
         </div>
+        <!-- CHECKIMP: Sometimes switching language doesn't make this form ltr/rtl. Needs to restart page? -->
         <div class="col-span-1 flex items-center justify-center">
             <span>{{ 'repeatEvery' | translate }}</span>
-            <mat-form-field>
+            <mat-form-field class="w-[50%] mx-1">
                 <!-- <mat-label>Frequency amount</mat-label> -->
                 <input matInput type="number" formControlName="frequencyAmount" min="1"/>
                 <!-- <mat-hint>
@@ -47,7 +48,22 @@
                 <mat-hint>some hint</mat-hint>
             </mat-form-field>
             }
+        @else if (currentFrequencyType === 'weekly') {
+            <mat-form-field class="col-span-2">
+                <mat-label>{{"dayOfWeek" | translate}}</mat-label>
+                <select matNativeControl>
+                    <!-- TODO: Make ar start at sunday, while en start at monday? -->
+                    @for (day of daysOfWeek; track $index) {
+                        <option [value]="$index">
+                        {{ day | translate }}
+                        </option>
+                    }
+                </select>
+            </mat-form-field>
+        }
+        @else {
 
+        }
     </form>
  
 </mat-dialog-content>

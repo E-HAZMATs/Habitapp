@@ -11,6 +11,7 @@ import { MatFormField, MatLabel, MatHint } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { TranslatePipe } from '@ngx-translate/core';
+import { daysOfWeek } from '../../../core/constants/days-of-week';
 
 @Component({
   selector: 'app-create-habit-modal',
@@ -30,6 +31,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './create-habit-modal.css',
 })
 export class CreateHabitModal {
+  protected daysOfWeek = daysOfWeek
   protected form = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,

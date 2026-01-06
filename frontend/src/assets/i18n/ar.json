@@ -38,5 +38,12 @@
 	"week": "أسبوع",
 	"weeks": "أسابيع",
 	"day": "يوم",
-	"days": "أيام"
+	"days": "أيام",
+	"monday": "الاثنين",
+	"tuesday": "الثلاثاء",
+	"wednesday": "الأربعاء",
+	"thursday": "الخميس",
+	"friday": "الجمعة",
+	"saturday": "السبت",
+	"sunday": "الأحد"
 }
