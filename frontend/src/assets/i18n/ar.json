@@ -46,5 +46,8 @@
 	"friday": "الجمعة",
 	"saturday": "السبت",
 	"sunday": "الأحد",
-	"dayOfWeek": "يوم الأسبوع"
+	"dayOfWeek": "يوم الأسبوع",
+	"dayOfMonth": "يوم الشهر",
+	"submit": "تأكيد",
+	"cancel": "الغاء"
 }

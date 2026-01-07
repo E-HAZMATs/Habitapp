@@ -49,7 +49,9 @@ export class CreateHabitModal {
    dayOfMonth: new FormControl(null, {})
   });
 
-  submit() {}
+  submit() {
+    console.log('hi')
+  }
 
   get currentFrequencyType() {
     return this.form.controls.frequencyType.value;

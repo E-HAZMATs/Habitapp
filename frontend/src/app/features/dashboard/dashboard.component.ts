@@ -16,7 +16,7 @@ export class DashboardComponent {
   openDialog() {
     const dialogRef = this.dialog.open(CreateHabitModal);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result', result);
+      // console.log('result', result);
     })
   }
 }

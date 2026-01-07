@@ -1,4 +1,3 @@
-    <!-- Add Habit. Mat ang dialog?. -->
 <h2 mat-dialog-title class="self-center">{{ 'addHabit' | translate }}</h2>
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-4 gap-1 gap-y-2">
@@ -65,7 +64,7 @@
         }
         @else {
             <mat-form-field class="col-span-2" subscriptSizing="dynamic">
-                <mat-label>Day of month</mat-label>
+                <mat-label>{{ 'dayOfMonth' | translate }}</mat-label>
                 <select matNativeControl formControlName="dayOfMonth">
                     @for (day of daysOfMonth; track day) {
                         <option [value]="day">{{ day }}</option>
@@ -78,6 +77,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button matButton mat-dialog-close>Cancel</button>
-  <button matButton [mat-dialog-close]="true" cdkFocusInitial>submit    </button>
+  <button matButton mat-dialog-close>{{ 'cancel' | translate }}</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial>{{'submit' | translate }}</button>
 </mat-dialog-actions>

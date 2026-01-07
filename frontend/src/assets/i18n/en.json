@@ -46,6 +46,10 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday",
-	"dayOfWeek": "Day of the Week"
+	"dayOfWeek": "Day of the Week",
+	"dayOfMonth": "Day of the Month",
+	"submit": "Submit",
+	"cancel": "Cancel"
+
 
 }
