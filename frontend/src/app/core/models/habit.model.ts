@@ -17,12 +17,12 @@ export interface habit {
 
 export interface createHabitDto {
   name: string;
-  description?: string;
+  description: string | null;
   frequencyType: frequencyType;
   frequencyAmount: number;
-  dayOfWeek?: number;
-  dayOfMonth?: number;
-  timeOfDay?: string;
+  dayOfWeek: number | null;
+  dayOfMonth: number | null;
+  timeOfDay: string | null;
 }
 
 export interface updateHabitDto {

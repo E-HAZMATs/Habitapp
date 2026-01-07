@@ -3,7 +3,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-4 gap-1 gap-y-2">
         <mat-form-field class="col-span-4">
             <mat-label>{{ 'name' | translate }}</mat-label>
-            <input matInput type="text" formControlName="name"/>
+            <input matInput type="text" formControlName="name" required/>
         </mat-form-field>
         
         <mat-form-field class="col-span-4">
@@ -42,6 +42,7 @@
         <!-- show time of day if frequency type = daily, else if weekly show days of week, else show day of month (what if pick 30th and then feburary wouldn't work!) -->
         @if (currentFrequencyType === 'daily'){
             <mat-form-field class="col-span-2" subscriptSizing="dynamic">
+                <!-- TODO: Convert input into 24 hour format. DB usees TIME datatype. It has no PM/AM. -->
                 <mat-label>{{ 'timeOfDay' | translate }}</mat-label>
                 <!-- NO RTL Support for this? -->
                 <input matInput type="time" formControlName="timeOfDay"/>
@@ -72,11 +73,11 @@
                 </select>
             </mat-form-field>
         }
+        <mat-dialog-actions align="end" class="col-span-4">
+          <button type="button" matButton mat-dialog-close>{{ 'cancel' | translate }}</button>
+          <button type="submit" matButton [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
+        </mat-dialog-actions>
     </form>
  
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button matButton mat-dialog-close>{{ 'cancel' | translate }}</button>
-  <button matButton [mat-dialog-close]="true" cdkFocusInitial>{{'submit' | translate }}</button>
-</mat-dialog-actions>
