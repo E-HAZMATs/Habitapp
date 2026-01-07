@@ -32,6 +32,8 @@ import { daysOfWeek } from '../../../core/constants/days-of-week';
 })
 export class CreateHabitModal {
   protected daysOfWeek = daysOfWeek
+  protected daysOfMonth = Array.from({ length: 31 }, (_, i) => i + 1);
+
   protected form = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -42,7 +44,9 @@ export class CreateHabitModal {
    frequencyType: new FormControl('daily', {
    }),
    frequencyAmount: new FormControl(1, {}),
-   timeOfDay: new FormControl(0, {})
+   timeOfDay: new FormControl(0, {}),
+   dayOfWeek: new FormControl(null, {}),
+   dayOfMonth: new FormControl(null, {})
   });
 
   submit() {}

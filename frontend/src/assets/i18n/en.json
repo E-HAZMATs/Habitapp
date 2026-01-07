@@ -45,6 +45,7 @@
     "thursday": "Thursday",
     "friday": "Friday",
     "saturday": "Saturday",
-    "sunday": "Sunday"
+    "sunday": "Sunday",
+	"dayOfWeek": "Day of the Week"
 
 }
