@@ -86,7 +86,7 @@ export class CreateHabitModal {
   getValidationError(
     control: AbstractControl,
     fieldName: any,
-    number?: number
+    number?: number | number[]
   ): string | null {
     return this.validationErrorService.getValidationError(control, fieldName, number !== undefined ? number : undefined);
   }

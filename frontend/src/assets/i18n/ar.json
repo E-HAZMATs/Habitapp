@@ -51,5 +51,7 @@
 	"submit": "تأكيد",
 	"cancel": "الغاء",
 	"nameRequired": "الرجاء ادخال الاسم",
-	"maximumXChars": "المدخل يجب أن يكون أقل من {{number}} رمز"
+	"maximumXChars": "المدخل يجب أن يكون أقل من {{number}} رمز",
+	"inputBetweenXY": "المدخل يجب أن يكون بين {{number1}} و {{number2}}",
+	"required": "الرجاء ادخال البيانات"
 }
