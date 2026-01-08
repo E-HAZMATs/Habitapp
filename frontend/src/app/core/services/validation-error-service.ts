@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 // TODO: Outsource this to shared?
-type Field = 'email' | 'password' | 'confirmPassword' | 'username'  // need better way?
+type Field = 'email' | 'password' | 'confirmPassword' | 'username' | 'name'  // need better way?
 export const VALIDATION_ERROR_KEYS = {
   // CHECK: If i have multiple email input fields, do I need to have different names for them?
   // so thye have a different scope here? or are will all email fields have the same validation?
@@ -20,6 +20,13 @@ export const VALIDATION_ERROR_KEYS = {
   },
   username: {
     required: "usernameRequired", //TODO: Add min length for pass and this.
+  },
+  name: {
+    required: "nameRequired",
+    maxlength: "maximumXChars"
+  },
+  description: {
+    maxlength: "maximumXChars"
   }
   // TODO: Add fallback/default validation messages?
 } as const
@@ -30,11 +37,11 @@ export const VALIDATION_ERROR_KEYS = {
 export class ValidationErrorService {
   private translateSerive = inject(TranslateService)
 
-  getValidationError(control: AbstractControl, field: Field): string | null {
+  getValidationError(control: AbstractControl, field: Field, number?: number): string | null {
     if (!control || !control.touched || !control.errors) return null;
     const errorKey = Object.keys(control.errors)[0] as keyof typeof VALIDATION_ERROR_KEYS[Field];
     const messageKey = VALIDATION_ERROR_KEYS[field][errorKey];
-    const message = messageKey ? this.translateSerive.instant(messageKey) : "THIS IS WRONG COME FIX IT!!" // TODO: Fallback needs default
+    const message = messageKey ? this.translateSerive.instant(messageKey, number !== undefined ? {number} : undefined) : "THIS IS WRONG COME FIX IT!!" // TODO: Fallback needs default
     return message;
   }
 }

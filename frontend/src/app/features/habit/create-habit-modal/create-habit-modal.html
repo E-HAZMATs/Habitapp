@@ -4,13 +4,23 @@
         <mat-form-field class="col-span-4">
             <mat-label>{{ 'name' | translate }}</mat-label>
             <input matInput type="text" formControlName="name" required/>
+            @let nameError = getValidationError(this.form.controls.name, 'name', HABIT_VALIDATION_CONSTS.NAME_MAX_LENGTH);
+            @if(nameError){
+                <mat-error >{{ nameError }}</mat-error>
+            }
+                <!-- <mat-error> {{ 'maximumXChars' | translate: {number: 100} }}</mat-error> -->
         </mat-form-field>
         
         <mat-form-field class="col-span-4">
             <mat-label>{{ 'description' | translate }}</mat-label>
             <textarea matInput type="text" formControlName="description"></textarea>
+            @let descriptionError = getValidationError(this.form.controls.description, 'description', HABIT_VALIDATION_CONSTS.DESCRIPTION_MAX_LENGTH);
+            @if (descriptionError) {
+                <mat-error>{{descriptionError}}</mat-error>
+            }
         </mat-form-field>
 
+        <!-- CHECK: Should there be validation for "required" here? it seems this always has a vlaue since formcontroller has default? -->
         <div class="frequency-field col-span-4">
             <!-- <label class="frequency-label">{{ 'frequency' | translate }}</label> -->
             <mat-radio-group formControlName="frequencyType" class="frequency-group">

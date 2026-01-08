@@ -49,7 +49,9 @@
 	"dayOfWeek": "Day of the Week",
 	"dayOfMonth": "Day of the Month",
 	"submit": "Submit",
-	"cancel": "Cancel"
+	"cancel": "Cancel",
+	"nameRequired": "Please enter the name",
+	"maximumXChars": "Input should be at most {{number}} characters"
 
 
 }
