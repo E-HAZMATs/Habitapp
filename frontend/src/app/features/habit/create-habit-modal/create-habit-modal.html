@@ -36,16 +36,19 @@
             </mat-radio-group>
         </div>
         <!-- CHECKIMP: Sometimes switching language doesn't make this form ltr/rtl. Needs to restart page? -->
-        <div class="col-span-2 flex items-center">
-            <span class="whitespace-nowrap">{{ 'repeatEvery' | translate }}</span>
-            <mat-form-field class="w-[30%] mx-1" subscriptSizing="dynamic" >
-                <!-- <mat-label>Frequency amount</mat-label> -->
-                <input matInput type="number" formControlName="frequencyAmount" min="1" max="99"/>
-                <!-- TODO: Fix the layout here. -->
-                @let freqAmountError = getValidationError(this.form.controls.frequencyAmount, "frequencyAmount", [1, HABIT_VALIDATION_CONSTS.FREQUENCY_AMOUNT_MAX]);
-                <mat-error>{{freqAmountError}}</mat-error>
-            </mat-form-field>
-            <span>{{currentFrequencyLocalizationKey | translate}}</span>
+        <div class="col-span-2 flex-row items-center">
+            <div class="flex items-center gap-5">
+                <span class="whitespace-nowrap">{{ 'repeatEvery' | translate }}</span>
+                <mat-form-field class="w-[30%] mx-1" subscriptSizing="dynamic" >
+                    <!-- <mat-label>Frequency amount</mat-label> -->
+                    <input matInput type="number" formControlName="frequencyAmount" min="1" max="99"/>
+                </mat-form-field>
+                <span>{{currentFrequencyLocalizationKey | translate}}</span>
+            </div>
+            
+            <!-- TODO: Fix the layout here. Already kinda did, still looks meh.-->
+            @let freqAmountError = getValidationError(this.form.controls.frequencyAmount, "frequencyAmount", [1, HABIT_VALIDATION_CONSTS.FREQUENCY_AMOUNT_MAX]);
+            <mat-error class="mt-2">{{freqAmountError}}</mat-error>
         </div>
         
         

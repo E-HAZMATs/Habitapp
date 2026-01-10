@@ -48,7 +48,6 @@ export class ValidationErrorService {
     const messageKey = VALIDATION_ERROR_KEYS[field][errorKey];
     let params: Record<string, any> = {};
     if (Array.isArray(number)) {
-      debugger;
       params = {};
       number.forEach((n, i) => {
         params[`number${i + 1}`] = n;
