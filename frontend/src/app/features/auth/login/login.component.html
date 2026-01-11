@@ -25,7 +25,7 @@
                 }
             </mat-form-field>
 
-            <button mat-raised-button type="submit" disabled="false">
+            <button mat-raised-button type="submit" [disabled]="isLoading()">
                 @if(!this.isLoading()){
                     {{ 'login' | translate}}
                 }
@@ -33,7 +33,6 @@
                     <mat-spinner diameter="20"></mat-spinner>
                 }
             </button>
-            <!-- TODOIMP: Disable button when submit. -->
              <!-- TODO: Make a general loader component. -->
             <div class="text-center mt-2">
                 <span>{{ 'YouHaveNoAccount' | translate }} </span>

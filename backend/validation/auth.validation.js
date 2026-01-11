@@ -6,7 +6,7 @@ exports.registerSchema = Joi.object({
     "string.email": 'invalidEmail',
     "any.required": 'emailRequired',
   }),
-  username: Joi.string().required().messages({
+  username: Joi.string().pattern(/^\S{4,15}$/).required().messages({
     "any.required": "usernameRequired",
   }),
   password: Joi.string().min(1).required().messages({    //TODO: change min to suitble limit.

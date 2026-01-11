@@ -28,6 +28,7 @@ import { ValidationErrorService } from '../../../core/services/validation-error-
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../core/constants/app-routes';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { noWhitespaceValidator } from '../../../core/validators/field-validators';
 @Component({
   selector: 'app-register',
   imports: [
@@ -62,7 +63,7 @@ export class Register {
   protected form = new FormGroup({
     username: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(3)],
+      validators: [Validators.required, Validators.minLength(3), noWhitespaceValidator],
     }),
     email: new FormControl('', {
       nonNullable: true,
