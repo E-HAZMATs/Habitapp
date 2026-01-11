@@ -6,8 +6,10 @@ exports.registerSchema = Joi.object({
     "string.email": 'invalidEmail',
     "any.required": 'emailRequired',
   }),
+  // CHECK: What other username validation is needed? allow correct symbols.
   username: Joi.string().pattern(/^\S{4,15}$/).required().messages({
     "any.required": "usernameRequired",
+    "string.pattern.base": "userNameValidationMsg"
   }),
   password: Joi.string().min(1).required().messages({    //TODO: change min to suitble limit.
     "any.required": "passwordRequired",

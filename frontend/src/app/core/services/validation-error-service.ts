@@ -20,6 +20,9 @@ export const VALIDATION_ERROR_KEYS = {
   },
   username: {
     required: "usernameRequired", //TODO: Add min length for pass and this.
+    whitespace: "noWhiteSpaceAllowed",
+    maxlength: "userNameLengthValidation",
+    minlength: "userNameLengthValidation"
   },
   name: {
     required: "nameRequired",

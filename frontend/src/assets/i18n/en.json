@@ -53,7 +53,8 @@
 	"nameRequired": "Please enter the name",
 	"maximumXChars": "Input should be at most {{number}} characters",
 	"inputBetweenXY": "Input should between {{number1}} and {{number2}}",
-	"required": "Please input data"
-
+	"required": "Please input data",
+	"noWhiteSpaceAllowed": "Input should not contain any whitespace",
+	"userNameLengthValidation": "User name should be composed of 4 to 15 characters"
 
 }

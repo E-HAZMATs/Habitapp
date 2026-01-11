@@ -63,7 +63,7 @@ export class Register {
   protected form = new FormGroup({
     username: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(3), noWhitespaceValidator],
+      validators: [Validators.required, Validators.minLength(4), Validators.maxLength(15), noWhitespaceValidator],
     }),
     email: new FormControl('', {
       nonNullable: true,

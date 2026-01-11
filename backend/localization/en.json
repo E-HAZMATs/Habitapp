@@ -25,5 +25,6 @@
 	"wrongLoginCreds": "Email or password are wrong.",
 	"AuthRequired": "Authentication is required",
 	"notFound": "Resource not found.",
-	"notAuthorized": "Access not authorized"
+	"notAuthorized": "Access not authorized",
+	"userNameValidationMsg": "User name should not contain any whitespace, and be composed of 4 to 15 characters."
 }
