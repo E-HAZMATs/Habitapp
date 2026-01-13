@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
+import { MatFormField, MatLabel, MatHint, MatError, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -17,6 +17,9 @@ import { HabitService } from '../../../core/services/habit-service';
 import { frequencyType } from '../../../core/models/habit.model';
 import { ValidationErrorService } from '../../../core/services/validation-error-service';
 import { HABIT_VALIDATION_CONSTS } from '../../../core/constants/habit-validation.constants';
+import { MatTimepicker, MatTimepickerToggle, MatTimepickerInput } from '@angular/material/timepicker';
+import { DateAdapter, provideNativeDateAdapter } from '@angular/material/core';
+import { LocalizationService } from '../../../core/services/localization-service';
 @Component({
   selector: 'app-create-habit-modal',
   imports: [
@@ -31,9 +34,14 @@ import { HABIT_VALIDATION_CONSTS } from '../../../core/constants/habit-validatio
     MatRadioGroup,
     MatHint,
     MatError,
+    MatTimepicker,
+    MatTimepickerToggle,
+    MatSuffix,
+    MatTimepickerInput,
 ],
-  templateUrl: './create-habit-modal.html',
-  styleUrl: './create-habit-modal.css',
+providers: [provideNativeDateAdapter()],
+templateUrl: './create-habit-modal.html',
+styleUrl: './create-habit-modal.css',
 })
 export class CreateHabitModal {
   protected daysOfWeek = daysOfWeek
@@ -41,6 +49,9 @@ export class CreateHabitModal {
   protected HABIT_VALIDATION_CONSTS = HABIT_VALIDATION_CONSTS
   private habitService = inject(HabitService)
   private validationErrorService = inject(ValidationErrorService)
+  private localizationService = inject(LocalizationService)
+  private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
+  
   protected form = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -65,7 +76,11 @@ export class CreateHabitModal {
    })
   });
 
+  constructor() {
+    this.setTimePickerLocale()
+  }
   submit() {
+    // this._adapter.setLocale('')
     if (this.form.invalid) return;
     const values = this.form.getRawValue()
     this.habitService.create(values)
@@ -89,5 +104,11 @@ export class CreateHabitModal {
     number?: number | number[]
   ): string | null {
     return this.validationErrorService.getValidationError(control, fieldName, number !== undefined ? number : undefined);
+  }
+
+  setTimePickerLocale(){
+    const currentLang = this.localizationService.currentLanguage();
+    const locale = currentLang === "ar" ? 'ar-SA' : 'en-US'
+    this._adapter.setLocale(locale)
   }
 }

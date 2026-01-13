@@ -60,8 +60,11 @@
                 <!-- TODO: Convert input into 24 hour format. DB usees TIME datatype. It has no PM/AM. -->
                 <mat-label>{{ 'timeOfDay' | translate }}</mat-label>
                 <!-- NO RTL Support for this? -->
-                <input matInput type="time" formControlName="timeOfDay"/>
+                <!-- <input matInput type="time" formControlName="timeOfDay"/> -->
                 <!-- <mat-hint>some hint</mat-hint> -->
+                 <input matInput formControlName="timeOfDay" [matTimepicker]="picker"/>
+                 <mat-timepicker-toggle matIconSuffix [for]="picker"/>
+                 <mat-timepicker #picker/>
             </mat-form-field>
             }
         @else if (currentFrequencyType === 'weekly') {
@@ -89,8 +92,8 @@
             </mat-form-field>
         }
         <mat-dialog-actions align="end" class="col-span-4">
-          <button type="button" matButton mat-dialog-close>{{ 'cancel' | translate }}</button>
-          <button type="submit" matButton [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
+          <button type="button" matButton="filled" mat-dialog-close>{{ 'cancel' | translate }}</button>
+          <button type="submit" matButton="filled" [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
         </mat-dialog-actions>
     </form>
  
