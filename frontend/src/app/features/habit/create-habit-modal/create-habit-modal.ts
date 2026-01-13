@@ -57,7 +57,8 @@ export class CreateHabitModal {
       nonNullable: true,
       validators: [Validators.required, Validators.maxLength(HABIT_VALIDATION_CONSTS.NAME_MAX_LENGTH)],
     }),
-   description: new FormControl('', {
+    // CHECK: If a desc is entered and then deleted, it will be an empty string. Will this cause an issue?
+   description: new FormControl(null, {
     validators: [Validators.maxLength(HABIT_VALIDATION_CONSTS.DESCRIPTION_MAX_LENGTH)]
    }),
    frequencyType: new FormControl<frequencyType>('daily', {
@@ -69,7 +70,7 @@ export class CreateHabitModal {
        Validators.min(1), Validators.required],
     nonNullable: true
    }),
-   timeOfDay: new FormControl(null, {}),
+   timeOfDay: new FormControl<Date | null>(null, {}),
    dayOfWeek: new FormControl(null, {}),
    dayOfMonth: new FormControl(null, {
     validators: [Validators.max(HABIT_VALIDATION_CONSTS.DAY_OF_MONTH_MAX), Validators.min(1)]
@@ -80,10 +81,14 @@ export class CreateHabitModal {
     this.setTimePickerLocale()
   }
   submit() {
-    // this._adapter.setLocale('')
     if (this.form.invalid) return;
     const values = this.form.getRawValue()
-    this.habitService.create(values)
+    const payload = {
+      ...values,
+      timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null
+    }
+
+    this.habitService.create(payload)
   }
 
   get currentFrequencyType() {
@@ -111,4 +116,13 @@ export class CreateHabitModal {
     const locale = currentLang === "ar" ? 'ar-SA' : 'en-US'
     this._adapter.setLocale(locale)
   }
+
+  dateToSqlTime(date: Date): string {
+  const h = date.getHours().toString().padStart(2, '0');
+  const m = date.getMinutes().toString().padStart(2, '0');
+  const s = date.getSeconds().toString().padStart(2, '0');
+
+  return `${h}:${m}:${s}`;
+}
+
 }

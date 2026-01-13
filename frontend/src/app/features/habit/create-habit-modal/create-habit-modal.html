@@ -57,10 +57,8 @@
         <!-- show time of day if frequency type = daily, else if weekly show days of week, else show day of month (what if pick 30th and then feburary wouldn't work!) -->
         @if (currentFrequencyType === 'daily'){
             <mat-form-field class="col-span-2" subscriptSizing="dynamic">
-                <!-- TODO: Convert input into 24 hour format. DB usees TIME datatype. It has no PM/AM. -->
+                <!-- TODO: Should time be required? Make it current time? Do same with month and week make current unit? -->
                 <mat-label>{{ 'timeOfDay' | translate }}</mat-label>
-                <!-- NO RTL Support for this? -->
-                <!-- <input matInput type="time" formControlName="timeOfDay"/> -->
                 <!-- <mat-hint>some hint</mat-hint> -->
                  <input matInput formControlName="timeOfDay" [matTimepicker]="picker"/>
                  <mat-timepicker-toggle matIconSuffix [for]="picker"/>
