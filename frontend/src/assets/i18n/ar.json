@@ -55,5 +55,6 @@
 	"inputBetweenXY": "المدخل يجب أن يكون بين {{number1}} و {{number2}}",
 	"required": "الرجاء ادخال البيانات",
 	"noWhiteSpaceAllowed": "المدخل يجب أن لا يحتوي مسافات",
-	"userNameLengthValidation": "اسم المستخدم يجب أن يتكون من 4 إلى 15 رمز "
+	"userNameLengthValidation": "اسم المستخدم يجب أن يتكون من 4 إلى 15 رمز ",
+	"dayOfMonthHint": "إذا كان اليوم غير موجود, سيتم اختيار آخر يوم من ذاك الشهر."
 }

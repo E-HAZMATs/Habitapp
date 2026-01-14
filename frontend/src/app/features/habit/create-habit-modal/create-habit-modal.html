@@ -87,9 +87,12 @@
                         <option [value]="day">{{ day }}</option>
                     }
                 </select>
+                @if (currentDayOfMonth && currentDayOfMonth > 28){
+                    <mat-hint>{{ 'dayOfMonthHint' | translate }}</mat-hint>
+                }
             </mat-form-field>
         }
-        <mat-dialog-actions align="end" class="col-span-4">
+        <mat-dialog-actions align="start" class="col-span-4">
           <button type="button" matButton="filled" mat-dialog-close>{{ 'cancel' | translate }}</button>
           <button type="submit" matButton="filled" [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
         </mat-dialog-actions>

@@ -95,6 +95,10 @@ export class CreateHabitModal {
     return this.form.controls.frequencyType.value;
   }
 
+  get currentDayOfMonth() {
+    return this.form.controls.dayOfMonth.value;
+  }
+  
   get currentFrequencyLocalizationKey() {
     const frequencyType = this.form.controls.frequencyType.value;
     const frequencyAmount = this.form.controls.frequencyAmount.value!;

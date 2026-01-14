@@ -55,6 +55,7 @@
 	"inputBetweenXY": "Input should between {{number1}} and {{number2}}",
 	"required": "Please input data",
 	"noWhiteSpaceAllowed": "Input should not contain any whitespace",
-	"userNameLengthValidation": "User name should be composed of 4 to 15 characters"
+	"userNameLengthValidation": "User name should be composed of 4 to 15 characters",
+	"dayOfMonthHint": "In case the day does not exist, the last day of the month will be selected."
 
 }
