@@ -1,4 +1,4 @@
-const { Habit } = require('../models')
+const { Habit, HabitLog } = require('../models')
 
 exports.create = async (data) => {
     return await Habit.create(data);
@@ -52,4 +52,15 @@ exports.getAllByUser = async (userId) => {
 exports.getById = async (id) => {
     const habit = await Habit.findByPk(id)
     return habit
+}
+
+exports.habitComplete = async (habitId, userId, reqBody) => {
+    const habit = await Habit.findByPk(habitId);
+    if (habit.userId !== userId) // User can't complete another user's habits.
+        return -1
+    const result = await HabitLog.create({
+        habitId: habitId,
+        completedAt: reqBody.completedAt
+    });
+    return result;
 }

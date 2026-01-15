@@ -11,4 +11,5 @@ router.patch('/update/:id', wrappedController.update)
 router.delete('/delete/:id', wrappedController.delete)
 router.get('/getAllByUser', wrappedController.getAllByUser)
 router.get('/getById/:id', wrappedController.getById)
+router.post('/habitComplete/:id', wrappedController.habitComplete)
 module.exports = router

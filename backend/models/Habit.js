@@ -1,3 +1,4 @@
+// TODO: Add schduled task that is only completed once? (not a habit then)
 module.exports = (sequelize, DataTypes) => {
   const Habit = sequelize.define('Habit', {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
