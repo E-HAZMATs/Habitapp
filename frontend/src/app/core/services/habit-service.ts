@@ -91,6 +91,22 @@ export class HabitService {
     }
   }
 
+  async habitComplete(habitId: string, completedAt : string): Promise<any> {
+  try {
+    const response = await firstValueFrom(
+      this.api.post<ApiResponse<any>>(`/habit/habitComplete/${habitId}`, {completedAt})
+    );
+    
+    const msg = response.message;
+    this.toastService.show(msg, 'success');
+    
+    return response.data!;
+  } catch (err) {
+    this.handleErrorToast(err);
+    throw err;
+  }
+}
+
   private handleErrorToast = (err: any): void => {
     const backendMsg = 
       err.error?.message || 
