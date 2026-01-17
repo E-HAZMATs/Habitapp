@@ -35,4 +35,10 @@ export class DashboardComponent implements OnInit {
     this.habits.set(await this.habitService.getAllByUser());
     console.log(this.habits())
   }
+
+  protected completeHabit(habitId: string){
+    // TODO: Add validation? is it time for completion now?
+    this.habitService.habitComplete(habitId, new Date().toISOString())
+  }
+  
 }

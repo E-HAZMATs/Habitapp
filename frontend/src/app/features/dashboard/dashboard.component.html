@@ -9,7 +9,7 @@
 
             @for (habit of habits(); track habit.id){
                 
-                <div class="container bg-blue-950 flex flex-row justify-between items-center h-[8vh]">
+                <div class="container bg-blue-950 flex flex-row justify-between items-center h-[8vh] mt-2">
                     <div class="h-full flex items-center p-5">
                         <h2 class="font-bold">{{habit.name}}</h2>
                     </div>
@@ -17,7 +17,7 @@
                     <!-- Show complete btn if habit is at specified time, else count down? -->
                     @if (true){
                         <div class="h-full flex items-center border-s p-5">
-                            <button matButton="tonal" class="">habit</button>
+                            <button matButton="tonal" class="" (click)="completeHabit(habit.id)">Complete</button>
                         </div>
                     }
                 </div>
