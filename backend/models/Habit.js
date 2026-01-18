@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     frequencyAmount: { type: DataTypes.INTEGER, defaultValue: 1 },
     dayOfWeek: { type: DataTypes.INTEGER, allowNull: true },
     dayOfMonth: { type: DataTypes.INTEGER, allowNull: true },
-    timeOfDay: { type: DataTypes.TIME, allowNull: true }
+    timeOfDay: { type: DataTypes.TIME, allowNull: true },
+    lastCompleted: { type: DataTypes.DATE, allowNull: true}
   }, {
     tableName: 'Habits',
     timestamps: true,
