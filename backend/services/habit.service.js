@@ -62,5 +62,11 @@ exports.habitComplete = async (habitId, userId, reqBody) => {
         habitId: habitId,
         completedAt: reqBody.completedAt
     });
-    return result;
+    // CHECK: Should have try/catch?
+    if (result) {
+        habit.lastCompleted = reqBody.completedAt;
+        await habit.save();
+        return result;
+    }
+    return -1;
 }

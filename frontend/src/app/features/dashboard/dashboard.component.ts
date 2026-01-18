@@ -6,10 +6,11 @@ import { MatButton } from '@angular/material/button';
 import { BidiModule } from "@angular/cdk/bidi";
 import { HabitService } from '../../core/services/habit-service';
 import { habit } from '../../core/models/habit.model';
+import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 
 @Component({
   selector: 'app-dashboard.component',
-  imports: [CreateHabitModal, MatButton],
+  imports: [CreateHabitModal, MatButton, MatCard, MatCardContent, MatCardSubtitle, MatCardTitle],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

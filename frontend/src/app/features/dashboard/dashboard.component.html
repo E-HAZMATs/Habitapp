@@ -4,24 +4,35 @@
 
     <!-- Incoming habits section -->
      <!-- FIX HEIGHTS -->
-     <div class="mt-5 w-full min-h-[10vh] max-h-[50vh] overflow-auto">
+     <div class="mt-5 w-full min-h-[10vh] max-h-[80vh] overflow-auto">
         @if (habits()){
-
             @for (habit of habits(); track habit.id){
-                
-                <div class="container bg-blue-950 flex flex-row justify-between items-center h-[8vh] mt-2">
-                    <div class="h-full flex items-center p-5">
-                        <h2 class="font-bold">{{habit.name}}</h2>
-                    </div>
-                    
-                    <!-- Show complete btn if habit is at specified time, else count down? -->
-                    @if (true){
-                        <div class="h-full flex items-center border-s p-5">
-                            <button matButton="tonal" class="" (click)="completeHabit(habit.id)">Complete</button>
+                <mat-card class="mt-2">
+                    <mat-card-content class="grid grid-cols-12 gap-4 items-start">
+                        <!-- <div class="h-full flex items-center p-5">
+                            <h2 class="font-bold">{{habit.name}}</h2>
+                        </div> -->
+                        <div class="col-span-4">
+                            <mat-card-title>{{habit.name}}</mat-card-title>
                         </div>
-                    }
-                </div>
+                        
+                        <div class="col-span-6">
+                            @if (habit.description){
+                                <p>{{habit.description}}</p>
+                            }
+                        </div>
+                        
+                        <!-- Show complete btn if habit is at specified time, else count down? -->
+                        @if (true){
+                            <div class="col-span-2 flex justify-end">
+                                <button mat-raised-button color="primary" (click)="completeHabit(habit.id)">Complete</button>
+                            </div>
+                        }
+                    </mat-card-content>
+                </mat-card>
             }
+    } @else {
+        <p>You have not added any habts...</p>
     }
      </div>
 </div>
