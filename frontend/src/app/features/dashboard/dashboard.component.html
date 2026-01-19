@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center items-center">
-    <button (click)="openDialog()">Open dialog</button>
+    <button (click)="openDialog()" matButton="filled">{{ "addHabit" | translate }}</button>
     <!-- <app-create-habit-modal/> -->
 
     <!-- Incoming habits section -->
@@ -8,7 +8,7 @@
         @if (habits()){
             @for (habit of habits(); track habit.id){
                 <mat-card class="mt-2">
-                    <mat-card-content class="grid grid-cols-12 gap-4 items-start">
+                    <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
                         <!-- <div class="h-full flex items-center p-5">
                             <h2 class="font-bold">{{habit.name}}</h2>
                         </div> -->
@@ -18,16 +18,17 @@
                         
                         <div class="col-span-6">
                             @if (habit.description){
-                                <p>{{habit.description}}</p>
+                                <!-- <p>{{habit.description}}</p> -->
+                                <mat-card-subtitle>{{habit.description}}</mat-card-subtitle>
                             }
                         </div>
                         
                         <!-- Show complete btn if habit is at specified time, else count down? -->
+                        <div class="col-span-2 flex justify-end">
                         @if (true){
-                            <div class="col-span-2 flex justify-end">
-                                <button mat-raised-button color="primary" (click)="completeHabit(habit.id)">Complete</button>
-                            </div>
-                        }
+                                <button matButton="filled"  (click)="completeHabit(habit.id)">Complete</button>
+                            }
+                        </div>
                     </mat-card-content>
                 </mat-card>
             }

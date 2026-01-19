@@ -13,6 +13,7 @@ export interface habit {
   timeOfDay?: string;
   createdAt: string;
   updatedAt: string;
+  lastCompleted?: string;
 }
 
 export interface createHabitDto {
