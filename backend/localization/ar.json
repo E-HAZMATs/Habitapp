@@ -11,7 +11,7 @@
 	"habitNoExist": "العادة غير موجودة",
 	"InternalServerError": "خطأ في الخادم",
 	"invalidEmail": "صيغة البريد خطأ.",
-	"invalidHabitId": "هوية العادة (id) غير صحيحة",
+	"invalidHabitId": "معرف العادة غير صحيحة",
 	"invalidRt": "invalid rt couldn't refresh session.",
 	"invalidToken": "إثبات الدخول (JWT Token) غير صحيح",
 	"noRefreshToken": "فشل تحديث إثبات الدخول. عدم توفر RT في الطلب.",
