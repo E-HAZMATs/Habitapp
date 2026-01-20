@@ -8,7 +8,7 @@ import { HabitService } from '../../core/services/habit-service';
 import { habit } from '../../core/models/habit.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { TranslatePipe } from '@ngx-translate/core';
-import { compareDateDays } from '../../core/utils/compare-date-days';
+import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 
 @Component({
   selector: 'app-dashboard.component',
@@ -65,14 +65,22 @@ export class DashboardComponent implements OnInit {
             const daysTillDue = habit.frequencyAmount - daysSinceLastComplete; // Problem if daysSince > freqAmount!! Need to handle missing completions.
             if (daysTillDue > 0) // TODO: Delete this? put to prevent duedate in past in case of missing completions.
               date.setDate(date.getDate() + daysTillDue);
-            
             habit.dueIn = date;
           }
         }
       }
       else if (habit.frequencyType === 'weekly') {
-        // debugger;
+        // This requires some validation in the create modal.
+        if (!habit.lastCompleted){
+          debugger
+          const dueDate = getNextDayDate(habit.dayOfWeek, date); // Day of week could be null. This needs to be fixed.
+          habit.duedate = dueDate;
+        }
+        else{
+          
+        }
       }
+
       else {
 
       }

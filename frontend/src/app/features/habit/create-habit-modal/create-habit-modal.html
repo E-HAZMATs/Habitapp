@@ -69,7 +69,7 @@
             <mat-form-field class="col-span-2" subscriptSizing="dynamic">
                 <mat-label>{{"dayOfWeek" | translate}}</mat-label>
                 <!-- See about this warning. -->
-                <select matNativeControl>
+                <select matNativeControl formControlName="dayOfWeek">
                     <!-- TODO: Make ar start at sunday, while en start at monday? -->
                     @for (day of daysOfWeek; track $index) {
                         <option [value]="$index">

@@ -71,7 +71,7 @@ export class CreateHabitModal {
     nonNullable: true
    }),
    timeOfDay: new FormControl<Date | null>(null, {}),
-   dayOfWeek: new FormControl(null, {}),
+   dayOfWeek: new FormControl(null, {}), // TODO: Make required? or make value (in case weekly is chosen) today's day of week? Same for month?
    dayOfMonth: new FormControl(null, {
     validators: [Validators.max(HABIT_VALIDATION_CONSTS.DAY_OF_MONTH_MAX), Validators.min(1)]
    })
@@ -87,7 +87,6 @@ export class CreateHabitModal {
       ...values,
       timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null
     }
-
     this.habitService.create(payload)
   }
 
