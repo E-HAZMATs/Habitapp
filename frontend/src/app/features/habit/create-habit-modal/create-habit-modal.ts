@@ -95,6 +95,7 @@ export class CreateHabitModal {
 
   constructor() {
     this.setTimePickerLocale();
+    this.setupConditionalValidation();
   }
   submit() {
     if (this.form.invalid) return;

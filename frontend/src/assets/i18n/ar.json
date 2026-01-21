@@ -57,5 +57,6 @@
 	"noWhiteSpaceAllowed": "المدخل يجب أن لا يحتوي مسافات",
 	"userNameLengthValidation": "اسم المستخدم يجب أن يتكون من 4 إلى 15 رمز ",
 	"dayOfMonthHint": "إذا كان اليوم غير موجود, سيتم اختيار آخر يوم من ذاك الشهر.",
-	"noWhitespaceName": "الاسم يجب أن لا يكون مسافة."
+	"noWhitespaceName": "الاسم يجب أن لا يكون مسافة.",
+	"areRequiredFields": "الحقول التي تحتوى * اجبارية"
 }

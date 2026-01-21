@@ -92,9 +92,14 @@
                 }
             </mat-form-field>
         }
-        <mat-dialog-actions align="start" class="col-span-4">
-          <button type="button" matButton="filled" mat-dialog-close>{{ 'cancel' | translate }}</button>
-          <button type="submit" matButton="filled" [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
+        <mat-dialog-actions align="start" class="col-span-4 flex !justify-between">
+        <div>
+            <button type="button" matButton="filled" mat-dialog-close>{{ 'cancel' | translate }}</button>
+            <button type="submit" matButton="filled" [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
+        </div>
+        <div>
+            <span class="ms-2">{{ "areRequiredFields" | translate }}</span>
+        </div>
         </mat-dialog-actions>
     </form>
  
