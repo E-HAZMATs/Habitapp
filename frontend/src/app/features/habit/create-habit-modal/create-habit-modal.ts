@@ -20,6 +20,7 @@ import { HABIT_VALIDATION_CONSTS } from '../../../core/constants/habit-validatio
 import { MatTimepicker, MatTimepickerToggle, MatTimepickerInput } from '@angular/material/timepicker';
 import { DateAdapter, provideNativeDateAdapter } from '@angular/material/core';
 import { LocalizationService } from '../../../core/services/localization-service';
+import { noWhitespaceNameValidator } from '../../../core/validators/field-validators';
 @Component({
   selector: 'app-create-habit-modal',
   imports: [
@@ -38,56 +39,71 @@ import { LocalizationService } from '../../../core/services/localization-service
     MatTimepickerToggle,
     MatSuffix,
     MatTimepickerInput,
-],
-providers: [provideNativeDateAdapter()],
-templateUrl: './create-habit-modal.html',
-styleUrl: './create-habit-modal.css',
+  ],
+  providers: [provideNativeDateAdapter()],
+  templateUrl: './create-habit-modal.html',
+  styleUrl: './create-habit-modal.css',
 })
 export class CreateHabitModal {
-  protected daysOfWeek = daysOfWeek
+  protected daysOfWeek = daysOfWeek;
   protected daysOfMonth = Array.from({ length: 31 }, (_, i) => i + 1);
-  protected HABIT_VALIDATION_CONSTS = HABIT_VALIDATION_CONSTS
-  private habitService = inject(HabitService)
-  private validationErrorService = inject(ValidationErrorService)
-  private localizationService = inject(LocalizationService)
-  private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
-  
+  protected HABIT_VALIDATION_CONSTS = HABIT_VALIDATION_CONSTS;
+  private habitService = inject(HabitService);
+  private validationErrorService = inject(ValidationErrorService);
+  private localizationService = inject(LocalizationService);
+  private readonly _adapter =
+    inject<DateAdapter<unknown, unknown>>(DateAdapter);
+
   protected form = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.maxLength(HABIT_VALIDATION_CONSTS.NAME_MAX_LENGTH)],
+      validators: [
+        Validators.required,
+        Validators.maxLength(HABIT_VALIDATION_CONSTS.NAME_MAX_LENGTH),
+        noWhitespaceNameValidator,
+      ],
     }),
     // CHECK: If a desc is entered and then deleted, it will be an empty string. Will this cause an issue?
-   description: new FormControl(null, {
-    validators: [Validators.maxLength(HABIT_VALIDATION_CONSTS.DESCRIPTION_MAX_LENGTH)]
-   }),
-   frequencyType: new FormControl<frequencyType>('daily', {
-    nonNullable: true,
-    validators: [Validators.required]
-  }),
-   frequencyAmount: new FormControl(1, {
-    validators: [Validators.maxLength(HABIT_VALIDATION_CONSTS.FREQUENCY_AMOUNT_MAX),
-       Validators.min(1), Validators.required],
-    nonNullable: true
-   }),
-   timeOfDay: new FormControl<Date | null>(null, {}),
-   dayOfWeek: new FormControl(null, {}), // TODO: Make required? or make value (in case weekly is chosen) today's day of week? Same for month?
-   dayOfMonth: new FormControl(null, {
-    validators: [Validators.max(HABIT_VALIDATION_CONSTS.DAY_OF_MONTH_MAX), Validators.min(1)]
-   })
+    description: new FormControl(null, {
+      validators: [
+        Validators.maxLength(HABIT_VALIDATION_CONSTS.DESCRIPTION_MAX_LENGTH),
+      ],
+    }),
+    frequencyType: new FormControl<frequencyType>('daily', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    frequencyAmount: new FormControl(1, {
+      validators: [
+        Validators.maxLength(HABIT_VALIDATION_CONSTS.FREQUENCY_AMOUNT_MAX),
+        Validators.min(1),
+        Validators.required,
+      ],
+      nonNullable: true,
+    }),
+    timeOfDay: new FormControl<Date | null>(null, {}),
+    dayOfWeek: new FormControl(null, {
+      validators: [Validators.max(6), Validators.min(0)],
+    }), // TODO: Make required? or make value (in case weekly is chosen) today's day of week? Same for month?
+    dayOfMonth: new FormControl(null, {
+      validators: [
+        Validators.max(HABIT_VALIDATION_CONSTS.DAY_OF_MONTH_MAX),
+        Validators.min(1),
+      ],
+    }),
   });
 
   constructor() {
-    this.setTimePickerLocale()
+    this.setTimePickerLocale();
   }
   submit() {
     if (this.form.invalid) return;
-    const values = this.form.getRawValue()
+    const values = this.form.getRawValue();
     const payload = {
       ...values,
-      timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null
-    }
-    this.habitService.create(payload)
+      timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null,
+    };
+    this.habitService.create(payload);
   }
 
   get currentFrequencyType() {
@@ -97,13 +113,14 @@ export class CreateHabitModal {
   get currentDayOfMonth() {
     return this.form.controls.dayOfMonth.value;
   }
-  
+
   get currentFrequencyLocalizationKey() {
     const frequencyType = this.form.controls.frequencyType.value;
     const frequencyAmount = this.form.controls.frequencyAmount.value!;
-    if (frequencyType == 'daily') return frequencyAmount > 1 ? "days" : "day";
-    else if (frequencyType == 'weekly') return frequencyAmount > 1 ? "weeks" : "week";
-    else return frequencyAmount > 1 ? "months" : "month";
+    if (frequencyType == 'daily') return frequencyAmount > 1 ? 'days' : 'day';
+    else if (frequencyType == 'weekly')
+      return frequencyAmount > 1 ? 'weeks' : 'week';
+    else return frequencyAmount > 1 ? 'months' : 'month';
   }
 
   getValidationError(
@@ -111,21 +128,48 @@ export class CreateHabitModal {
     fieldName: any,
     number?: number | number[]
   ): string | null {
-    return this.validationErrorService.getValidationError(control, fieldName, number !== undefined ? number : undefined);
+    return this.validationErrorService.getValidationError(
+      control,
+      fieldName,
+      number !== undefined ? number : undefined
+    );
   }
 
-  setTimePickerLocale(){
+  setTimePickerLocale() {
     const currentLang = this.localizationService.currentLanguage();
-    const locale = currentLang === "ar" ? 'ar-SA' : 'en-US'
-    this._adapter.setLocale(locale)
+    const locale = currentLang === 'ar' ? 'ar-SA' : 'en-US';
+    this._adapter.setLocale(locale);
   }
 
   dateToSqlTime(date: Date): string {
-  const h = date.getHours().toString().padStart(2, '0');
-  const m = date.getMinutes().toString().padStart(2, '0');
-  const s = date.getSeconds().toString().padStart(2, '0');
+    const h = date.getHours().toString().padStart(2, '0');
+    const m = date.getMinutes().toString().padStart(2, '0');
+    const s = date.getSeconds().toString().padStart(2, '0');
 
-  return `${h}:${m}:${s}`;
-}
+    return `${h}:${m}:${s}`;
+  }
 
+  private setupConditionalValidation() {
+    debugger;
+    const frequencyTypeControl = this.form.controls.frequencyType;
+    const dayOfWeekControl = this.form.controls.dayOfWeek;
+
+    const baseValidators = dayOfWeekControl.validator
+      ? [dayOfWeekControl.validator]
+      : [];
+
+    frequencyTypeControl.valueChanges.subscribe((type) => {
+      if (type === 'weekly') {
+        dayOfWeekControl.setValidators([
+          ...baseValidators,
+          Validators.required,
+        ]);
+      } else {
+        dayOfWeekControl.setValidators(baseValidators);
+        dayOfWeekControl.setValue(null);
+      }
+
+      dayOfWeekControl.updateValueAndValidity();
+    });
+  }
 }

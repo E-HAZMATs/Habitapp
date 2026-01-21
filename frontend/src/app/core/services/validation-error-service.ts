@@ -26,7 +26,8 @@ export const VALIDATION_ERROR_KEYS = {
   },
   name: {
     required: "nameRequired",
-    maxlength: "maximumXChars"
+    maxlength: "maximumXChars",
+    whitespace: "noWhitespaceName"
   },
   description: {
     maxlength: "maximumXChars"

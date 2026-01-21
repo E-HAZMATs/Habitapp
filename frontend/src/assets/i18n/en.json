@@ -56,6 +56,6 @@
 	"required": "Please input data",
 	"noWhiteSpaceAllowed": "Input should not contain any whitespace",
 	"userNameLengthValidation": "User name should be composed of 4 to 15 characters",
-	"dayOfMonthHint": "In case the day does not exist, the last day of the month will be selected."
-
+	"dayOfMonthHint": "In case the day does not exist, the last day of the month will be selected.",
+	"noWhitespaceName": "Name cannot be whitespace."
 }
