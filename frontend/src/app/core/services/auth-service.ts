@@ -8,6 +8,7 @@ import { ApiResponse } from '../models/api-response.model';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { APP_ROUTES } from '../constants/app-routes';
+import { ENDPOINTS } from '../constants/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class AuthService {
 async login(loginDto: loginDto) {
   try {
     const value = await firstValueFrom(
-      this.api.post<ApiResponse<loginResponseDto>>('/auth/login', loginDto)
+      this.api.post<ApiResponse<loginResponseDto>>(ENDPOINTS.auth.login, loginDto)
     );
     
     this.tokenService.setToken(value.data!.token);
@@ -40,7 +41,7 @@ async login(loginDto: loginDto) {
 
     try{
       const value = await firstValueFrom(
-        this.api.post<ApiResponse<registerResponseDto>>('/auth/register', registerDto)
+        this.api.post<ApiResponse<registerResponseDto>>(ENDPOINTS.auth.register, registerDto)
       )
       const msg = this.translateService.instant('registerSuccess')
       this.toastService.show(msg, 'success')
@@ -52,7 +53,7 @@ async login(loginDto: loginDto) {
   }
 
   logout(){
-    this.api.post('/auth/logout', {})
+    this.api.post(ENDPOINTS.auth.logout, {})
     .subscribe({
       next: () => {
         this.tokenService.clearToken();

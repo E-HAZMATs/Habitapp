@@ -10,7 +10,7 @@ import {
   habitResponse,
   updateHabitDto,
 } from '../models/habit.model';
-
+import { ENDPOINTS } from '../constants/api-endpoints';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +22,7 @@ export class HabitService {
   async create(habitDto: createHabitDto): Promise<habit> {
     try {
       const response = await firstValueFrom(
-        this.api.post<ApiResponse<habitResponse>>('/habit/create', habitDto)
+        this.api.post<ApiResponse<habitResponse>>(ENDPOINTS.habit.create, habitDto)
       );
       
       const msg = response.message;
@@ -38,7 +38,7 @@ export class HabitService {
   async getAllByUser(): Promise<habit[]> {
     try{
       const response = await firstValueFrom(
-        this.api.get<ApiResponse<habit[]>>('/habit/getAllByUser')
+        this.api.get<ApiResponse<habit[]>>(ENDPOINTS.habit.getAllByUser)
       )
       const msg = response.message;
       this.toastService.show(msg, 'success');
@@ -53,7 +53,7 @@ export class HabitService {
   async getById(id: string): Promise<habit> {
     try{
       const response = await firstValueFrom(
-        this.api.get<ApiResponse<habit>>('/habit/getById/' + id)
+        this.api.get<ApiResponse<habit>>(ENDPOINTS.habit.getById + '/' + id)
       )
       this.toastService.show(response.message, 'success');
       return response.data!;
@@ -67,7 +67,7 @@ export class HabitService {
   async update(habitId: string, habitDto: updateHabitDto): Promise<void> {
     try {
       const response = await firstValueFrom(
-        this.api.patch<ApiResponse<void>>(`/habit/update/${habitId}`, habitDto)
+        this.api.patch<ApiResponse<void>>(`${ENDPOINTS.habit.update}/${habitId}`, habitDto)
       );
       
       const msg = response.message;
@@ -81,7 +81,7 @@ export class HabitService {
   async delete(habitId: string): Promise<void> {
     try {
       const response = await firstValueFrom(
-        this.api.delete<ApiResponse<void>>('/habit/delete', habitId)
+        this.api.delete<ApiResponse<void>>(ENDPOINTS.habit.delete, habitId)
       );
       const msg = response.message;
       this.toastService.show(msg, 'success');
@@ -94,7 +94,7 @@ export class HabitService {
   async habitComplete(habitId: string, completedAt : string): Promise<any> {
   try {
     const response = await firstValueFrom(
-      this.api.post<ApiResponse<any>>(`/habit/habitComplete/${habitId}`, {completedAt})
+      this.api.post<ApiResponse<any>>(`${ENDPOINTS.habit.habitComplete}/${habitId}`, {completedAt})
     );
     
     const msg = response.message;
