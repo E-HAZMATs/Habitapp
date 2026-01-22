@@ -23,11 +23,11 @@ exports.update = async (id, userId, data) => {
 }
 
 exports.delete = async (id, userId) => {
-
+    
     const habit = await Habit.findOne({
         where: {id}
     })
-
+    //CHECK: Handle deactivation? maybe soft deletion is enough. unless I add some page to disable habits momentarily.
     if(!habit)
         return 0;
 
@@ -54,6 +54,7 @@ exports.getById = async (id) => {
     return habit
 }
 
+// TODO: When completing a habit, calcute when is nextDue.
 exports.habitComplete = async (habitId, userId, reqBody) => {
     const habit = await Habit.findByPk(habitId);
     if (habit.userId !== userId) // User can't complete another user's habits.

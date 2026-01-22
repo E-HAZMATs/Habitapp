@@ -1,4 +1,5 @@
 // TODO: Add schduled task that is only completed once? (not a habit then)
+// TODO: Add isActive flag for habits and users?
 module.exports = (sequelize, DataTypes) => {
   const Habit = sequelize.define('Habit', {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
@@ -10,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     dayOfWeek: { type: DataTypes.INTEGER, allowNull: true },
     dayOfMonth: { type: DataTypes.INTEGER, allowNull: true },
     timeOfDay: { type: DataTypes.TIME, allowNull: true },
-    lastCompleted: { type: DataTypes.DATE, allowNull: true}
+    // lastCompleted: { type: DataTypes.DATE, allowNull: true}, //Remove this?
+   // lastMissedCompletion: { type: DataTypes.DATE, allowNull: true }
+    isActive: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true},
+    nextDueDate: { type: DataTypes.DATE, allowNull: false }
   }, {
     tableName: 'Habits',
     timestamps: true,

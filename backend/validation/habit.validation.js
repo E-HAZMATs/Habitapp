@@ -7,7 +7,7 @@ exports.habitCreateSchema = Joi.object({
   frequencyType: Joi.string().valid("daily", "weekly", "monthly").required(),
   frequencyAmount: Joi.number().min(1).required(),
   dayOfWeek: Joi.number().min(0).max(6).allow(null),
-  dayOfMonth: Joi.number().min(0).max(30).allow(null),
+  dayOfMonth: Joi.number().min(1).max(31).allow(null),
   timeOfDay: Joi.string().allow(null), // How to validate Time datatype in Joi?
 }).required();
 
