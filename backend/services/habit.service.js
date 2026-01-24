@@ -1,6 +1,42 @@
-const { Habit, HabitLog } = require('../models')
+const { Habit, HabitLog } = require('../models');
 
 exports.create = async (data) => {
+    const date = new Date()
+    date.setHours(0,0,0,0);
+    switch (data.frequencyType){
+        case 'daily':
+            const [hour, minute, second] = data.timeOfDay ? data.timeOfDay.split(':').map(Number) : [0, 0, 0];
+            date.setHours(hour, minute, second);
+            data.nextDueDate = date;
+            break;
+
+        case 'weekly': 
+            const dateDay = date.getDay();
+            let daysToAdd = Number(data.dayOfWeek) - dateDay;
+
+            if (daysToAdd < 0)
+                daysToAdd += 7
+            
+            date.setDate(date.getDate() + daysToAdd)
+            data.nextDueDate = date;
+            break;
+
+        case 'monthly': 
+            if (Number(data.dayOfMonth) < date.getDate())
+                date.setMonth(date.getMonth() + 1)
+
+            let lastDayOfMonth = new Date(
+                date.getFullYear(),
+                date.getMonth() + 1,
+                0
+            ).getDate();
+
+            const targetDayOfMonth = Math.min(data.dayOfMonth, lastDayOfMonth);
+            date.setDate(targetDayOfMonth);
+            data.nextDueDate = date;
+            break;
+    }
+
     return await Habit.create(data);
 }
 
