@@ -1,8 +1,17 @@
 const { Habit, HabitLog } = require('../models');
-
+const { calculateNextDueDate } = require('../utils/habitHelper')
 exports.create = async (data) => {
     const date = new Date()
+    console.log(date)
+    console.log('toString:', date.toString());
+console.log('getDay:', date.getDay());
+console.log('getUTCDay:', date.getUTCDay());
+    //Timezone issue.
     date.setHours(0,0,0,0);
+    console.log('toString:', date.toString());
+console.log('getDay:', date.getDay());
+console.log('getUTCDay:', date.getUTCDay());
+    console.log(date)
     switch (data.frequencyType){
         case 'daily':
             const [hour, minute, second] = data.timeOfDay ? data.timeOfDay.split(':').map(Number) : [0, 0, 0];
@@ -16,7 +25,10 @@ exports.create = async (data) => {
 
             if (daysToAdd < 0)
                 daysToAdd += 7
-            
+            console.log('currentday:', dateDay)
+            console.log('target:', Number(data.dayOfWeek))
+            console.log('day2add:', daysToAdd)
+            throw new Error();
             date.setDate(date.getDate() + daysToAdd)
             data.nextDueDate = date;
             break;
@@ -36,7 +48,7 @@ exports.create = async (data) => {
             data.nextDueDate = date;
             break;
     }
-
+    console.log(data);
     return await Habit.create(data);
 }
 
@@ -95,13 +107,17 @@ exports.habitComplete = async (habitId, userId, reqBody) => {
     const habit = await Habit.findByPk(habitId);
     if (habit.userId !== userId) // User can't complete another user's habits.
         return -1
+    const nextDueDate = calculateNextDueDate(habit, reqBody.completedAt);
     const result = await HabitLog.create({
         habitId: habitId,
-        completedAt: reqBody.completedAt
+        completedAt: reqBody.completedAt,
+        nextDueDate: nextDueDate,
+        dueDate: habit.nextDueDate
     });
+    habit.nextDueDate = nextDueDate;
     // CHECK: Should have try/catch?
     if (result) {
-        habit.lastCompleted = reqBody.completedAt;
+        habit.nextDueDate = nextDueDate;
         await habit.save();
         return result;
     }

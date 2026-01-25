@@ -1,6 +1,6 @@
 exports.calculateNextDueDate = (habit, fromDate) => {
   const nextDue = new Date(fromDate);
- 
+  nextDue.setHours(0,0,0,0); //CHECKIMP: This could problomatic due to timezones. 
   switch (habit.frequencyType) {
     case 'daily':
       nextDue.setDate(nextDue.getDate() + habit.frequencyAmount);
@@ -21,7 +21,6 @@ exports.calculateNextDueDate = (habit, fromDate) => {
       if (daysToAdd < 0) {
         daysToAdd += 7;
       }
-     
       nextDue.setDate(nextDue.getDate() + daysToAdd);
       break;
  
