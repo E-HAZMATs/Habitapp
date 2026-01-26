@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { ApiService } from '../services/api-service';
 import { TokenService } from '../services/token-service';
 import { catchError, switchMap, throwError } from 'rxjs';
+import { ENDPOINTS } from '../constants/api-endpoints';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.url.includes('/auth/refresh')) return next(req);
@@ -17,8 +18,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(reqCopy).pipe(
     catchError(err => {
-      if (err.status === 401) {
-        return api.get<{ accessToken: string }>('/auth/refresh', {}).pipe(
+      if (err.status === 401 && !req.url.includes(ENDPOINTS.auth.login)) {
+        return api.get<{ accessToken: string }>(ENDPOINTS.auth.refresh, {}).pipe(
           switchMap(res => {
             tokenService.setToken(res.accessToken)
             const retryReq = req.clone({

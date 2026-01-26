@@ -1,7 +1,7 @@
 .toast-container {
   position: fixed;
-  top: 20px;
-  inset-inline-end: 20px;
+  bottom: 40px;
+  inset-inline-start: 20px;
 }
 
 .toast {
