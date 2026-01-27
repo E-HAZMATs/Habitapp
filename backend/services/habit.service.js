@@ -2,16 +2,9 @@ const { Habit, HabitLog } = require('../models');
 const { calculateNextDueDate } = require('../utils/habitHelper')
 exports.create = async (data) => {
     const date = new Date()
-    console.log(date)
-    console.log('toString:', date.toString());
-console.log('getDay:', date.getDay());
-console.log('getUTCDay:', date.getUTCDay());
-    //Timezone issue.
+    // Timezone issue. Upon creation, nextduedate is UTC relative to current timezone. if time zone changes then it's inaccurate,
+    // Need something to update nextduedates UTC when timezone changes?
     date.setHours(0,0,0,0);
-    console.log('toString:', date.toString());
-console.log('getDay:', date.getDay());
-console.log('getUTCDay:', date.getUTCDay());
-    console.log(date)
     switch (data.frequencyType){
         case 'daily':
             const [hour, minute, second] = data.timeOfDay ? data.timeOfDay.split(':').map(Number) : [0, 0, 0];
@@ -25,10 +18,6 @@ console.log('getUTCDay:', date.getUTCDay());
 
             if (daysToAdd < 0)
                 daysToAdd += 7
-            console.log('currentday:', dateDay)
-            console.log('target:', Number(data.dayOfWeek))
-            console.log('day2add:', daysToAdd)
-            throw new Error();
             date.setDate(date.getDate() + daysToAdd)
             data.nextDueDate = date;
             break;

@@ -39,54 +39,60 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
     let result = await this.habitService.getAllByUser() as any
     let sortedResult: any = []
-    result.forEach((habit: any) => {
-      const date = new Date();
-      date.setHours(0, 0, 0, 0);
-      const [hour, minute, second] = habit.timeOfDay ? habit.timeOfDay.split(':').map(Number) : [0, 0, 0];
-      if (habit.frequencyType === 'daily') {
-        // Habit never completed before, so due date is today no matter what frequencyAmount (every X *frequencyType*).
-        if (!habit.lastCompleted){
-          date.setHours(hour, minute, second)
-          habit.dueIn = date;
-        }
-        // TODOIMP: Handle this case - For lastCompleted, a user could have missed completing a habit and thus comparing lastCompleted to freqAmount
-        // For example if daily habit is repeated every 2 days (freqAmount = 2), and lastCompleted was 3 days ago, then freqAmount < lastCompleted and not equal.
-        // Maybe the user did the habit but didnt log it. So should the habit shown be the one from the day before or the one tommorow? (It's repeated every 2 days and lastCom was 3 days ago.)
-        // Maybe implement a worker that sets missed habits as missed? then add a way to log forgotten completions. 
-        else {
-          const daysSinceLastComplete = compareDateDays(date, habit.lastCompleted)
-          // CHECK: Should be >= here?
-          if (daysSinceLastComplete === habit.frequencyAmount){
-            const [hour, minute, second] = habit.timeOfDay.split(':').map(Number);
-            date.setHours(hour, minute, second);
-            habit.dueIn = date;
-          }
-          else {
-            const daysTillDue = habit.frequencyAmount - daysSinceLastComplete; // Problem if daysSince > freqAmount!! Need to handle missing completions.
-            if (daysTillDue > 0) // TODO: Delete this? put to prevent duedate in past in case of missing completions.
-              date.setDate(date.getDate() + daysTillDue);
-            habit.dueIn = date;
-          }
-        }
-      }
-      else if (habit.frequencyType === 'weekly') {
-        // This requires some validation in the create modal.
-        if (!habit.lastCompleted){
-          debugger
-          const dueDate = getNextDayDate(habit.dayOfWeek, date); // Day of week could be null. This needs to be fixed.
-          habit.duedate = dueDate;
-        }
-        else{
-          
-        }
-      }
+    result.sort((a: habit, b: habit) => {
+    return new Date(a.nextDueDate).getTime() - new Date(b.nextDueDate).getTime();
+  });
+    // result.forEach((habit: any) => {
+    //   const date = new Date();
+    //   date.setHours(0, 0, 0, 0);
+    //   const [hour, minute, second] = habit.timeOfDay ? habit.timeOfDay.split(':').map(Number) : [0, 0, 0];
+    //   if (habit.frequencyType === 'daily') {
+    //     // Habit never completed before, so due date is today no matter what frequencyAmount (every X *frequencyType*).
+    //     if (!habit.lastCompleted){
+    //       date.setHours(hour, minute, second)
+    //       habit.dueIn = date;
+    //     }
+    //     // TODOIMP DELETE?: Handle this case - For lastCompleted, a user could have missed completing a habit and thus comparing lastCompleted to freqAmount
+    //     // For example if daily habit is repeated every 2 days (freqAmount = 2), and lastCompleted was 3 days ago, then freqAmount < lastCompleted and not equal.
+    //     // Maybe the user did the habit but didnt log it. So should the habit shown be the one from the day before or the one tommorow? (It's repeated every 2 days and lastCom was 3 days ago.)
+    //     // Maybe implement a worker that sets missed habits as missed? then add a way to log forgotten completions. 
+    //     else {
+    //       const daysSinceLastComplete = compareDateDays(date, habit.lastCompleted)
+    //       // CHECK: Should be >= here?
+    //       if (daysSinceLastComplete === habit.frequencyAmount){
+    //         const [hour, minute, second] = habit.timeOfDay.split(':').map(Number);
+    //         date.setHours(hour, minute, second);
+    //         habit.dueIn = date;
+    //       }
+    //       else {
+    //         const daysTillDue = habit.frequencyAmount - daysSinceLastComplete; // Problem if daysSince > freqAmount!! Need to handle missing completions.
+    //         if (daysTillDue > 0) // TODO: Delete this? put to prevent duedate in past in case of missing completions.
+    //           date.setDate(date.getDate() + daysTillDue);
+    //         habit.dueIn = date;
+    //       }
+    //     }
+    //   }
+    //   else if (habit.frequencyType === 'weekly') {
+    //     // This requires some validation in the create modal.
+    //     if (!habit.lastCompleted){
+    //       const dueDate = getNextDayDate(habit.dayOfWeek, date); // Day of week could be null. This needs to be fixed.
+    //       habit.duedate = dueDate;
+    //     }
+    //     else{
+    //       const daysSinceLastComplete = compareDateDays(date, habit.lastCompleted);
+    //       const isDue = daysSinceLastComplete === 7 * habit.frequencyAmount;
+    //     }
+    //   }
+    //   // Monthly
+    //   else {
 
-      else {
-
-      }
-    })
+    //   }
+    // })
     this.habits.set(result);
     console.log(this.habits())   
+    this.habits()?.forEach(habit => {
+      console.log(habit.nextDueDate)
+    })
   }
 
   protected completeHabit(habitId: string){

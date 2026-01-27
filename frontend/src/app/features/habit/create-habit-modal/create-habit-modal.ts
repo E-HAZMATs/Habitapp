@@ -150,6 +150,7 @@ export class CreateHabitModal {
     return `${h}:${m}:${s}`;
   }
 
+  // TODO: Add validation when monthly is selected.
   private setupConditionalValidation() {
     debugger;
     const frequencyTypeControl = this.form.controls.frequencyType;

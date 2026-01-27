@@ -14,6 +14,7 @@ export interface habit {
   createdAt: string;
   updatedAt: string;
   lastCompleted?: string;
+  nextDueDate: string;
 }
 
 export interface createHabitDto {
