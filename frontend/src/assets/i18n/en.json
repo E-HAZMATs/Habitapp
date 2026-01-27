@@ -58,5 +58,10 @@
 	"userNameLengthValidation": "User name should be composed of 4 to 15 characters",
 	"dayOfMonthHint": "In case the day does not exist, the last day of the month will be selected.",
 	"noWhitespaceName": "Name cannot be whitespace.",
-	"areRequiredFields": "Fields with * are required"
+	"areRequiredFields": "Fields with * are required",
+	"complete": "Complete",
+	"dueInXHours": "Due in {{number}} hours",
+	"dueInOneHour": "Due in an hour",
+	"dueInXDays": "Due in {{number}} day",
+	"dueInOneDay": "Due in a day"
 }

@@ -7,7 +7,7 @@ import { BidiModule } from "@angular/cdk/bidi";
 import { HabitService } from '../../core/services/habit-service';
 import { habit } from '../../core/models/habit.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 
 @Component({
@@ -23,6 +23,7 @@ import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 export class DashboardComponent implements OnInit {
   readonly dialog = inject(MatDialog)
   private localizationService = inject(LocalizationService)
+  private translate = inject(TranslateService)
   private habitService = inject(HabitService)
   protected habits = signal<habit[] | null>(null)
 
@@ -42,62 +43,48 @@ export class DashboardComponent implements OnInit {
     result.sort((a: habit, b: habit) => {
     return new Date(a.nextDueDate).getTime() - new Date(b.nextDueDate).getTime();
   });
-    // result.forEach((habit: any) => {
-    //   const date = new Date();
-    //   date.setHours(0, 0, 0, 0);
-    //   const [hour, minute, second] = habit.timeOfDay ? habit.timeOfDay.split(':').map(Number) : [0, 0, 0];
-    //   if (habit.frequencyType === 'daily') {
-    //     // Habit never completed before, so due date is today no matter what frequencyAmount (every X *frequencyType*).
-    //     if (!habit.lastCompleted){
-    //       date.setHours(hour, minute, second)
-    //       habit.dueIn = date;
-    //     }
-    //     // TODOIMP DELETE?: Handle this case - For lastCompleted, a user could have missed completing a habit and thus comparing lastCompleted to freqAmount
-    //     // For example if daily habit is repeated every 2 days (freqAmount = 2), and lastCompleted was 3 days ago, then freqAmount < lastCompleted and not equal.
-    //     // Maybe the user did the habit but didnt log it. So should the habit shown be the one from the day before or the one tommorow? (It's repeated every 2 days and lastCom was 3 days ago.)
-    //     // Maybe implement a worker that sets missed habits as missed? then add a way to log forgotten completions. 
-    //     else {
-    //       const daysSinceLastComplete = compareDateDays(date, habit.lastCompleted)
-    //       // CHECK: Should be >= here?
-    //       if (daysSinceLastComplete === habit.frequencyAmount){
-    //         const [hour, minute, second] = habit.timeOfDay.split(':').map(Number);
-    //         date.setHours(hour, minute, second);
-    //         habit.dueIn = date;
-    //       }
-    //       else {
-    //         const daysTillDue = habit.frequencyAmount - daysSinceLastComplete; // Problem if daysSince > freqAmount!! Need to handle missing completions.
-    //         if (daysTillDue > 0) // TODO: Delete this? put to prevent duedate in past in case of missing completions.
-    //           date.setDate(date.getDate() + daysTillDue);
-    //         habit.dueIn = date;
-    //       }
-    //     }
-    //   }
-    //   else if (habit.frequencyType === 'weekly') {
-    //     // This requires some validation in the create modal.
-    //     if (!habit.lastCompleted){
-    //       const dueDate = getNextDayDate(habit.dayOfWeek, date); // Day of week could be null. This needs to be fixed.
-    //       habit.duedate = dueDate;
-    //     }
-    //     else{
-    //       const daysSinceLastComplete = compareDateDays(date, habit.lastCompleted);
-    //       const isDue = daysSinceLastComplete === 7 * habit.frequencyAmount;
-    //     }
-    //   }
-    //   // Monthly
-    //   else {
 
-    //   }
-    // })
+    result.forEach((habit: habit) => {
+      habit.dueIn = this.getDueIn(habit.nextDueDate);
+    })
     this.habits.set(result);
     console.log(this.habits())   
-    this.habits()?.forEach(habit => {
-      console.log(habit.nextDueDate)
-    })
   }
 
   protected completeHabit(habitId: string){
     // TODO: Add validation? is it time for completion now?
     this.habitService.habitComplete(habitId, new Date().toISOString())
+  }
+
+  protected getDueIn(nextDueIn: string){
+    const now = new Date();
+    const nextDueInDate = new Date(nextDueIn);
+    const diffMs = nextDueInDate.getTime() - now.getTime()
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24)) // Should be ceil? if due in monday and today is tue, then it will give 5days.
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+    return { diffDays, diffHours }
+  }
+
+  protected getCompleteBtnText(habit: habit){
+    const diffHours = habit.dueIn.diffHours;
+    const diffDays = habit.dueIn.diffDays;
+    if (diffHours <= 0) {return this.translate.instant('complete')}
+    
+    switch(habit.frequencyType){
+      case "daily":
+        if (diffHours === 1) return this.translate.instant('dueInOneHour')
+        if(diffHours < 24){
+          return this.translate.instant('dueInXHours', {"number": diffHours})
+        }
+        else if (diffDays === 1) {return this.translate.instant('dueInOneDay')} // usless?
+        else  return this.translate.instant('dueInXDays', {"number": diffDays})
+        break;
+      case "weekly":
+      case "monthly":
+        if (diffDays === 1) return this.translate.instant('dueInOneDay')  
+        else return this.translate.instant('dueInXDays', {"number": diffDays})
+        break;
+    }
   }
   
 }

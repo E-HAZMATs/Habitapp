@@ -4,10 +4,11 @@
 
     <!-- Incoming habits section -->
      <!-- FIX HEIGHTS -->
+      <!-- BIGTODO: STYLIZE BETTER. -->
      <div class="mt-5 w-full min-h-[10vh] max-h-[80vh] overflow-auto">
         @if (habits()){
             @for (habit of habits(); track habit.id){
-                <mat-card class="mt-2">
+                <mat-card class="mt-2 me-2">
                     <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
                         <!-- <div class="h-full flex items-center p-5">
                             <h2 class="font-bold">{{habit.name}}</h2>
@@ -16,7 +17,7 @@
                             <mat-card-title>{{habit.name}}</mat-card-title>
                         </div>
                         
-                        <div class="col-span-6">
+                        <div class="sm:col-span-6 md:col-span-7">
                             @if (habit.description){
                                 <!-- <p>{{habit.description}}</p> -->
                                 <mat-card-subtitle>{{habit.description}}</mat-card-subtitle>
@@ -24,10 +25,14 @@
                         </div>
                         
                         <!-- Show complete btn if habit is at specified time, else count down? -->
-                        <div class="col-span-2 flex justify-end">
-                        @if (true){
-                                <button matButton="filled"  (click)="completeHabit(habit.id)">Complete</button>
-                            }
+                        <div class="sm:col-span-2 lg:col-span-1 flex justify-end">
+                        @let isDue = habit.dueIn.diffHours <= 0;
+                        <!-- @if (habit.dueIn.diffHours <= 0){ -->
+                         <!-- TODO: Make btn same size no matter what content. And handle possible large text. -->
+                                <button matButton="filled" (click)="completeHabit(habit.id)" [disabled]="!isDue" 
+                                class="w-full !truncate"
+                                >{{getCompleteBtnText(habit)}}</button>
+                            <!-- } -->
                         </div>
                     </mat-card-content>
                 </mat-card>
