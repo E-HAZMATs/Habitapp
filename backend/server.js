@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const {sequelize} = require('./models')
 const routers =  require('./routers')
 const { errorHandler } = require('./utils/responseHandler')
+const habitWorker = require('./workers/habit.worker');
 
 async function connectToDB(){
     try{
@@ -29,6 +30,7 @@ async function startServer() {
     })
 
     const app = express();
+
     app.use(cors({
         origin: process.env.CLIENT_URL,
         credentials: true
@@ -52,6 +54,7 @@ async function startServer() {
     const PORT = process.env.PORT || 3333;
     
     await connectToDB();
+    habitWorker.start();
     app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 }
 
