@@ -1,5 +1,7 @@
-const { Habit, HabitLog } = require('../models');
+const { Habit, HabitLog, User } = require('../models');
 const { calculateNextDueDate } = require('../utils/habitHelper')
+const { Op } = require('sequelize');
+
 exports.create = async (data) => {
     const date = new Date()
     // Timezone issue. Upon creation, nextduedate is UTC relative to current timezone. if time zone changes then it's inaccurate,
@@ -112,3 +114,43 @@ exports.habitComplete = async (habitId, userId, reqBody) => {
     }
     return -1;
 }
+
+exports.getOverdueHabits = async () => {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0); // CHECK: Will this make it retrieve habits due on Day before now's date?
+  const habits = await Habit.findAll({
+    where: {
+      isActive: true,
+      deletedAt: null,
+      nextDueDate: {
+        [Op.lt]: now 
+      }
+    },
+    include: [{
+      model: User,
+      attributes: ['timezone']
+    }]
+  });
+  
+  return habits;
+};
+
+exports.logMissedHabit = async (habit, userTimezone) => {
+  const now = new Date();
+  const nextDueDate = calculateNextDueDate(habit, habit.nextDueDate); // CHECK: This will return wrong (not necessarily wrong, but the supposed nextduedate which could way before now) nextdue date incase of habits due days ago but not logged as missed. 
+  // It's no issue, cus once db is reset no data will have false stuff?
+  
+  const log = await HabitLog.create({
+    habitId: habit.id,
+    completedAt: now,
+    status: 'missed',
+    dueDate: habit.nextDueDate,
+    nextDueDate: nextDueDate,
+    timezone: userTimezone
+  });
+  
+  habit.nextDueDate = nextDueDate;
+  await habit.save();
+  
+  return log;
+};

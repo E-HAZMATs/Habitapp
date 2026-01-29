@@ -54,7 +54,7 @@ async function startServer() {
     const PORT = process.env.PORT || 3333;
     
     await connectToDB();
-    habitWorker.start();
+    habitWorker.start(); // Should be stopped?
     app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 }
 
