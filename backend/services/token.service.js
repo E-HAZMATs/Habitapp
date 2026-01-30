@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 exports.createJwt = (user) => {
-  return jwt.sign({ id: user.id, email: user.email, roleId: user.Role.id, role: user.Role.name }, process.env.JWT_KEY, {
+  return jwt.sign({ id: user.id, email: user.email, roleId: user.Role.id, role: user.Role.name, timezone: user.timezone }, process.env.JWT_KEY, {
     expiresIn: "15m",
   });
 };
