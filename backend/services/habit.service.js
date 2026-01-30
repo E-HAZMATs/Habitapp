@@ -94,16 +94,17 @@ exports.getById = async (id) => {
 }
 
 // TODO: When completing a habit, calcute when is nextDue.
-exports.habitComplete = async (habitId, userId, reqBody) => {
+exports.habitComplete = async (habitId, user, reqBody) => {
     const habit = await Habit.findByPk(habitId);
-    if (habit.userId !== userId) // User can't complete another user's habits.
+    if (habit.userId !== user.id) // User can't complete another user's habits.
         return -1
     const nextDueDate = calculateNextDueDate(habit, reqBody.completedAt);
     const result = await HabitLog.create({
         habitId: habitId,
         completedAt: reqBody.completedAt,
         nextDueDate: nextDueDate,
-        dueDate: habit.nextDueDate
+        dueDate: habit.nextDueDate,
+        timezone: user.timezone
     });
     habit.nextDueDate = nextDueDate;
     // CHECK: Should have try/catch?

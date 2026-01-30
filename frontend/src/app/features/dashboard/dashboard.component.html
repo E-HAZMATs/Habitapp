@@ -29,6 +29,7 @@
                         @let isDue = habit.dueIn.diffHours <= 0;
                         <!-- @if (habit.dueIn.diffHours <= 0){ -->
                          <!-- TODO: Make btn same size no matter what content. And handle possible large text. -->
+                          <!-- TODOIMP: Make due time update like a countdown -->
                                 <button matButton="filled" (click)="completeHabit(habit.id)" [disabled]="!isDue" 
                                 class="w-full !truncate"
                                 >{{getCompleteBtnText(habit)}}</button>

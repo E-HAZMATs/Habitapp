@@ -32,28 +32,32 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateHabitModal, {
       direction: currentLang === 'ar' ? "rtl" : "ltr"
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log('result', result);
-    // })
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result === true)
+        await this.getHabits();
+    })
   }
 
   async ngOnInit() {
+    await this.getHabits();
+  }
+  
+  async getHabits(){
     let result = await this.habitService.getAllByUser() as any
-    let sortedResult: any = []
     result.sort((a: habit, b: habit) => {
     return new Date(a.nextDueDate).getTime() - new Date(b.nextDueDate).getTime();
   });
-
+  
     result.forEach((habit: habit) => {
       habit.dueIn = this.getDueIn(habit.nextDueDate);
     })
     this.habits.set(result);
-    console.log(this.habits())   
   }
 
-  protected completeHabit(habitId: string){
+  protected async completeHabit(habitId: string){
     // TODO: Add validation? is it time for completion now?
-    this.habitService.habitComplete(habitId, new Date().toISOString())
+    await this.habitService.habitComplete(habitId, new Date().toISOString())
+    await this.getHabits();
   }
 
   protected getDueIn(nextDueIn: string){

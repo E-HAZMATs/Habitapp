@@ -71,10 +71,10 @@ exports.getById = async (req, res) => {
 }
 
 exports.habitComplete = async (req, res) => {
-  const userId = req.user.id;
-  if (!userId) {return sendError(res, 401, req.__('AuthRequired'))} // Not necessary? Middleware handled auth.
+  const user = req.user;
+  if (!user) {return sendError(res, 401, req.__('AuthRequired'))} // Not necessary? Middleware handled auth.
   const habitId = req.params.id;
-  const result = await habitService.habitComplete(habitId, userId, req.body);
+  const result = await habitService.habitComplete(habitId, user, req.body);
   if (result === -1) {return sendError(res, 403, req.__('cantEditOtherUsersHabits'))}
   return sendSuccess(res, 200, req.__('operationSuccess'), result);
 }
