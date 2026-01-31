@@ -84,7 +84,7 @@ export class CreateHabitModal {
     timeOfDay: new FormControl<Date | null>(null, {}),
     dayOfWeek: new FormControl(null, {
       validators: [Validators.max(6), Validators.min(0)],
-    }), // TODO: Make required? or make value (in case weekly is chosen) today's day of week? Same for month?
+    }), // TODO: Make required? or make value (in case weekly is chosen) (already done) today's day of week (still not done)? Same for month?
     dayOfMonth: new FormControl(null, {
       validators: [
         Validators.max(HABIT_VALIDATION_CONSTS.DAY_OF_MONTH_MAX),
@@ -150,28 +150,34 @@ export class CreateHabitModal {
     return `${h}:${m}:${s}`;
   }
 
-  // TODO: Add validation when monthly is selected.
   private setupConditionalValidation() {
-    debugger;
     const frequencyTypeControl = this.form.controls.frequencyType;
     const dayOfWeekControl = this.form.controls.dayOfWeek;
+    const dayOfMonthControl = this.form.controls.dayOfMonth;
 
-    const baseValidators = dayOfWeekControl.validator
+    const baseWeekValidators = dayOfWeekControl.validator
       ? [dayOfWeekControl.validator]
+      : [];
+    const baseMonthValidators = dayOfMonthControl.validator
+      ? [dayOfMonthControl.validator]
       : [];
 
     frequencyTypeControl.valueChanges.subscribe((type) => {
-      if (type === 'weekly') {
-        dayOfWeekControl.setValidators([
-          ...baseValidators,
-          Validators.required,
-        ]);
-      } else {
-        dayOfWeekControl.setValidators(baseValidators);
-        dayOfWeekControl.setValue(null);
-      }
+      debugger;
+      dayOfWeekControl.setValidators([
+        ...baseWeekValidators,
+        ...(type === 'weekly' ? [Validators.required] : []),
+      ]);
+      dayOfMonthControl.setValidators([
+        ...baseMonthValidators,
+        ...(type === 'monthly' ? [Validators.required] : []),
+      ]);
+
+      if (type !== 'weekly') dayOfWeekControl.setValue(null);
+      if (type !== 'monthly') dayOfMonthControl.setValue(null);
 
       dayOfWeekControl.updateValueAndValidity();
+      dayOfMonthControl.updateValueAndValidity();
     });
   }
 }
