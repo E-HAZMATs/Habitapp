@@ -15,21 +15,24 @@
                 </div>
                 <!-- Icon btns -->
                 <div class="hidden md:flex gap-3">
+                    @if (isAuthed()) {
                     <!-- Profile drop down. -->
                     <button matMiniFab [matMenuTriggerFor]="menu">
                         <mat-icon fontIcon="account_circle" />
                     </button>
                     <!-- TODO: Implement navigation. -->
                      <!-- TODO: Fix menu items alignment, on both ltr and rtl they have text align = right.-->
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item> {{ 'profile' | translate }}</button>
-                        <button mat-menu-item (click)="logout()">{{ 'signOut' | translate }}</button>
-                    </mat-menu>
-                    <button matMiniFab (click)="toggleLanguage()">
-                        <!-- TODO: Find icons for each language. fonts google, which is used by ang mat, doesn't have arabic icon. -->
-                        <!-- Using other icons libs wouldn't apply the ang mat theme on them automatically, must specify the color variable. -->
-                        <mat-icon fontIcon="language"></mat-icon>
-                    </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item> {{ 'profile' | translate }}</button>
+                            <button mat-menu-item (click)="logout()">{{ 'signOut' | translate }}</button>
+                        </mat-menu>
+                    }
+
+                        <button matMiniFab (click)="toggleLanguage()">
+                            <!-- TODO: Find icons for each language. fonts google, which is used by ang mat, doesn't have arabic icon. -->
+                            <!-- Using other icons libs wouldn't apply the ang mat theme on them automatically, must specify the color variable. -->
+                            <mat-icon fontIcon="language"></mat-icon>
+                        </button>
                     <button matMiniFab (click)="toggleTheme()">
                         <mat-icon [fontIcon]="themeService.themeIcon()"></mat-icon>
                     </button>

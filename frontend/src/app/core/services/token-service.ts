@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal, WritableSignal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
-  private accessToken: string | null = null
+  private accessToken: WritableSignal<string | null> = signal(null)
+  isAuthed = computed(() => this.accessToken() !== null);
 
   setToken(token: string){
-    this.accessToken = token
+    this.accessToken.set(token)
   }
 
   getToken(): string | null {
-    return this.accessToken
+    return this.accessToken()
   }
 
   clearToken() {
-    this.accessToken = null
+    this.accessToken.set(null);
   }
 }

@@ -10,6 +10,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../../core/services/auth-service';
 import { APP_ROUTES } from '../../core/constants/app-routes';
+import { TokenService } from '../../core/services/token-service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,8 @@ export class Navbar {
   ROUTES = APP_ROUTES;
   protected themeService = inject(ThemeService)
   private localizationService = inject(LocalizationService)
+  protected tokenService = inject(TokenService)
+  protected isAuthed = this.tokenService.isAuthed;
   protected authService = inject(AuthService)
 
   protected toggleTheme(){
