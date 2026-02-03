@@ -40,6 +40,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/habit/habit-logs/habit-logs.component').then(m => m.HabitLogsComponent)
   },
   {
+    path: 'user-profile',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/user/user-profile/user-profile').then(m => m.UserProfile)
+  },
+  {
     path: '**',
     redirectTo: '/dashboard'
   }
