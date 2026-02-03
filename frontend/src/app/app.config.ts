@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideAppInitializer(() => {
     const authService = inject(AuthService);
-    return authService.restoreSession();
+    return authService.restoreSession(); // TODO: Make method set user on user service.
     })
   ]
 };
