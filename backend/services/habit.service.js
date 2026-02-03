@@ -93,7 +93,6 @@ exports.getById = async (id) => {
     return habit
 }
 
-// TODO: When completing a habit, calcute when is nextDue.
 exports.habitComplete = async (habitId, user, reqBody) => {
     const habit = await Habit.findByPk(habitId);
     if (habit.userId !== user.id) // User can't complete another user's habits.
@@ -154,4 +153,31 @@ exports.logMissedHabit = async (habit, userTimezone) => {
   await habit.save();
   
   return log;
+};
+
+exports.updateHabitsForTimezoneChange = async (userId, oldTimezone, newTimezone) => {
+  try {
+    const habits = await Habit.findAll({
+      where: {
+        userId: userId,
+        isActive: true,
+      }
+    });
+
+    const now = new Date();
+    const oldDate = new Date(now.toLocaleString('en-US', { timeZone: oldTimezone }));
+    const newDate = new Date(now.toLocaleString('en-US', { timeZone: newTimezone }));
+    const offsetDiff = newDate.getTime() - oldDate.getTime();
+    
+    for (const habit of habits) {
+      // if asia/riyadh is utc+3 and then move to shanghai which utc+8 then the nextduedate utc should be subtracted by 5.
+      const adjustedNextDue = new Date(habit.nextDueDate.getTime() - offsetDiff);
+      
+      habit.nextDueDate = adjustedNextDue;
+      await habit.save();
+    }
+    return habits.length;
+  } catch (error) {
+    throw error;
+  }
 };
