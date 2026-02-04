@@ -13,7 +13,8 @@ router.get('/authRoute', authMiddleware, (req, res) => {
 router.delete('/delete/:id', wrappedController.delete)
 router.get('/admin', hasRole('admin'), (req, res)=>{
     res.send('hi admin')
-})
+});
+router.put('/updateTimezone', wrappedController.updateTimezone)
 
 
 module.exports = router;
