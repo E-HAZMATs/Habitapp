@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ApiService } from './api-service';
 import { ENDPOINTS } from '../constants/api-endpoints';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,17 @@ export class UserService  {
 
     clearUser(){
       this._user.set(null);
+    }
+
+    async getUser() {
+      try{
+        const user = await firstValueFrom(
+          this.api.get<user>(ENDPOINTS.user.me)
+        )
+        this._user.set(user);
+        console.log(user)
+      } catch {
+        console.error('error')
+      }
     }
 }

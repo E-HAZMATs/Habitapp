@@ -46,3 +46,12 @@ exports.updateTimezone = async (userId, newTimezone) => {
 
     return { user, habitsUpdated };
 }
+
+exports.me = async (userId) => {
+    const user = await User.findByPk(userId, {
+        attributes: {exclude: ['password']},
+        // include role?
+    })
+
+    return user;
+}

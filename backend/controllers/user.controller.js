@@ -35,3 +35,9 @@ exports.updateTimezone = async (req, res) => {
         habitsUpdated: result.habitsUpdated
     });
 }
+// is the token enough?
+exports.me = async (req, res) => {
+    if (!req.user) return sendError(res, 401, req.__('AuthRequired'))
+    const user = await userService.me(req.user.id);
+    return sendSuccess(res, 200, req.__('operationSuccess'), user)
+}

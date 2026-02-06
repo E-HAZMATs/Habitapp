@@ -6,8 +6,8 @@ export const ENDPOINTS = {
         logout: '/auth/logout',
     },
     user: {
-        delete: "/delete", //Didn't implement the service.
-        me: "/me"
+        delete: "/user/delete", //Didn't implement the service.
+        me: "/user/me"
     },
     habit: {
         create: "/habit/create",

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { APP_ROUTES } from '../constants/app-routes';
 import { ENDPOINTS } from '../constants/api-endpoints';
+import { UserService } from './user-service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class AuthService {
   private tokenService = inject(TokenService)
   private toastService = inject(ToastService)
   private translateService = inject(TranslateService)
+  private userService = inject(UserService)
   private router = inject(Router)
 
 async login(loginDto: loginDto) {
@@ -76,6 +78,7 @@ async login(loginDto: loginDto) {
         this.api.get<ApiResponse<{ token: string }>>('/auth/refresh')
       );
       this.tokenService.setToken(res.data!.token);
+      await this.userService.getUser();
     }
     catch {
       
