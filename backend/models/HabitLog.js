@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     status: { type: DataTypes.ENUM('completed', 'missed', 'skipped'), allowNull: false, defaultValue: 'completed'},
     dueDate: { type: DataTypes.DATE, allowNull: false},
     // nextDueDate in UTC.
-    nextDueDate: { type: DataTypes.DATE, allowNull: false }, //TODO: Add same column to habit?
+    nextDueDate: { type: DataTypes.DATE, allowNull: false },
     timezone: { type: DataTypes.STRING, allowNull: false, defaultValue: "Asia/Riyadh" } //timezone at completion
   }, {
     tableName: 'HabitLogs',

@@ -38,7 +38,6 @@ async login(loginDto: loginDto) {
     throw err;
   }
 }
-  //Todo implement navigtation. And error handling.
   async register(registerDto: registerDto){
 
     try{
@@ -78,7 +77,7 @@ async login(loginDto: loginDto) {
         this.api.get<ApiResponse<{ token: string }>>('/auth/refresh')
       );
       this.tokenService.setToken(res.data!.token);
-      await this.userService.getUser();
+      await this.userService.initUser();
     }
     catch {
       

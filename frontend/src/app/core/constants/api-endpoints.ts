@@ -17,4 +17,4 @@ export const ENDPOINTS = {
         getById: "/habit/getById",
         habitComplete: "/habit/habitComplete",
     }
-}
+} as const

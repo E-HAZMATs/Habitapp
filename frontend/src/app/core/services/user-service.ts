@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ApiService } from './api-service';
 import { ENDPOINTS } from '../constants/api-endpoints';
 import { firstValueFrom } from 'rxjs';
+import { ApiResponse } from '../models/api-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +25,14 @@ export class UserService  {
       this._user.set(null);
     }
 
-    async getUser() {
+    async initUser() {
       try{
-        const user = await firstValueFrom(
-          this.api.get<user>(ENDPOINTS.user.me)
+        const res = await firstValueFrom(
+          this.api.get<ApiResponse<user>>(ENDPOINTS.user.me)
         )
-        this._user.set(user);
-        console.log(user)
+        if (res.data) // CHECK: If stmt to silence ts warning cus apiresponse.data could be null. Handle this better?
+          this._user.set(res.data);
+        
       } catch {
         console.error('error')
       }

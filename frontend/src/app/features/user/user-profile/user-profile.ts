@@ -11,8 +11,10 @@ import { MatFormField, MatLabel } from "@angular/material/form-field";
 })
 export class UserProfile implements OnInit{
   private userService = inject(UserService);
-  protected user = signal<user | null>(null);
+  protected user = this.userService.user;
   ngOnInit(): void {
+    console.log(this.user())
+    console.log(typeof(this.user))
     throw new Error('Method not implemented.');
   }
 }
