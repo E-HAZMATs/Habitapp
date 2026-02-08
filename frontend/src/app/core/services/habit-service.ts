@@ -30,7 +30,7 @@ export class HabitService {
       
       return response.data!.habit;
     } catch (err) {
-      this.handleErrorToast(err);
+      this.toastService.handleErrorToast(err);
       throw err;
     }
   }
@@ -44,8 +44,9 @@ export class HabitService {
       this.toastService.show(msg, 'success');
       return response.data!;
     }
+    // BIGTODO: Fix all the catches. i have to specify err as any to be able to reference err.error.message.
     catch (err) {
-      this.handleErrorToast(err)
+      this.toastService.handleErrorToast(err)
       throw err;
     }
   }
@@ -59,7 +60,7 @@ export class HabitService {
       return response.data!;
     }
     catch (err) {
-      this.handleErrorToast(err);
+      this.toastService.handleErrorToast(err);
       throw err;
     }
   }
@@ -73,7 +74,7 @@ export class HabitService {
       const msg = response.message;
       this.toastService.show(msg, 'success');
     } catch (err) {
-      this.handleErrorToast(err);
+      this.toastService.handleErrorToast(err);
       throw err;
     }
   }
@@ -86,7 +87,7 @@ export class HabitService {
       const msg = response.message;
       this.toastService.show(msg, 'success');
     } catch (err) {
-      this.handleErrorToast(err);
+      this.toastService.handleErrorToast(err);
       throw err;
     }
   }
@@ -102,15 +103,9 @@ export class HabitService {
     
     return response.data!;
   } catch (err) {
-    this.handleErrorToast(err);
+    this.toastService.handleErrorToast(err);
     throw err;
   }
 }
 
-  private handleErrorToast = (err: any): void => {
-    const backendMsg = 
-      err.error?.message || 
-      this.translateService.instant('unexpectedServerError');
-    this.toastService.show(backendMsg, 'error');
-  }
 }

@@ -34,7 +34,7 @@ async login(loginDto: loginDto) {
     this.toastService.show(msg, 'success');
     this.router.navigateByUrl(this.ROUTES.DASHBOARD)
   } catch (err) {
-    this.handleErrorToast(err);
+    this.toastService.handleErrorToast(err);
     throw err;
   }
 }
@@ -47,8 +47,8 @@ async login(loginDto: loginDto) {
       const msg = this.translateService.instant('registerSuccess')
       this.toastService.show(msg, 'success')
       this.router.navigateByUrl(ENDPOINTS.auth.login)
-    } catch (err) {
-      this.handleErrorToast(err)
+    } catch (err: any) {
+      this.toastService.handleErrorToast(err.error.message)
       throw err
     }
   }
@@ -62,13 +62,8 @@ async login(loginDto: loginDto) {
         this.toastService.show(msg, "success")
         this.router.navigate(['/auth', 'login'])
       },
-      error: (err) => this.handleErrorToast(err)
+      error: (err) => this.toastService.handleErrorToast(err)
     })
-  }
-  
-  private handleErrorToast = (err: any) =>{
-        const backendMsg = err.error?.message || this.translateService.instant('unexpectedServerError')
-        this.toastService.show(backendMsg, 'error')
   }
 
   async restoreSession(): Promise<void> {

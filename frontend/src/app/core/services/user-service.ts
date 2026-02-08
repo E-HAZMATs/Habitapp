@@ -3,6 +3,7 @@ import { ApiService } from './api-service';
 import { ENDPOINTS } from '../constants/api-endpoints';
 import { firstValueFrom } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
+import { ToastService } from './toast-service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { ApiResponse } from '../models/api-response.model';
 export class UserService  {
     private _user = signal<user | null>(null);
     private api = inject(ApiService)
+    private toast = inject(ToastService)
     user = this._user.asReadonly();
 
     getCurrentUser() {
@@ -37,5 +39,15 @@ export class UserService  {
       }
     }
 
-    async 
+    async updateCurrentUser(newUser: UpdateProfileDto) {
+      try {
+        const res = await firstValueFrom(
+          this.api.patch<ApiResponse<user>>(ENDPOINTS.user.me, newUser) // TODO: make a patch version of the me endpoint.
+        )
+
+      }
+      catch (err: any) { //TODO: make error interface.
+        this.toast.handleErrorToast(err.error.message)
+      }
+    }
 }
