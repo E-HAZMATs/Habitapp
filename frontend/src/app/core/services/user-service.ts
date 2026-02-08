@@ -13,7 +13,6 @@ export class UserService  {
     user = this._user.asReadonly();
 
     getCurrentUser() {
-      // todo setup controller for this.
       this.api.get(ENDPOINTS.user.me);
     }
 
@@ -37,4 +36,6 @@ export class UserService  {
         console.error('error')
       }
     }
+
+    async 
 }
