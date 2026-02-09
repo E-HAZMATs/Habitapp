@@ -7,8 +7,11 @@ import {
 } from '@angular/material/card';
 import { UserService } from '../../../core/services/user-service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPasswordMatchValidator } from '../../../core/validators/field-validators';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatInput } from "@angular/material/input";
+import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,16 +20,30 @@ import { confirmPasswordMatchValidator } from '../../../core/validators/field-va
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
+    ReactiveFormsModule,
     MatFormField,
     MatLabel,
-  ],
+    TranslatePipe,
+    MatInput,
+    MatSelect,
+    MatOption
+],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })
 export class UserProfile implements OnInit {
   private userService = inject(UserService);
   protected user = this.userService.user as WritableSignal<user>;
-  protected profileForm = new FormGroup(
+  protected profileForm!: FormGroup
+
+
+
+  ngOnInit(): void {
+    this.initForm()    
+  }
+
+  private initForm() {
+    this.profileForm = new FormGroup(
     {
       username: new FormControl(
         { value: this.user().username, disabled: true },
@@ -63,10 +80,5 @@ export class UserProfile implements OnInit {
       validators: confirmPasswordMatchValidator,
     },
   );
-
-  ngOnInit(): void {
-    console.log(this.user());
-    console.log(typeof this.user);
-    throw new Error('Method not implemented.');
   }
 }
