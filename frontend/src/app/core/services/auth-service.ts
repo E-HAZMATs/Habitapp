@@ -47,8 +47,8 @@ async login(loginDto: loginDto) {
       const msg = this.translateService.instant('registerSuccess')
       this.toastService.show(msg, 'success')
       this.router.navigateByUrl(ENDPOINTS.auth.login)
-    } catch (err: any) {
-      this.toastService.handleErrorToast(err.error.message)
+    } catch (err) {
+      this.toastService.handleErrorToast(err)
       throw err
     }
   }

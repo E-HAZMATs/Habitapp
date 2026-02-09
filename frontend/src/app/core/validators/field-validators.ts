@@ -9,3 +9,18 @@ export function noWhitespaceNameValidator(control: AbstractControl): ValidationE
   const value = control.value || '';
   return value.trim().length === 0 ? { whitespace: true } : null;
 }
+
+export function confirmPasswordMatchValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  if (!control.parent) return null;
+
+  const password = control.parent.get('password')?.value;
+  const confirmPassword = control.value;
+
+  if (!confirmPassword) return null;
+
+  return password === confirmPassword
+    ? null
+    : { passwordMismatch: true };
+}

@@ -28,7 +28,7 @@ import { ValidationErrorService } from '../../../core/services/validation-error-
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../core/constants/app-routes';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { noWhitespaceValidator } from '../../../core/validators/field-validators';
+import { confirmPasswordMatchValidator, noWhitespaceValidator } from '../../../core/validators/field-validators';
 @Component({
   selector: 'app-register',
   imports: [
@@ -75,7 +75,7 @@ export class Register {
     }),
     confirmPassword: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, this.confirmPasswordMatchValidator],
+      validators: [Validators.required, confirmPasswordMatchValidator],
     }),
   });
 
@@ -106,20 +106,5 @@ export class Register {
   ): string | null {
     return this.validationErrorService.getValidationError(control, fieldName);
   }
-
-private confirmPasswordMatchValidator(
-  control: AbstractControl
-): ValidationErrors | null {
-  if (!control.parent) return null;
-
-  const password = control.parent.get('password')?.value;
-  const confirmPassword = control.value;
-
-  if (!confirmPassword) return null;
-
-  return password === confirmPassword
-    ? null
-    : { passwordMismatch: true };
-}
 
 }

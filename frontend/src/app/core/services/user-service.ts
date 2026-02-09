@@ -46,8 +46,8 @@ export class UserService  {
         )
 
       }
-      catch (err: any) { //TODO: make error interface.
-        this.toast.handleErrorToast(err.error.message)
+      catch (err) { //TODO: make error interface.
+        this.toast.handleErrorToast(err)
       }
     }
 }
