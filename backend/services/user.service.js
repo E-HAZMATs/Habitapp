@@ -30,7 +30,6 @@ exports.updateTimezone = async (userId, newTimezone) => {
 
     const oldTimezone = user.timezone;
     
-    // Update user timezone
     user.timezone = newTimezone;
     await user.save();
 
@@ -55,3 +54,31 @@ exports.me = async (userId) => {
 
     return user;
 }
+
+exports.updateProfile = async (userId, updateData) => {
+    const user = await User.findByPk(userId);
+    let prevTimezone = user.timezone;
+    const updates = {};
+    if (updateData.email) updates.email = updateData.email;
+    if (updateData.timezone) updates.timezone = updateData.timezone;
+
+    await user.update(updates);
+
+    let habitsUpdatedAmount = 0;
+    if (updateData.timezone) 
+        habitsUpdatedAmount = habitService.updateHabitsForTimezoneChange(userId, prevTimezone, updateData.timezone)
+ 
+    return {
+        user: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.roleId,
+            timezone: user.timezone,
+            isSystemUser: user.isSystemUser,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+        },
+        habitsUpdatedAmount
+    };
+};

@@ -1,6 +1,7 @@
 const userService = require("../services/user.service");
 const Joi = require('joi');
 const { sendError, sendSuccess } = require("../utils/responseHandler");
+const { profileUpdateSchema } = require("../validation/user.validation");
 // const roleService = require('../services/role.service')
 //Outsource?
 const userIdSchema = Joi.string().uuid({ version: "uuidv4" }).required();
@@ -41,3 +42,12 @@ exports.me = async (req, res) => {
     const user = await userService.me(req.user.id);
     return sendSuccess(res, 200, req.__('operationSuccess'), user)
 }
+
+exports.updateProfile = async (req, res) => {
+  const { error } = profileUpdateSchema.validate(req.body);
+  if (error) return sendError(res, 400, error.details[0].message);
+
+  const result = await userService.updateProfile(req.user.id, req.body); // TODO: Make the service method. Make it adjust the duedates if new timezone passed.
+  
+  return sendSuccess(res, 200, req.__('operationSuccess'), result);
+};
