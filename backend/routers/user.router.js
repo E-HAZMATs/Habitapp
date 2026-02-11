@@ -16,6 +16,7 @@ router.get('/admin', hasRole('admin'), (req, res)=>{
 });
 router.put('/updateTimezone', wrappedController.updateTimezone)
 router.get('/me', wrappedController.me);
+router.patch('/me', wrappedController.updateProfile);
 
 
 module.exports = router;
