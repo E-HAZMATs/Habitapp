@@ -63,5 +63,7 @@
 	"dueInXHours": "مطلوب خلال {{number}} ساعة",
 	"dueInOneHour": "مطلوب خلال ساعة",
 	"dueInXDays": "مطلوب خلال {{number}} أيام",
-	"dueInOneDay": "مطلوب خلال يوم"
+	"dueInOneDay": "مطلوب خلال يوم",
+	"update": "تحديث",
+	"operationSuccess": "تمت العملية بنجاح"
 }
