@@ -4,6 +4,7 @@ import { ENDPOINTS } from '../constants/api-endpoints';
 import { firstValueFrom } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
 import { ToastService } from './toast-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class UserService  {
     private _user = signal<user | null>(null);
     private api = inject(ApiService)
     private toast = inject(ToastService)
+    private translateService = inject(TranslateService)
     user = this._user.asReadonly();
 
     getCurrentUser() {
@@ -33,7 +35,6 @@ export class UserService  {
         )
         if (res.data) // CHECK: If stmt to silence ts warning cus apiresponse.data could be null. Handle this better?
           this._user.set(res.data);
-        
       } catch {
         console.error('error')
       }
@@ -42,12 +43,16 @@ export class UserService  {
     async updateCurrentUser(newUser: UpdateProfileDto) {
       try {
         const res = await firstValueFrom(
-          this.api.patch<ApiResponse<user>>(ENDPOINTS.user.me, newUser) // TODO: make a patch version of the me endpoint.
+          this.api.patch<ApiResponse<{user: user; habitsUpdatedAmount: number}>>(ENDPOINTS.user.me, newUser) // TODO: make a patch version of the me endpoint.
         )
-
+      const msg = this.translateService.instant('operationSuccess');
+      if(res.data)
+        this._user.set(res.data.user)
+      this.toast.show(msg, 'success');
       }
       catch (err) { //TODO: make error interface.
         this.toast.handleErrorToast(err)
+        throw err
       }
     }
 }

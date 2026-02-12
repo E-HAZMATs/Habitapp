@@ -5,26 +5,41 @@
 
     <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
         <div class="col-span-12">
-            <!-- If user initilized. need an endpoint for it and to set current user upon app start. -->
             @let user = this.user();
-            <form [formGroup]="profileForm" ] >
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <mat-form-field>
                     <mat-label>{{ "username" | translate }}</mat-label>
-                    <input matInput formControlName="username" readonly/>
+                    <input matInput formControlName="username" readonly />
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>{{ 'email' | translate }}</mat-label>
                     <input matInput formControlName="email" type="email" />
+                    @let emailError = getValidationError(this.profileForm.controls['email'], 'email');
+                    @if(emailError){
+                        <mat-error>{{ emailError }}</mat-error>
+                    }
                 </mat-form-field>
 
                 <mat-form-field>
-                    <!-- TODO: Get all tomezones array. -->
                     <mat-label>{{ "timezone" | translate }}</mat-label>
-                    <mat-select>
-                        <mat-option>op1</mat-option>
+                    <mat-select formControlName="timezone">
+                        @for (tz of timezones; track tz) {
+                        <mat-option [value]="tz">{{ tz }}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
+
+                <div class="flex gap-2">
+                    <button matButton="filled" type="submit"
+                        [disabled]="saving() || profileForm.invalid">
+                        @if(saving()){
+                            <mat-spinner diameter="20"></mat-spinner>
+                        } @else {
+                            {{'update' | translate}}
+                        }
+                    </button>
+                </div>
             </form>
         </div>
     </mat-card-content>

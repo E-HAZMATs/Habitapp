@@ -7,7 +7,7 @@ import {
 } from '@angular/material/card';
 import { UserService } from '../../../core/services/user-service';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPasswordMatchValidator } from '../../../core/validators/field-validators';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatInput } from "@angular/material/input";
@@ -15,6 +15,8 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
 import { ToastService } from '../../../core/services/toast-service';
 import { TranslateService } from '@ngx-translate/core';
+import { ValidationErrorService } from '../../../core/services/validation-error-service';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-user-profile',
@@ -31,15 +33,15 @@ import { TranslateService } from '@ngx-translate/core';
     MatInput,
     MatSelect,
     MatOption,
-    MatButton
-  ],
+    MatButton,
+    MatProgressSpinner
+],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })
 export class UserProfile implements OnInit {
   private userService = inject(UserService);
-  private toastService = inject(ToastService);
-  private translateService = inject(TranslateService);
+  private validationErrorService = inject(ValidationErrorService)
   protected user = this.userService.user as WritableSignal<user>;
   protected profileForm!: FormGroup
   protected saving = signal(false);
@@ -50,6 +52,7 @@ export class UserProfile implements OnInit {
     'Europe/London',
     'Asia/Tokyo',
     'Australia/Sydney',
+    "Asia/Shanghai"
   ];
 
   ngOnInit(): void {
@@ -109,14 +112,17 @@ export class UserProfile implements OnInit {
         email: this.profileForm.value.email,
         timezone: this.profileForm.value.timezone,
       };
-
       await this.userService.updateCurrentUser(updateData);
-      const msg = this.translateService.instant('operationSuccess');
-      this.toastService.show(msg, 'success');
     } catch (err) {
-      this.toastService.handleErrorToast(err);
     } finally {
       this.saving.set(false);
     }
+  }
+
+    getValidationError(
+    control: AbstractControl,
+    fieldName: 'email' | 'password'
+  ): string | null {
+    return this.validationErrorService.getValidationError(control, fieldName);
   }
 }

@@ -65,6 +65,9 @@
 	"dueInXDays": "Due in {{number}} day",
 	"dueInOneDay": "Due in a day",
 	"update": "Update",
-	"operationSuccess": "Operation success"
+	"operationSuccess": "Operation success",
+	"timezone": "Time zone",
+	"email": "Email",
+	"username": "User name"
 
 }

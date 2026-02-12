@@ -28,8 +28,8 @@ async login(loginDto: loginDto) {
     const value = await firstValueFrom(
       this.api.post<ApiResponse<loginResponseDto>>(ENDPOINTS.auth.login, loginDto)
     );
-    
     this.tokenService.setToken(value.data!.token);
+    await this.userService.initUser();
     const msg = this.translateService.instant('loginSuccess');
     this.toastService.show(msg, 'success');
     this.router.navigateByUrl(this.ROUTES.DASHBOARD)
