@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
+import { TokenService } from './token-service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class UserService  {
     private api = inject(ApiService)
     private toast = inject(ToastService)
     private translateService = inject(TranslateService)
+    private tokenService = inject(TokenService)
     user = this._user.asReadonly();
 
     getCurrentUser() {
@@ -46,8 +48,14 @@ export class UserService  {
           this.api.patch<ApiResponse<{user: user; habitsUpdatedAmount: number}>>(ENDPOINTS.user.me, newUser) // TODO: make a patch version of the me endpoint.
         )
       const msg = this.translateService.instant('operationSuccess');
+      
       if(res.data)
         this._user.set(res.data.user)
+    // refresh token so it holds updated data.
+        const refreshRes = await firstValueFrom(
+          this.api.get<ApiResponse<{ token: string }>>('/auth/refresh')
+      );
+      this.tokenService.setToken(refreshRes.data!.token)
       this.toast.show(msg, 'success');
       }
       catch (err) { //TODO: make error interface.

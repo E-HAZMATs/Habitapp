@@ -37,7 +37,6 @@ exports.register = async (req, res) => {
   // May happened after i moved the method to user service?
   const emailAlreadyUsed = await userService.isEmailUsed(req.body.email);
   if (emailAlreadyUsed) return sendError(res, 400, req.__("emailUsed")); 
-  console.log('emailAlreadyUsed', emailAlreadyUsed)
   const user = await authService.createUser(req.body);
   if (user) {
     // Should user be returned?
