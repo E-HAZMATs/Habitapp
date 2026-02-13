@@ -22,6 +22,10 @@ exports.isEmailUsed = async (email) => {
     return await User.findOne({ where: { email } }) !== null
 }
 
+exports.isUsernameUsed = async (username) => {
+    return await User.findOne({ where: { username } }) !== null
+}
+
 exports.updateTimezone = async (userId, newTimezone) => {
     const user = await User.findByPk(userId);
     if (!user) {
@@ -59,6 +63,8 @@ exports.updateProfile = async (userId, updateData) => {
     const user = await User.findByPk(userId);
     let prevTimezone = user.timezone;
     const updates = {};
+    
+    if (updateData.username) updates.username = updateData.username;
     if (updateData.email) updates.email = updateData.email;
     if (updateData.timezone) updates.timezone = updateData.timezone;
 

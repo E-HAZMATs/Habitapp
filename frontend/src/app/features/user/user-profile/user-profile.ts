@@ -63,10 +63,15 @@ export class UserProfile implements OnInit {
     this.profileForm = new FormGroup(
     {
       username: new FormControl(
-        { value: this.user().username, disabled: true }, //TODO: Enable. Handle used usernames.
+        this.user().username,
         {
           nonNullable: true,
-          validators: [Validators.required, Validators.minLength(3)],
+          validators: [
+            Validators.required, 
+            Validators.minLength(4),
+            Validators.maxLength(15),
+            Validators.pattern(/^\S+$/)
+          ],
         },
       ),
 
@@ -109,6 +114,7 @@ export class UserProfile implements OnInit {
 
     try {
       const updateData: UpdateProfileDto = {
+        username: this.profileForm.value.username,
         email: this.profileForm.value.email,
         timezone: this.profileForm.value.timezone,
       };
@@ -121,7 +127,7 @@ export class UserProfile implements OnInit {
 
     getValidationError(
     control: AbstractControl,
-    fieldName: 'email' | 'password'
+    fieldName: 'email' | 'password' | 'username'
   ): string | null {
     return this.validationErrorService.getValidationError(control, fieldName);
   }

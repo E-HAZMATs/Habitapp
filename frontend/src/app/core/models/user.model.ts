@@ -11,6 +11,7 @@ interface user{
 
 interface UpdateProfileDto {
     email?: string;
+    username?: string;
     timezone?: string;
     currentPassword?: string;
     newPassword?: string;

@@ -46,12 +46,17 @@ exports.me = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   const { error } = profileUpdateSchema.validate(req.body);
   if (error) return sendError(res, 400, error.details[0].message);
+  
   const user = await userService.findById(req.user.id);
-  let emailAlreadyUsed = false;
-  if (user.email !== req.body.email){
-      emailAlreadyUsed = await userService.isEmailUsed(req.body.email);
+  if (req.body.email && user.email !== req.body.email) {
+      const emailAlreadyUsed = await userService.isEmailUsed(req.body.email);
       if (emailAlreadyUsed) return sendError(res, 400, req.__("emailUsed"));
-    }
+  }
+
+  if (req.body.username && user.username !== req.body.username) {
+      const usernameAlreadyUsed = await userService.isUsernameUsed(req.body.username);
+      if (usernameAlreadyUsed) return sendError(res, 400, req.__("usernameUsed"));
+  }
 
   const result = await userService.updateProfile(req.user.id, req.body);
   

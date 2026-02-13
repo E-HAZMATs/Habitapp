@@ -1,6 +1,6 @@
 <mat-card>
-    <mat-card-header class="items-center">
-        <mat-card-title>Profile</mat-card-title>
+    <mat-card-header class="items-center mb-5">
+        <mat-card-title>{{ 'profile' | translate }}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
@@ -9,7 +9,11 @@
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <mat-form-field>
                     <mat-label>{{ "username" | translate }}</mat-label>
-                    <input matInput formControlName="username" readonly />
+                    <input matInput formControlName="username" />
+                    @let usernameError = getValidationError(this.profileForm.controls['username'], 'username');
+                    @if(usernameError){
+                        <mat-error>{{ usernameError }}</mat-error>
+                    }
                 </mat-form-field>
 
                 <mat-form-field>
