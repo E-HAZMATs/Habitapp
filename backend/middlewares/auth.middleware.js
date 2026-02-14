@@ -12,7 +12,7 @@ exports.authMiddleware = (req, res, next) => {
     req.user = decodedToken;
     next();
   } catch (e) {
-    return sendError(res, 401, req.__("invalidToken"));
+    return sendError(res, 401, req.__("AuthRequired"));
   }
 };
 
