@@ -9,6 +9,9 @@ export const ENDPOINTS = {
         delete: "/user/delete", //Didn't implement the service.
         me: "/user/me"
     },
+    habitLog: {
+        getByUser: '/habitlogs/getByUser',
+    },
     habit: {
         create: "/habit/create",
         update: "/habit/update",

@@ -10,6 +10,7 @@ import {
   habitResponse,
   updateHabitDto,
 } from '../models/habit.model';
+import { HabitLogsResponse } from '../models/habit-log.model';
 import { ENDPOINTS } from '../constants/api-endpoints';
 @Injectable({
   providedIn: 'root',
@@ -86,6 +87,18 @@ export class HabitService {
       );
       const msg = response.message;
       this.toastService.show(msg, 'success');
+    } catch (err) {
+      this.toastService.handleErrorToast(err);
+      throw err;
+    }
+  }
+
+  async getLogsByUser(page: number = 1, size: number = 10): Promise<HabitLogsResponse> {
+    try {
+      const response = await firstValueFrom(
+        this.api.get<ApiResponse<HabitLogsResponse>>(ENDPOINTS.habitLog.getByUser, { page, size })
+      );
+      return response.data!;
     } catch (err) {
       this.toastService.handleErrorToast(err);
       throw err;
