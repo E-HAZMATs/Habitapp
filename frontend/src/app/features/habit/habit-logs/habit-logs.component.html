@@ -1,2 +1,48 @@
-<div class="container">
+<div class="flex flex-col items-center px-4 py-6 w-full max-w-3xl mx-auto gap-4">
+  <h2 class="self-start font-bold text-xl ms-1">{{ 'habitLog' | translate }}</h2>
+  <mat-divider class="w-full" />
+ <!-- todo add active page style. -->
+    @if (pagination() && pagination()!.totalPages > 1) {
+      <div class="flex items-center justify-center flex-wrap gap-1 pt-2">
+        <button mat-icon-button
+          [disabled]="!pagination()!.hasPreviousPage"
+          (click)="loadLogs(currentPage() - 1)"
+          class="pagination-button">
+          <mat-icon class="rtl:rotate-180">chevron_left</mat-icon>
+        </button>
+
+        @if (showFirstPage()) {
+          <button mat-icon-button (click)="loadLogs(1)" class="pagination-button">
+            <span class="text-sm font-medium">1</span>
+          </button>
+        }
+        @if (showStartEllipsis()) {
+          <span class="px-1 select-none pagination-ellipsis">…</span>
+        }
+
+        @for (page of getPageNumbers(); track page) {
+          <button mat-icon-button
+            (click)="loadLogs(page)"
+            class="pagination-button">
+            <span class="text-sm font-medium">{{ page }}</span>
+          </button>
+        }
+
+        @if (showEndEllipsis()) {
+          <span class="px-1 select-none pagination-ellipsis">…</span>
+        }
+        @if (showLastPage()) {
+          <button mat-icon-button (click)="loadLogs(pagination()!.totalPages)" class="pagination-button">
+            <span class="text-sm font-medium">{{ pagination()!.totalPages }}</span>
+          </button>
+        }
+
+        <button mat-icon-button
+          [disabled]="!pagination()!.hasNextPage"
+          (click)="loadLogs(currentPage() + 1)"
+          class="pagination-button">
+          <mat-icon class="rtl:rotate-180">chevron_right</mat-icon>
+        </button>
+      </div>
+    }
 </div>
