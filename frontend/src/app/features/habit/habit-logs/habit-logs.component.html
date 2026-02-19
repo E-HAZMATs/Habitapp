@@ -2,6 +2,59 @@
   <h2 class="self-start font-bold text-xl ms-1">{{ 'habitLog' | translate }}</h2>
   <mat-divider class="w-full" />
  <!-- todo add active page style. -->
+
+  @if (loading()) {
+    <div class="flex justify-center items-center py-16 w-full">
+      <mat-spinner diameter="48" />
+    </div>
+  }
+
+  <!-- TODO: Handle empty logs. -->
+
+  @if (!loading() && logs().length > 0) {
+    <div class="flex flex-col gap-3 w-full">
+      @for (log of logs(); track log.id) {
+        <mat-card>
+          <mat-card-content class="!grid grid-cols-[1fr_auto_180px] items-center gap-x-4 py-3 px-4">
+
+            <div class="flex flex-col gap-0.5 min-w-0">
+              <span class="font-medium text-base truncate">{{ log.Habit.name }}</span>
+              @if (log.Habit.description) {
+                <span class="text-sm text-gray-500 truncate">{{ log.Habit.description }}</span>
+              }
+            </div>
+            <!-- When no description, this looks bad. -->
+             <!-- Should chips be of same width? -->
+            <div class="flex items-center">
+              <mat-chip
+                [class]="
+                  log.status === 'completed' ? 'chip-completed' :
+                  log.status === 'missed'    ? 'chip-missed' :
+                                               'chip-skipped'"
+                class="text-xs !h-6">
+                {{ log.status | translate }}
+              </mat-chip>
+            </div>
+
+            <div class="flex flex-col items-start gap-1 text-m">
+              <span>
+                <span class="date-label">{{ 'dueDate' | translate }}:</span>
+                <!-- TODO: Handle arabic date -->
+                {{ log.dueDate | date:'mediumDate' }} 
+              </span>
+              @if (log.status === 'completed' && log.completedAt) {
+                <span>
+                  <span class="date-label">{{ 'completedAt' | translate }}:</span>
+                  {{ log.completedAt | date:'medium' }}
+                </span>
+              }
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
     @if (pagination() && pagination()!.totalPages > 1) {
       <div class="flex items-center justify-center flex-wrap gap-1 pt-2">
         <button mat-icon-button
@@ -45,4 +98,5 @@
         </button>
       </div>
     }
+  }
 </div>

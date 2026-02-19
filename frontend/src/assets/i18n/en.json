@@ -8,7 +8,7 @@
 	"unexpectedServerError": "Unexpected server error",
 	"signOut": "Sign Out",
 	"profile": "Profile",
-	"dashboard": "dashboard",
+	"dashboard": "Dashboard",
 	"habitLog": "Habit Logs",
 	"enterEmail": "Enter your email",
 	"enterPassword": "Enter your password",
@@ -68,6 +68,11 @@
 	"operationSuccess": "Operation success",
 	"timezone": "Time zone",
 	"email": "Email",
-	"username": "User name"
-
+	"username": "User name",
+	"status": "Status",
+	"completed": "Completed",
+	"missed": "Missed",
+	"skipped": "Skipped",
+	"dueDate": "Due Date",
+	"completedAt": "Completed At"
 }

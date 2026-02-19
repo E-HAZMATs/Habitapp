@@ -10,7 +10,7 @@ export interface HabitLog {
   timezone: string;
   createdAt: string;
   updatedAt: string;
-  Habit?: {
+  Habit: {
     name: string;
     description?: string;
     frequencyType: string;

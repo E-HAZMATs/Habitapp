@@ -14,9 +14,13 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-habit-logs',
   imports: [
+    MatProgressSpinner,
+    MatCard, MatCardContent,
+    MatChip,
     MatIconButton, MatIcon,
     MatDivider,
     TranslatePipe,
+    DatePipe,
   ],
   templateUrl: './habit-logs.component.html',
   styleUrl: './habit-logs.component.css',

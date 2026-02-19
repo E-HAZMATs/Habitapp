@@ -4,3 +4,26 @@
   justify-content: center !important;
   vertical-align: middle !important;
 }
+
+.pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  line-height: 40px;
+}
+
+.chip-completed {
+  background-color: #4caf5026 !important;
+}
+
+.chip-missed {
+  background-color: #f4433626 !important;
+}
+
+.chip-skipped {
+  background-color: #fb8c0026 !important;
+}
+
+.date-label {
+  font-weight: 500;
+}
+
