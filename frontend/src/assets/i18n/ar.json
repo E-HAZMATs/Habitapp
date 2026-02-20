@@ -74,5 +74,6 @@
 	"missed": "فائت",
 	"skipped": "متخطى",
 	"dueDate": "تاريخ الاستحقاق",
-	"completedAt": "وقت الإتمام"
+	"completedAt": "وقت الإتمام",
+	"noLogs": "لا يوجد لديك سجل"
 }

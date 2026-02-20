@@ -74,5 +74,6 @@
 	"missed": "Missed",
 	"skipped": "Skipped",
 	"dueDate": "Due Date",
-	"completedAt": "Completed At"
+	"completedAt": "Completed At",
+	"noLogs": "You have no logs"
 }

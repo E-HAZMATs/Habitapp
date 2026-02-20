@@ -9,7 +9,12 @@
     </div>
   }
 
-  <!-- TODO: Handle empty logs. -->
+  @if (!loading() && logs().length === 0) {
+    <div class="flex flex-col items-center justify-center py-20 gap-3 text-gray-400">
+      <mat-icon class="text-5xl !w-12 !h-12">inbox</mat-icon>
+      <p class="text-base">{{ 'noLogs' | translate }}</p>
+    </div>
+  }
 
   @if (!loading() && logs().length > 0) {
     <div class="flex flex-col gap-3 w-full">
