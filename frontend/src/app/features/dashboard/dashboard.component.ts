@@ -2,7 +2,8 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { CreateHabitModal } from "../habit/create-habit-modal/create-habit-modal";
 import { MatDialog } from '@angular/material/dialog';
 import { LocalizationService } from '../../core/services/localization-service';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { BidiModule } from "@angular/cdk/bidi";
 import { HabitService } from '../../core/services/habit-service';
 import { habit } from '../../core/models/habit.model';
@@ -12,7 +13,7 @@ import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 
 @Component({
   selector: 'app-dashboard.component',
-  imports: [CreateHabitModal, MatButton, MatCard, MatCardContent, MatCardSubtitle, MatCardTitle,
+  imports: [CreateHabitModal, MatButton, MatIconButton, MatIcon, MatCard, MatCardContent, MatCardSubtitle, MatCardTitle,
     TranslatePipe
   ],
   templateUrl: './dashboard.component.html',
@@ -52,6 +53,11 @@ export class DashboardComponent implements OnInit {
       habit.dueIn = this.getDueIn(habit.nextDueDate);
     })
     this.habits.set(result);
+  }
+
+  protected async deleteHabit(habitId: string){
+    await this.habitService.delete(habitId);
+    await this.getHabits();
   }
 
   protected async completeHabit(habitId: string){
