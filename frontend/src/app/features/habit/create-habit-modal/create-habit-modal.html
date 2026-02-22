@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="self-center">{{ 'addHabit' | translate }}</h2>
+<h2 mat-dialog-title class="self-center">{{ (isEditMode ? 'editHabit' : 'addHabit') | translate }}</h2>
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-4 gap-1 gap-y-2">
         <mat-form-field class="col-span-4">

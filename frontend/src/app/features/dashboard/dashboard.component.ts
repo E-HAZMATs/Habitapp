@@ -55,6 +55,18 @@ export class DashboardComponent implements OnInit {
     this.habits.set(result);
   }
 
+  openEditDialog(habit: habit) {
+    const currentLang = this.localizationService.currentLanguage();
+    const dialogRef = this.dialog.open(CreateHabitModal, {
+      direction: currentLang === 'ar' ? 'rtl' : 'ltr',
+      data: habit,
+    });
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result === true)
+        await this.getHabits();
+    });
+  }
+
   protected async deleteHabit(habitId: string){
     await this.habitService.delete(habitId);
     await this.getHabits();

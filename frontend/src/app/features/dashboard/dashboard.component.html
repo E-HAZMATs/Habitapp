@@ -1,6 +1,5 @@
 <div class="flex flex-col justify-center items-center">
     <button (click)="openDialog()" matButton="filled">{{ "addHabit" | translate }}</button>
-    <!-- <app-create-habit-modal/> -->
 
     <!-- Incoming habits section -->
      <!-- FIX HEIGHTS -->
@@ -13,11 +12,11 @@
                         <!-- <div class="h-full flex items-center p-5">
                             <h2 class="font-bold">{{habit.name}}</h2>
                         </div> -->
-                        <div class="col-span-4">
+                        <div class="col-span-3">
                             <mat-card-title>{{habit.name}}</mat-card-title>
                         </div>
                         
-                        <div class="sm:col-span-6 md:col-span-7">
+                        <div class="col-span-5">
                             @if (habit.description){
                                 <!-- <p>{{habit.description}}</p> -->
                                 <mat-card-subtitle>{{habit.description}}</mat-card-subtitle>
@@ -25,14 +24,18 @@
                         </div>
                         
                         <!-- Show complete btn if habit is at specified time, else count down? -->
-                        <div class="sm:col-span-2 lg:col-span-1 flex justify-end items-center gap-2">
+                        <div class="col-span-4 flex justify-end items-center gap-1">
                         @let isDue = habit.dueIn.diffHours <= 0;
                         <!-- @if (habit.dueIn.diffHours <= 0){ -->
                          <!-- TODO: Make btn same size no matter what content. And handle possible large text. -->
                           <!-- TODOIMP: Make due time update like a countdown -->
-                                <button matButton="filled" (click)="completeHabit(habit.id)" [disabled]="!isDue" 
-                                class="w-full !truncate"
-                                >{{getCompleteBtnText(habit)}}</button>
+                                <button matButton="filled" (click)="completeHabit(habit.id)" [disabled]="!isDue"
+                                    class="!truncate">{{getCompleteBtnText(habit)}}</button>
+
+                                <button matIconButton (click)="openEditDialog(habit)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+
                                 <button matIconButton color="" (click)="deleteHabit(habit.id)">
                                     <mat-icon>delete</mat-icon>
                                 </button>

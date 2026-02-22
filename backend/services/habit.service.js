@@ -43,6 +43,7 @@ exports.create = async (data) => {
     return await Habit.create(data);
 }
 
+// TODO: Update nextDueDate in case of changed scheduling.
 exports.update = async (id, userId, data) => {
     const habit = await Habit.findByPk(id)
     if(!habit)

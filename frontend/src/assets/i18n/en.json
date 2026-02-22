@@ -76,5 +76,6 @@
 	"dueDate": "Due Date",
 	"completedAt": "Completed At",
 	"noLogs": "You have no logs",
-	"delete": "Delete"
+	"delete": "Delete",
+	"editHabit": "Edit Habit"
 }
