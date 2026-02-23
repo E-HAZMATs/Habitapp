@@ -77,5 +77,6 @@
 	"completedAt": "Completed At",
 	"noLogs": "You have no logs",
 	"delete": "Delete",
-	"editHabit": "Edit Habit"
+	"editHabit": "Edit Habit",
+	"noHabitsTitle": "No habits were added yet"
 }

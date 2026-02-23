@@ -8,13 +8,14 @@ import { BidiModule } from "@angular/cdk/bidi";
 import { HabitService } from '../../core/services/habit-service';
 import { habit } from '../../core/models/habit.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 
 @Component({
   selector: 'app-dashboard.component',
   imports: [CreateHabitModal, MatButton, MatIconButton, MatIcon, MatCard, MatCardContent, MatCardSubtitle, MatCardTitle,
-    TranslatePipe
+    MatProgressSpinner, TranslatePipe
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

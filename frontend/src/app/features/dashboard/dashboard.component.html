@@ -5,7 +5,7 @@
      <!-- FIX HEIGHTS -->
       <!-- BIGTODO: STYLIZE BETTER. -->
      <div class="mt-5 w-full min-h-[10vh] max-h-[80vh] overflow-auto">
-        @if (habits()){
+        @if (habits() !== null){
             @for (habit of habits(); track habit.id){
                 <mat-card class="mt-2 me-2">
                     <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
@@ -43,9 +43,16 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
+            } @empty {
+                <div class="flex flex-col items-center justify-center gap-4 py-16 text-center">
+                    <mat-icon class="text-6xl !w-16 !h-16">inbox</mat-icon>
+                    <p class="text-xl font-semibold">{{ 'noHabitsTitle' | translate }}</p>
+                </div>
             }
-    } @else {
-        <p>You have not added any habts...</p>
-    }
+        } @else {
+            <div class="flex justify-center py-16">
+                <mat-progress-spinner mode="indeterminate" diameter="48"/>
+            </div>
+        }
      </div>
 </div>

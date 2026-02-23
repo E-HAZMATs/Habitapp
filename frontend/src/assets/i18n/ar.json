@@ -77,5 +77,6 @@
 	"completedAt": "وقت الإتمام",
 	"noLogs": "لا يوجد لديك سجل",
 	"delete": "حذف",
-	"editHabit": "تعديل العادة"
+	"editHabit": "تعديل العادة",
+	"noHabitsTitle": "لم تسجل أي عادة حتى الآن"
 }
