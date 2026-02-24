@@ -39,7 +39,6 @@ exports.create = async (data) => {
             data.nextDueDate = date;
             break;
     }
-    console.log(data);
     return await Habit.create(data);
 }
 

@@ -78,5 +78,7 @@
 	"noLogs": "لا يوجد لديك سجل",
 	"delete": "حذف",
 	"editHabit": "تعديل العادة",
-	"noHabitsTitle": "لم تسجل أي عادة حتى الآن"
+	"noHabitsTitle": "لم تسجل أي عادة حتى الآن",
+	"confirmDeleteTitle": "حذف العادة",
+	"confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذه العادة؟"
 }

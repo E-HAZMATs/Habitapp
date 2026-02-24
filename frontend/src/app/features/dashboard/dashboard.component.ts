@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CreateHabitModal } from "../habit/create-habit-modal/create-habit-modal";
 import { MatDialog } from '@angular/material/dialog';
 import { LocalizationService } from '../../core/services/localization-service';
@@ -68,9 +69,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  protected async deleteHabit(habitId: string){
-    await this.habitService.delete(habitId);
-    await this.getHabits();
+  protected deleteHabit(habitId: string){
+    const currentLang = this.localizationService.currentLanguage();
+    const dialogRef = this.dialog.open(ConfirmDeleteDialog, {
+      direction: currentLang === 'ar' ? 'rtl' : 'ltr',
+    });
+    dialogRef.afterClosed().subscribe(async (confirmed) => {
+      if (confirmed === true) {
+        await this.habitService.delete(habitId);
+        await this.getHabits();
+      }
+    });
   }
 
   protected async completeHabit(habitId: string){
@@ -111,3 +120,17 @@ export class DashboardComponent implements OnInit {
   }
   
 }
+
+@Component({
+  selector: 'app-confirm-delete-dialog',
+  imports: [MatDialogModule, MatButton, TranslatePipe],
+  template: `
+    <h2 mat-dialog-title>{{ 'confirmDeleteTitle' | translate }}</h2>
+    <mat-dialog-content>{{ 'confirmDeleteMessage' | translate }}</mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button matButton mat-dialog-close>{{ 'cancel' | translate }}</button>
+      <button matButton [mat-dialog-close]="true">{{ 'delete' | translate }}</button>
+    </mat-dialog-actions>
+  `,
+})
+export class ConfirmDeleteDialog {}
