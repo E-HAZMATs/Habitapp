@@ -121,7 +121,7 @@ export class CreateHabitModal {
         ...values,
         timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null,
       };
-      this.habitService.create(payload);
+      await this.habitService.create(payload);
     }
   }
 
@@ -188,7 +188,6 @@ export class CreateHabitModal {
       : [];
 
     frequencyTypeControl.valueChanges.subscribe((type) => {
-      debugger;
       dayOfWeekControl.setValidators([
         ...baseWeekValidators,
         ...(type === 'weekly' ? [Validators.required] : []),

@@ -62,10 +62,20 @@ exports.logout = async (req, res) => {
 exports.refresh = async (req, res) => {
   const RT = req.cookies.rt;
   if (!RT) return sendError(res, 401, req.__("noRefreshToken"));
-  
-  const decodedRT = jwt.verify(RT, process.env.RT_KEY);
-  let user = null;
-  user = await userService.findById(decodedRT.id);
+
+  let decodedRT;
+  try {
+    decodedRT = jwt.verify(RT, process.env.RT_KEY);
+  } catch (e) {
+    // If the RT expires or is invalid it would be cought by the async handler, but that would return general message.
+    // Better have explicit handling. 
+    res.clearCookie("rt", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax" });
+    return sendError(res, 401, req.__("noRefreshToken"));
+  }
+
+  const user = await userService.findById(decodedRT.id);
+  if (!user) return sendError(res, 401, req.__("noRefreshToken"));
+
   const { accessToken, refreshToken } = tokenService.createTokens(user);
   tokenService.setRtCookie(res, refreshToken);
   return sendSuccess(res, 200, undefined, {
