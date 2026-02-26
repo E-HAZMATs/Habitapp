@@ -9,10 +9,6 @@ import { AuthService } from './core/services/auth-service';
 import { tokenInterceptor } from './core/interceptors/token-interceptor';
 import { languageInterceptor } from './core/interceptors/language-interceptor';
 
-export const authInit = (auth: AuthService) => {
-  return () => auth.restoreSession();
-}
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -30,8 +26,8 @@ export const appConfig: ApplicationConfig = {
       lang: 'en',
     }),
     provideAppInitializer(() => {
-    const authService = inject(AuthService);
-    return authService.restoreSession(); // TODO: Make method set user on user service.
+      const authService = inject(AuthService);
+      return authService.restoreSession();
     })
   ]
 };

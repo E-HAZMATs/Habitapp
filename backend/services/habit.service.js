@@ -105,7 +105,6 @@ exports.habitComplete = async (habitId, user, reqBody) => {
         dueDate: habit.nextDueDate,
         timezone: user.timezone
     });
-    habit.nextDueDate = nextDueDate;
     // CHECK: Should have try/catch?
     if (result) {
         habit.nextDueDate = nextDueDate;
