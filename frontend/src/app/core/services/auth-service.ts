@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { loginDto, loginResponseDto } from '../models/login.model';
+import { registerDto, registerResponseDto } from '../models/register.model';
 import { TokenService } from './token-service';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';

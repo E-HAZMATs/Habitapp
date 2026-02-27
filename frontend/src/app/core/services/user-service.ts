@@ -3,6 +3,7 @@ import { ApiService } from './api-service';
 import { ENDPOINTS } from '../constants/api-endpoints';
 import { firstValueFrom } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
+import { user, UpdateProfileDto } from '../models/user.model';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { TokenService } from './token-service';

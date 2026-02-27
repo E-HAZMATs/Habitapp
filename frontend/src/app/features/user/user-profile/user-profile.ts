@@ -6,6 +6,7 @@ import {
   MatCardHeader,
 } from '@angular/material/card';
 import { UserService } from '../../../core/services/user-service';
+import { user, UpdateProfileDto } from '../../../core/models/user.model';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPasswordMatchValidator } from '../../../core/validators/field-validators';

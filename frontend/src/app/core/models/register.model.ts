@@ -1,9 +1,8 @@
-interface registerDto {
+export interface registerDto {
     username: string,
     email: string,
     password: string
 }
 
-interface registerResponseDto{
-    
+export interface registerResponseDto {
 }

@@ -1,6 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { ToastService } from '../../../core/services/toast-service';
 
+interface ToastItem {
+  message: string;
+  type: 'success' | 'error';
+  duration: number;
+}
+
 @Component({
   selector: 'app-toast',
   templateUrl: './toast.html',
@@ -11,16 +17,33 @@ export class Toast {
   message = '';
   type: 'success' | 'error' = 'success';
 
-  constructor(private toastService: ToastService) {
-    // TODO: what if 2 toast data are emitting at the same time?
-    // maybe schedule toasts?
-    this.toastService.toastState$.subscribe(data => {
-      this.message = data.message;
-      this.type = data.type;
-      this.visible.set(true);
+  private toastQueue: ToastItem[] = [];
+  private isShowing = false;
 
-      setTimeout(() => {
-        this.visible.set(false)}, data.duration || 3000);
+  constructor(private toastService: ToastService) {
+    this.toastService.toastState$.subscribe(data => {
+      this.toastQueue.push({
+        message: data.message,
+        type: data.type,
+        duration: data.duration || 3000,
+      });
+      this.showNext();
     });
+  }
+
+  private showNext() {
+    if (this.isShowing || this.toastQueue.length === 0) return;
+
+    const nextToast = this.toastQueue.shift()!;
+    this.message = nextToast.message;
+    this.type = nextToast.type;
+    this.isShowing = true;
+    this.visible.set(true);
+
+    setTimeout(() => {
+      this.visible.set(false);
+      this.isShowing = false;
+      this.showNext();
+    }, nextToast.duration);
   }
 }

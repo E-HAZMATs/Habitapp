@@ -1,4 +1,4 @@
-interface user{
+export interface user {
     id: string,
     username: string,
     email: string,
@@ -9,7 +9,7 @@ interface user{
     updatedAt: string,
 }
 
-interface UpdateProfileDto {
+export interface UpdateProfileDto {
     email?: string;
     username?: string;
     timezone?: string;
