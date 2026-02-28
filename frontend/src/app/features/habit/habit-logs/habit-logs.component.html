@@ -81,6 +81,7 @@
         @for (page of getPageNumbers(); track page) {
           <button mat-icon-button
             (click)="loadLogs(page)"
+            [class.pagination-button-active]="page === currentPage()"
             class="pagination-button">
             <span class="text-sm font-medium">{{ page }}</span>
           </button>
