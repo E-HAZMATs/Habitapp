@@ -26,9 +26,13 @@
                         <!-- Show complete btn if habit is at specified time, else count down? -->
                         <div class="col-span-4 flex justify-end items-center gap-1">
                         @let isDue = habit.dueIn.diffHours <= 0;
+                        @let isLoading = isHabitLoading(habit.id);
                         <!-- @if (habit.dueIn.diffHours <= 0){ -->
                          <!-- TODO: Make btn same size no matter what content. And handle possible large text. -->
                           <!-- TODOIMP: Make due time update like a countdown -->
+                                @if (isLoading) {
+                                    <mat-progress-spinner diameter="24" mode="indeterminate" />
+                                } @else {
                                 <button matButton="filled" (click)="completeHabit(habit.id)" [disabled]="!isDue"
                                     class="!truncate">{{getCompleteBtnText(habit)}}</button>
 
@@ -39,7 +43,7 @@
                                 <button matIconButton color="" (click)="deleteHabit(habit.id)">
                                     <mat-icon>delete</mat-icon>
                                 </button>
-                            <!-- } -->
+                            }
                         </div>
                     </mat-card-content>
                 </mat-card>

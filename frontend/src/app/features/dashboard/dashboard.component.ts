@@ -29,6 +29,19 @@ export class DashboardComponent implements OnInit {
   private translate = inject(TranslateService)
   private habitService = inject(HabitService)
   protected habits = signal<habit[] | null>(null)
+  protected loadingHabitIds = signal<Set<string>>(new Set())
+
+  protected isHabitLoading(habitId: string): boolean {
+    return this.loadingHabitIds().has(habitId);
+  }
+
+  setHabitLoading(habitId: string, loading: boolean) {
+    this.loadingHabitIds.update(set => {
+      const newSet = new Set(set);
+      loading ? newSet.add(habitId) : newSet.delete(habitId);
+      return newSet;
+    });
+  }
 
   openDialog() {
     const currentLang = this.localizationService.currentLanguage();
@@ -76,16 +89,26 @@ export class DashboardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async (confirmed) => {
       if (confirmed === true) {
-        await this.habitService.delete(habitId);
-        await this.getHabits();
+        this.setHabitLoading(habitId, true);
+        try {
+          await this.habitService.delete(habitId);
+          await this.getHabits();
+        } finally {
+          this.setHabitLoading(habitId, false);
+        }
       }
     });
   }
 
   protected async completeHabit(habitId: string){
     // TODO: Add validation? is it time for completion now?
-    await this.habitService.habitComplete(habitId, new Date().toISOString())
-    await this.getHabits();
+    this.setHabitLoading(habitId, true);
+    try {
+      await this.habitService.habitComplete(habitId, new Date().toISOString())
+      await this.getHabits();
+    } finally {
+      this.setHabitLoading(habitId, false);
+    }
   }
 
   protected getDueIn(nextDueIn: string){
