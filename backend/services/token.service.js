@@ -11,8 +11,8 @@ exports.createRefreshToken = (user) => {
 };
 
 exports.createTokens = (user) => {
-  const accessToken = this.createJwt(user);
-  const refreshToken = this.createRefreshToken(user);
+  const accessToken = createJwt(user);
+  const refreshToken = createRefreshToken(user);
   return { accessToken, refreshToken };
 };
 

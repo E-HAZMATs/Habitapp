@@ -41,8 +41,6 @@ export class HabitService {
       const response = await firstValueFrom(
         this.api.get<ApiResponse<habit[]>>(ENDPOINTS.habit.getAllByUser)
       )
-      const msg = response.message;
-      this.toastService.show(msg, 'success');
       return response.data!;
     }
     // BIGTODO: Fix all the catches. i have to specify err as any to be able to reference err.error.message.
@@ -57,7 +55,6 @@ export class HabitService {
       const response = await firstValueFrom(
         this.api.get<ApiResponse<habit>>(ENDPOINTS.habit.getById + '/' + id)
       )
-      this.toastService.show(response.message, 'success');
       return response.data!;
     }
     catch (err) {
