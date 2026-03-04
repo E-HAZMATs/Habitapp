@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateHabitModal } from "../habit/create-habit-modal/create-habit-modal";
 import { MatDialog } from '@angular/material/dialog';
@@ -23,13 +23,14 @@ import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 })
 // Agree to a naming convention. when I use ng g and put .component, it adds that to the identifier.
 // my login comp is just Login.
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog)
   private localizationService = inject(LocalizationService)
   private translate = inject(TranslateService)
   private habitService = inject(HabitService)
   protected habits = signal<habit[] | null>(null)
   protected loadingHabitIds = signal<Set<string>>(new Set())
+  private dueInInterval: ReturnType<typeof setInterval> | null = null
 
   protected isHabitLoading(habitId: string): boolean {
     return this.loadingHabitIds().has(habitId);
@@ -56,6 +57,17 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit() {
     await this.getHabits();
+    this.dueInInterval = setInterval(() => {
+      const habitsTemp = this.habits();
+      if (!habitsTemp) return;
+      this.habits.set(habitsTemp.map(h => ({ ...h, dueIn: this.getDueIn(h.nextDueDate) })));
+    }, 60 * 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.dueInInterval !== null) {
+      clearInterval(this.dueInInterval);
+    }
   }
   
   async getHabits(){
