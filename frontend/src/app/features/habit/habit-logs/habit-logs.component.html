@@ -44,13 +44,12 @@
             <div class="flex flex-col items-start gap-1 text-m">
               <span>
                 <span class="date-label">{{ 'dueDate' | translate }}:</span>
-                <!-- TODO: Handle arabic date -->
-                {{ log.dueDate | date:'mediumDate' }} 
+                {{ log.dueDate | date:dateFormat }}
               </span>
               @if (log.status === 'completed' && log.completedAt) {
                 <span>
                   <span class="date-label">{{ 'completedAt' | translate }}:</span>
-                  {{ log.completedAt | date:'medium' }}
+                  {{ log.completedAt | date:dateTimeFormat }}
                 </span>
               }
             </div>

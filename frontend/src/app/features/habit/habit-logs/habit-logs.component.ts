@@ -10,6 +10,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatDivider } from '@angular/material/divider';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
+import { LocalizationService } from '../../../core/services/localization-service';
 
 @Component({
   selector: 'app-habit-logs',
@@ -27,6 +28,7 @@ import { DatePipe } from '@angular/common';
 })
 export class HabitLogsComponent implements OnInit {
   private habitService = inject(HabitService);
+  private localizationService = inject(LocalizationService);
 
   protected logs = signal<HabitLog[]>([]);
   protected pagination = signal<HabitLogPagination | null>(null);
@@ -50,6 +52,14 @@ export class HabitLogsComponent implements OnInit {
     }
   }
 
+  protected get dateFormat(): string {
+    return this.localizationService.currentLanguage() === 'ar' ? 'dd/MM/yyyy' : 'mediumDate';
+  }
+
+  protected get dateTimeFormat(): string {
+    return this.localizationService.currentLanguage() === 'ar' ? 'dd/MM/yyyy HH:mm' : 'medium';
+  }
+  
   protected getPageNumbers(): number[] {
     const total = this.pagination()?.totalPages ?? 1;
     const current = this.currentPage();

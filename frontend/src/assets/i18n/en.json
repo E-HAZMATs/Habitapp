@@ -62,7 +62,7 @@
 	"complete": "Complete",
 	"dueInXHours": "Due in {{number}} hours",
 	"dueInOneHour": "Due in an hour",
-	"dueInXDays": "Due in {{number}} day",
+	"dueInXDays": "Due in {{number}} days",
 	"dueInOneDay": "Due in a day",
 	"update": "Update",
 	"operationSuccess": "Operation success",
