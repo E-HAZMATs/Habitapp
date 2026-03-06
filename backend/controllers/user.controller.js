@@ -58,7 +58,7 @@ exports.updateProfile = async (req, res) => {
       if (usernameAlreadyUsed) return sendError(res, 400, req.__("usernameUsed"));
   }
 
-  const result = await userService.updateProfile(req.user.id, req.body);
+  const result = await userService.updateProfile(user, req.body);
   
   return sendSuccess(res, 200, req.__('operationSuccess'), result);
 };

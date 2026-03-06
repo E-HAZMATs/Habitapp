@@ -59,8 +59,7 @@ exports.me = async (userId) => {
     return user;
 }
 
-exports.updateProfile = async (userId, updateData) => {
-    const user = await User.findByPk(userId);
+exports.updateProfile = async (user, updateData) => {
     let prevTimezone = user.timezone;
     const updates = {};
     
