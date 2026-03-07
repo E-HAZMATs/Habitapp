@@ -59,6 +59,19 @@ exports.me = async (userId) => {
     return user;
 }
 
+exports.changePassword = async (userId, currentPassword, newPassword) => {
+    const bcrypt = require('bcryptjs');
+    const user = await User.findByPk(userId);
+    if (!user) throw new AppError('userNotExist', 400);
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) throw new AppError('wrongCurrentPassword', 400);
+
+    const hashed = await bcrypt.hash(newPassword, 10);
+    user.password = hashed;
+    await user.save();
+};
+
 exports.updateProfile = async (user, updateData) => {
     let prevTimezone = user.timezone;
     const updates = {};

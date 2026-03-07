@@ -1,7 +1,7 @@
 const userService = require("../services/user.service");
 const Joi = require('joi');
 const { sendError, sendSuccess } = require("../utils/responseHandler");
-const { profileUpdateSchema } = require("../validation/user.validation");
+const { profileUpdateSchema, changePasswordSchema } = require("../validation/user.validation");
 // const roleService = require('../services/role.service')
 //Outsource?
 const userIdSchema = Joi.string().uuid({ version: "uuidv4" }).required();
@@ -42,6 +42,14 @@ exports.me = async (req, res) => {
     const user = await userService.me(req.user.id);
     return sendSuccess(res, 200, req.__('operationSuccess'), user)
 }
+
+exports.changePassword = async (req, res) => {
+    const { error } = changePasswordSchema.validate(req.body);
+    if (error) return sendError(res, 400, req.__(error.details[0].message));
+
+    await userService.changePassword(req.user.id, req.body.currentPassword, req.body.newPassword);
+    return sendSuccess(res, 200, req.__('passwordChanged'));
+};
 
 exports.updateProfile = async (req, res) => {
   const { error } = profileUpdateSchema.validate(req.body);

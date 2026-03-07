@@ -11,6 +11,7 @@ router.delete('/delete/:id', wrappedController.delete)
 router.put('/updateTimezone', wrappedController.updateTimezone)
 router.get('/me', wrappedController.me);
 router.patch('/me', wrappedController.updateProfile);
+router.post('/changePassword', wrappedController.changePassword);
 
 
 module.exports = router;

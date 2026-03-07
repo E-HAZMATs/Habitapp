@@ -26,5 +26,8 @@
 	"AuthRequired": "Authentication is required",
 	"notFound": "Resource not found.",
 	"notAuthorized": "Access not authorized",
-	"userNameValidationMsg": "User name should not contain any whitespace, and be composed of 4 to 15 characters."
+	"userNameValidationMsg": "User name should not contain any whitespace, and be composed of 4 to 15 characters.",
+	"wrongCurrentPassword": "Current password is incorrect.",
+	"passwordChanged": "Password changed successfully.",
+	"passwordMismatch": "Passwords do not match."
 }
