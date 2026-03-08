@@ -48,8 +48,6 @@ export class UserService  {
         const res = await firstValueFrom(
           this.api.patch<ApiResponse<{user: user; habitsUpdatedAmount: number}>>(ENDPOINTS.user.me, newUser) // TODO: make a patch version of the me endpoint.
         )
-      const msg = this.translateService.instant('operationSuccess');
-      
       if(res.data)
         this._user.set(res.data.user)
     // refresh token so it holds updated data.
@@ -57,11 +55,23 @@ export class UserService  {
           this.api.get<ApiResponse<{ token: string }>>('/auth/refresh')
       );
       this.tokenService.setToken(refreshRes.data!.token)
-      this.toast.show(msg, 'success');
+      this.toast.show(res.message, 'success');
       }
       catch (err) { //TODO: make error interface.
         this.toast.handleErrorToast(err)
         throw err
+      }
+    }
+
+    async changePassword(currentPassword: string, newPassword: string, confirmPassword: string) {
+      try {
+        const res = await firstValueFrom(
+          this.api.post<ApiResponse<null>>(ENDPOINTS.user.changePassword, { currentPassword, newPassword, confirmPassword })
+        );
+        this.toast.show(res.message, 'success');
+      } catch (err) {
+        this.toast.handleErrorToast(err);
+        throw err;
       }
     }
 }

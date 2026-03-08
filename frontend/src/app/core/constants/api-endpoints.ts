@@ -7,7 +7,8 @@ export const ENDPOINTS = {
     },
     user: {
         delete: "/user/delete", //Didn't implement the service.
-        me: "/user/me"
+        me: "/user/me",
+        changePassword: "/user/changePassword"
     },
     habitLog: {
         getByUser: '/habitlogs/getByUser',
