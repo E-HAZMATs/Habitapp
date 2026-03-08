@@ -18,6 +18,8 @@ import { ToastService } from '../../../core/services/toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { ValidationErrorService } from '../../../core/services/validation-error-service';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-profile',
@@ -35,7 +37,9 @@ import { MatProgressSpinner } from "@angular/material/progress-spinner";
     MatSelect,
     MatOption,
     MatButton,
-    MatProgressSpinner
+    MatProgressSpinner,
+    MatDivider,
+    MatIcon
 ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
@@ -46,6 +50,9 @@ export class UserProfile implements OnInit {
   protected user = this.userService.user as WritableSignal<user>;
   protected profileForm!: FormGroup
   protected saving = signal(false);
+  protected passwordForm!: FormGroup;
+  protected savingPassword = signal(false);
+  protected showChangePassword = signal(false);
 
   protected timezones = [
     'Asia/Riyadh',
@@ -57,14 +64,34 @@ export class UserProfile implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.initForm()    
+    this.initForm();
+    this.initPasswordForm();
+  }
+
+  private initPasswordForm() {
+    this.passwordForm = new FormGroup({
+      currentPassword: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(8)],
+      }),
+      confirmPassword: new FormControl('', { //These  names are the same as the controllers in the register form. Needs to be same name for validator.
+        nonNullable: true,
+        validators: [Validators.required, confirmPasswordMatchValidator],
+      }),
+    });
   }
 
   private initForm() {
+    const user = this.user();
+    if (!user) return;
     this.profileForm = new FormGroup(
     {
       username: new FormControl(
-        this.user().username,
+        user.username,
         {
           nonNullable: true,
           validators: [
@@ -76,32 +103,17 @@ export class UserProfile implements OnInit {
         },
       ),
 
-      email: new FormControl(this.user().email, {
+      email: new FormControl(user.email, {
         nonNullable: true,
         validators: [Validators.required, Validators.email],
       }),
 
-      timezone: new FormControl(this.user().timezone, {
+      timezone: new FormControl(user.timezone, {
         nonNullable: true,
         validators: [Validators.required],
       }),
 
-      // currentPassword: new FormControl('', {
-      //   nonNullable: true,
-      // }),
-
-      // newPassword: new FormControl('', {
-      //   nonNullable: true,
-      //   validators: [Validators.minLength(8)],
-      // }),
-
-      // confirmPassword: new FormControl('', {
-      //   nonNullable: true,
-      // }),
     },
-    // {
-    //   validators: confirmPasswordMatchValidator,
-    // },
   );
   }
 
@@ -123,6 +135,23 @@ export class UserProfile implements OnInit {
     } catch (err) {
     } finally {
       this.saving.set(false);
+    }
+  }
+
+  async onPasswordSubmit() {
+    if (this.passwordForm.invalid) {
+      this.passwordForm.markAllAsTouched();
+      return;
+    }
+    this.savingPassword.set(true);
+    try {
+      const { currentPassword, password, confirmPassword } = this.passwordForm.getRawValue();
+      await this.userService.changePassword(currentPassword, password, confirmPassword);
+      this.passwordForm.reset();
+      this.passwordForm.markAsPristine();
+    } catch {
+    } finally {
+      this.savingPassword.set(false);
     }
   }
 

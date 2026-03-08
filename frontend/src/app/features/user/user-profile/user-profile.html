@@ -6,7 +6,7 @@
     <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
         <div class="col-span-12">
             @let user = this.user();
-            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 mb-5">
                 <mat-form-field>
                     <mat-label>{{ "username" | translate }}</mat-label>
                     <input matInput formControlName="username" />
@@ -45,6 +45,51 @@
                     </button>
                 </div>
             </form>
+
+
+            <button matButton type="button" (click)="showChangePassword.set(!showChangePassword())">
+                {{ 'changePassword' | translate }}
+            </button>
+
+            @if (showChangePassword()) {
+            <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" class="flex flex-col gap-4 mt-4">
+                <mat-form-field>
+                    <mat-label>{{ 'currentPassword' | translate }}</mat-label>
+                    <input matInput type="password" formControlName="currentPassword" />
+                    @let currentPasswordError = getValidationError(passwordForm.controls['currentPassword'], 'password');
+                    @if (currentPasswordError) {
+                        <mat-error>{{ currentPasswordError }}</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>{{ 'newPassword' | translate }}</mat-label>
+                    <input matInput type="password" formControlName="password" />
+                    @let newPasswordError = getValidationError(passwordForm.controls['password'], 'password');
+                    @if (newPasswordError) {
+                        <mat-error>{{ newPasswordError }}</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>{{ 'confirmPassword' | translate }}</mat-label>
+                    <input matInput type="password" formControlName="confirmPassword" />
+                    @if (passwordForm.controls['confirmPassword'].errors?.['passwordMismatch']) {
+                        <mat-error>{{ 'passwordMismatch' | translate }}</mat-error>
+                    }
+                </mat-form-field>
+
+                <div class="flex gap-2">
+                    <button matButton="filled" type="submit" [disabled]="savingPassword() || passwordForm.invalid">
+                        @if (savingPassword()) {
+                            <mat-spinner diameter="20"></mat-spinner>
+                        } @else {
+                            {{ 'changePassword' | translate }}
+                        }
+                    </button>
+                </div>
+            </form>
+            }
         </div>
     </mat-card-content>
 </mat-card>

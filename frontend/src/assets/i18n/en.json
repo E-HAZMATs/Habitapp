@@ -80,5 +80,9 @@
 	"editHabit": "Edit Habit",
 	"noHabitsTitle": "No habits were added yet",
 	"confirmDeleteTitle": "Delete habit",
-	"confirmDeleteMessage": "Are you sure you want to delete this habit?"
+	"confirmDeleteMessage": "Are you sure you want to delete this habit?",
+	"changePassword": "Change Password",
+	"currentPassword": "Current Password",
+	"newPassword": "New Password",
+	"confirmPassword": "Confirm New Password"
 }
