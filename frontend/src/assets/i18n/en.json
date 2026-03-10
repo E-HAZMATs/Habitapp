@@ -84,5 +84,6 @@
 	"changePassword": "Change Password",
 	"currentPassword": "Current Password",
 	"newPassword": "New Password",
-	"confirmPassword": "Confirm New Password"
+	"confirmPassword": "Confirm New Password",
+	"validationError": "Invalid input"
 }

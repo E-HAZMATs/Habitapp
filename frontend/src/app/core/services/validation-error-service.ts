@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 // TODO: Outsource this to shared?
-type Field = 'email' | 'password' | 'confirmPassword' | 'username' | 'name'  // need better way?
+type Field = 'email' | 'password' | 'confirmPassword' | 'username' | 'name' | 'description' | 'frequencyAmount'
 export const VALIDATION_ERROR_KEYS = {
   // CHECK: If i have multiple email input fields, do I need to have different names for them?
   // so thye have a different scope here? or are will all email fields have the same validation?
@@ -61,7 +61,7 @@ export class ValidationErrorService {
       params = { number };
     }
 
-    const message = messageKey ? this.translateSerive.instant(messageKey, params) : "THIS IS WRONG COME FIX IT!!" // TODO: Fallback needs default
+    const message = messageKey ? this.translateSerive.instant(messageKey, params) : this.translateSerive.instant('validationError')
     return message;
   }
 }
