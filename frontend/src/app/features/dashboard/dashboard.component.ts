@@ -14,7 +14,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 
 @Component({
-  selector: 'app-dashboard.component',
+  selector: 'app-dashboard',
   imports: [CreateHabitModal, MatButton, MatIconButton, MatIcon, MatCard, MatCardContent, MatCardSubtitle, MatCardTitle,
     MatProgressSpinner, TranslatePipe
   ],

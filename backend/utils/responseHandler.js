@@ -37,7 +37,6 @@ exports.errorHandler = (err, req, res, next) => {
   }
 
   if (err.isOperational) {
-    console.log('hiiii')
     return exports.sendError(res, err.statusCode, err.message);
   }
 

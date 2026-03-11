@@ -84,7 +84,7 @@ exports.updateProfile = async (user, updateData) => {
 
     let habitsUpdatedAmount = 0;
     if (updateData.timezone && updateData.timezone !== prevTimezone)
-        habitsUpdatedAmount = await habitService.updateHabitsForTimezoneChange(userId, prevTimezone, updateData.timezone)
+        habitsUpdatedAmount = await habitService.updateHabitsForTimezoneChange(user.id, prevTimezone, updateData.timezone)
     return {
         user: {
             id: user.id,

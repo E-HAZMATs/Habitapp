@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatCard } from "@angular/material/card";
 import { RouterOutlet } from '@angular/router';
 @Component({
-  selector: 'app-auth-layout.component',
+  selector: 'app-auth-layout',
   imports: [MatCard, RouterOutlet],
   templateUrl: './auth-layout.component.html',
   styleUrl: './auth-layout.component.css',
