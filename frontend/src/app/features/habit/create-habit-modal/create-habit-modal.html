@@ -95,7 +95,13 @@
         <mat-dialog-actions align="start" class="col-span-4 flex !justify-between">
         <div>
             <button type="button" matButton="filled" mat-dialog-close>{{ 'cancel' | translate }}</button>
-            <button type="submit" matButton="filled" [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid">{{'submit' | translate }}</button>
+            <button type="submit" matButton="filled" cdkFocusInitial [disabled]="form.invalid || submitting()">
+              @if (submitting()) {
+                <mat-spinner diameter="18"/>
+              } @else {
+                {{'submit' | translate }}
+              }
+            </button>
         </div>
         <div>
             <span class="ms-2">{{ "areRequiredFields" | translate }}</span>

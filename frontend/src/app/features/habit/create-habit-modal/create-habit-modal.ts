@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel, MatHint, MatError, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
@@ -21,6 +21,7 @@ import { MatTimepicker, MatTimepickerToggle, MatTimepickerInput } from '@angular
 import { DateAdapter, provideNativeDateAdapter } from '@angular/material/core';
 import { LocalizationService } from '../../../core/services/localization-service';
 import { noWhitespaceNameValidator } from '../../../core/validators/field-validators';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-create-habit-modal',
   imports: [
@@ -39,6 +40,7 @@ import { noWhitespaceNameValidator } from '../../../core/validators/field-valida
     MatTimepickerToggle,
     MatSuffix,
     MatTimepickerInput,
+    MatProgressSpinnerModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './create-habit-modal.html',
@@ -53,9 +55,11 @@ export class CreateHabitModal {
   private localizationService = inject(LocalizationService);
   private readonly _adapter =
     inject<DateAdapter<unknown, unknown>>(DateAdapter);
-
-  protected editHabit: habit | null = inject(MAT_DIALOG_DATA, { optional: true });
-  protected isEditMode = !!this.editHabit;
+    
+    protected editHabit: habit | null = inject(MAT_DIALOG_DATA, { optional: true });
+    protected isEditMode = !!this.editHabit;
+    protected submitting = signal(false);
+    private dialogRef = inject(MatDialogRef<CreateHabitModal>);
 
   protected form = new FormGroup({
     name: new FormControl(this.editHabit?.name ?? '', {
@@ -104,24 +108,29 @@ export class CreateHabitModal {
   }
 
   async submit() {
-    if (this.form.invalid) return;
-    const values = this.form.getRawValue();
-
-    if (this.isEditMode) {
-      const payload = {
-        ...values,
-        description: values.description ?? undefined,
-        timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : undefined,
-        dayOfWeek: values.dayOfWeek ?? undefined,
-        dayOfMonth: values.dayOfMonth ?? undefined,
-      };
-      await this.habitService.update(this.editHabit!.id, payload);
-    } else {
-      const payload = {
-        ...values,
-        timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null,
-      };
-      await this.habitService.create(payload);
+    if (this.form.invalid || this.submitting()) return;
+    this.submitting.set(true);
+    try {
+      const values = this.form.getRawValue();
+      if (this.isEditMode) {
+        const payload = {
+          ...values,
+          description: values.description ?? undefined,
+          timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : undefined,
+          dayOfWeek: values.dayOfWeek ?? undefined,
+          dayOfMonth: values.dayOfMonth ?? undefined,
+        };
+        await this.habitService.update(this.editHabit!.id, payload);
+      } else {
+        const payload = {
+          ...values,
+          timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null,
+        };
+        await this.habitService.create(payload);
+      }
+      this.dialogRef.close(true);
+    } finally {
+      this.submitting.set(false);
     }
   }
 
