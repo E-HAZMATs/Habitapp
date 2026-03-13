@@ -1,48 +1,13 @@
 const { Habit, HabitLog, User } = require('../models');
-const { calculateNextDueDate } = require('../utils/habitHelper')
+const { calculateNextDueDate, calculateInitialDueDate } = require('../utils/habitHelper')
 const { Op } = require('sequelize');
 
 exports.create = async (data) => {
-    const date = new Date()
-    // Timezone issue. Upon creation, nextduedate is UTC relative to current timezone. if time zone changes then it's inaccurate,
-    // Need something to update nextduedates UTC when timezone changes?
-    date.setHours(0,0,0,0);
-    switch (data.frequencyType){
-        case 'daily':
-            const [hour, minute, second] = data.timeOfDay ? data.timeOfDay.split(':').map(Number) : [0, 0, 0];
-            date.setHours(hour, minute, second);
-            data.nextDueDate = date;
-            break;
 
-        case 'weekly': 
-            const dateDay = date.getDay();
-            let daysToAdd = Number(data.dayOfWeek) - dateDay;
-
-            if (daysToAdd < 0)
-                daysToAdd += 7
-            date.setDate(date.getDate() + daysToAdd)
-            data.nextDueDate = date;
-            break;
-
-        case 'monthly': 
-            if (Number(data.dayOfMonth) < date.getDate())
-                date.setMonth(date.getMonth() + 1)
-
-            let lastDayOfMonth = new Date(
-                date.getFullYear(),
-                date.getMonth() + 1,
-                0
-            ).getDate();
-
-            const targetDayOfMonth = Math.min(data.dayOfMonth, lastDayOfMonth);
-            date.setDate(targetDayOfMonth);
-            data.nextDueDate = date;
-            break;
-    }
+    data.nextDueDate = calculateInitialDueDate(data);
     return await Habit.create(data);
 }
 
-// TODO: Update nextDueDate in case of changed scheduling.
 exports.update = async (id, userId, data) => {
     const habit = await Habit.findByPk(id)
     if(!habit)
@@ -50,7 +15,13 @@ exports.update = async (id, userId, data) => {
     if(habit.userId !== userId)
         return -1
 
-    return await habit.update({
+    const schedulingFields = ['frequencyType', 'frequencyAmount', 'dayOfWeek', 'dayOfMonth', 'timeOfDay'];
+    const scheduleChanged = schedulingFields.some(field => {
+        if (!(field in data)) return false;
+        return String(data[field] ?? '') !== String(habit[field] ?? '');
+    });
+
+    const updates = {
         name: data.name,
         description: data.description,
         frequencyType: data.frequencyType,
@@ -58,7 +29,12 @@ exports.update = async (id, userId, data) => {
         dayOfWeek: data.dayOfWeek,
         dayOfMonth: data.dayOfMonth,
         timeOfDay: data.timeOfDay
-    })
+    };
+
+    if (scheduleChanged)
+        updates.nextDueDate = calculateInitialDueDate(data);
+
+    return await habit.update(updates);
 }
 
 exports.delete = async (id, userId) => {
