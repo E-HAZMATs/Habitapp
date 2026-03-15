@@ -4,7 +4,7 @@ const { habitCreateSchema, habitIdSchema } = require('../validation/habit.valida
 
 exports.create = async (req, res) => {
   const { error } = habitCreateSchema.validate(req.body);
-  if (error) return sendError(res, 400, error.details[0].message);
+  if (error) return sendError(res, 400, req.__(error.details[0].message));
   const userId = req.user.id;
   const data = req.body;
   const habit = await habitService.create({
@@ -29,7 +29,7 @@ exports.update = async (req, res) => {
   if (idError) return sendError(res, 400, req.__('invalidHabitId'))
 
   const { error } = habitCreateSchema.validate(req.body);
-  if (error) return sendError(res, 400, error.details[0].message)
+  if (error) return sendError(res, 400, req.__(error.details[0].message))
 
   const response = await habitService.update(habitId, req.user.id, req.body);
   if (response === 0) return sendError(res, 404, req.__('habitNoExist'));

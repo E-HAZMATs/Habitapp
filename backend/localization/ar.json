@@ -29,5 +29,12 @@
 	"userNameValidationMsg": "يجب أن لا يحتوي اسم المستخدم على مسافات، وأن يتكوّن من 4 إلى 15 رمزا.",
 	"wrongCurrentPassword": "كلمة المرور الحالية غير صحيحة.",
 	"passwordChanged": "تم تغيير كلمة المرور بنجاح.",
-	"passwordMismatch": "كلمتا المرور غير متطابقتين."
+	"passwordMismatch": "كلمتا المرور غير متطابقتين.",
+	"habitNameRequired": "اسم العادة مطلوب.",
+	"habitFrequencyTypeRequired": "نوع الوتيرة مطلوب.",
+	"habitFrequencyTypeInvalid": "نوع الوتيرة يجب أن يكون يومي أو أسبوعي أو شهري.",
+	"habitFrequencyAmountRequired": "كمية التكرار مطلوبة.",
+	"habitFrequencyAmountMin": "كمية التكرار يجب أن تكون 1 على الأقل.",
+	"habitDayOfWeekInvalid": "يوم الأسبوع يجب أن يكون بين 0 و 6.",
+	"habitDayOfMonthInvalid": "يوم الشهر يجب أن يكون بين 1 و 31."
 }
