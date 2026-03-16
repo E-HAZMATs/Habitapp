@@ -5,3 +5,14 @@ export interface ApiResponse<T> {
   errors?: any;
   timestamp: string;
 }
+
+export interface ApiError {
+  error: {
+    // CHECK: errors prop is usless?
+    success: false;
+    message: string;
+    timestamp: string;
+  };
+  status: number;
+  message: string;
+}

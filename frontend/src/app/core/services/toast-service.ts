@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
+import { ApiError } from '../models/api-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -12,7 +13,7 @@ export class ToastService {
     this.toastState.next({ message, type, duration });
   }
 
-  handleErrorToast = (err: any): void => {
+  handleErrorToast = (err: ApiError): void => {
     const backendMsg = 
       err.error?.message || 
       this.translateService.instant('unexpectedServerError');
