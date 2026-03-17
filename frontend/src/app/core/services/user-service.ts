@@ -2,10 +2,9 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ApiService } from './api-service';
 import { ENDPOINTS } from '../constants/api-endpoints';
 import { firstValueFrom } from 'rxjs';
-import { ApiResponse } from '../models/api-response.model';
+import { ApiResponse, ApiError } from '../models/api-response.model';
 import { user, UpdateProfileDto } from '../models/user.model';
 import { ToastService } from './toast-service';
-import { TranslateService } from '@ngx-translate/core';
 import { TokenService } from './token-service';
 
 @Injectable({
@@ -15,7 +14,6 @@ export class UserService  {
     private _user = signal<user | null>(null);
     private api = inject(ApiService)
     private toast = inject(ToastService)
-    private translateService = inject(TranslateService)
     private tokenService = inject(TokenService)
     user = this._user.asReadonly();
 
@@ -57,8 +55,8 @@ export class UserService  {
       this.tokenService.setToken(refreshRes.data!.token)
       this.toast.show(res.message, 'success');
       }
-      catch (err) { //TODO: make error interface.
-        this.toast.handleErrorToast(err)
+      catch (err) {
+        this.toast.handleErrorToast(err as ApiError);
         throw err
       }
     }
@@ -70,7 +68,7 @@ export class UserService  {
         );
         this.toast.show(res.message, 'success');
       } catch (err) {
-        this.toast.handleErrorToast(err);
+        this.toast.handleErrorToast(err as ApiError);
         throw err;
       }
     }

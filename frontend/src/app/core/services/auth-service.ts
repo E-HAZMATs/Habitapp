@@ -5,7 +5,7 @@ import { registerDto, registerResponseDto } from '../models/register.model';
 import { TokenService } from './token-service';
 import { ToastService } from './toast-service';
 import { TranslateService } from '@ngx-translate/core';
-import { ApiResponse } from '../models/api-response.model';
+import { ApiResponse, ApiError } from '../models/api-response.model';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { APP_ROUTES } from '../constants/app-routes';
@@ -35,7 +35,7 @@ async login(loginDto: loginDto) {
     this.toastService.show(msg, 'success');
     this.router.navigateByUrl(this.ROUTES.DASHBOARD)
   } catch (err) {
-    this.toastService.handleErrorToast(err);
+    this.toastService.handleErrorToast(err as ApiError);
     throw err;
   }
 }
@@ -49,7 +49,7 @@ async login(loginDto: loginDto) {
       this.toastService.show(msg, 'success')
       this.router.navigateByUrl(APP_ROUTES.LOGIN)
     } catch (err) {
-      this.toastService.handleErrorToast(err)
+      this.toastService.handleErrorToast(err as ApiError);
       throw err
     }
   }
@@ -63,7 +63,7 @@ async login(loginDto: loginDto) {
         this.toastService.show(msg, "success")
         this.router.navigateByUrl(APP_ROUTES.LOGIN)
       },
-      error: (err) => this.toastService.handleErrorToast(err)
+      error: (err) => this.toastService.handleErrorToast(err as ApiError)
     })
   }
 

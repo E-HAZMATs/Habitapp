@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { ToastService } from './toast-service';
-import { TranslateService } from '@ngx-translate/core';
-import { ApiResponse } from '../models/api-response.model';
+import { ApiResponse, ApiError } from '../models/api-response.model';
 import { firstValueFrom } from 'rxjs';
 import { 
   createHabitDto, 
@@ -18,7 +17,6 @@ import { ENDPOINTS } from '../constants/api-endpoints';
 export class HabitService {
   private api = inject(ApiService);
   private toastService = inject(ToastService);
-  private translateService = inject(TranslateService);
 
   async create(habitDto: createHabitDto): Promise<habit> {
     try {
@@ -31,7 +29,7 @@ export class HabitService {
       
       return response.data!.habit;
     } catch (err) {
-      this.toastService.handleErrorToast(err);
+      this.toastService.handleErrorToast(err as ApiError);
       throw err;
     }
   }
@@ -43,9 +41,8 @@ export class HabitService {
       )
       return response.data!;
     }
-    // BIGTODO: Fix all the catches. i have to specify err as any to be able to reference err.error.message.
     catch (err) {
-      this.toastService.handleErrorToast(err)
+      this.toastService.handleErrorToast(err as ApiError);
       throw err;
     }
   }
@@ -58,7 +55,7 @@ export class HabitService {
       return response.data!;
     }
     catch (err) {
-      this.toastService.handleErrorToast(err);
+      this.toastService.handleErrorToast(err as ApiError);
       throw err;
     }
   }
@@ -72,7 +69,7 @@ export class HabitService {
       const msg = response.message;
       this.toastService.show(msg, 'success');
     } catch (err) {
-      this.toastService.handleErrorToast(err);
+      this.toastService.handleErrorToast(err as ApiError);
       throw err;
     }
   }
@@ -85,7 +82,7 @@ export class HabitService {
       const msg = response.message;
       this.toastService.show(msg, 'success');
     } catch (err) {
-      this.toastService.handleErrorToast(err);
+      this.toastService.handleErrorToast(err as ApiError);
       throw err;
     }
   }
@@ -97,7 +94,7 @@ export class HabitService {
       );
       return response.data!;
     } catch (err) {
-      this.toastService.handleErrorToast(err);
+      this.toastService.handleErrorToast(err as ApiError);
       throw err;
     }
   }
@@ -113,7 +110,7 @@ export class HabitService {
     
     return response.data!;
   } catch (err) {
-    this.toastService.handleErrorToast(err);
+    this.toastService.handleErrorToast(err as ApiError);
     throw err;
   }
 }
