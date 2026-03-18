@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { MatCardTitle } from "@angular/material/card";
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { MatButton, MatButtonModule, MatMiniFabButton } from "@angular/material/button";
 import { MatIconModule } from '@angular/material/icon';
@@ -14,7 +13,7 @@ import { TokenService } from '../../core/services/token-service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TranslatePipe, MatCardTitle, MatMenuModule, MatMiniFabButton, MatIconModule, TranslateModule, MatButtonModule, MatButton, RouterLink, RouterLinkActive, MatToolbarModule],
+  imports: [TranslatePipe, MatMenuModule, MatMiniFabButton, MatIconModule, TranslateModule, MatButtonModule, MatButton, RouterLink, RouterLinkActive, MatToolbarModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })

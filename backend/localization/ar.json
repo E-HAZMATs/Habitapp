@@ -36,5 +36,6 @@
 	"habitFrequencyAmountRequired": "كمية التكرار مطلوبة.",
 	"habitFrequencyAmountMin": "كمية التكرار يجب أن تكون 1 على الأقل.",
 	"habitDayOfWeekInvalid": "يوم الأسبوع يجب أن يكون بين 0 و 6.",
-	"habitDayOfMonthInvalid": "يوم الشهر يجب أن يكون بين 1 و 31."
+	"habitDayOfMonthInvalid": "يوم الشهر يجب أن يكون بين 1 و 31.",
+	"tooManyReqs": "بلغت الحد الأقصى للمحاولات، يرجى المحاولة مجدداً لاحقاً."
 }
