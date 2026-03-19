@@ -76,5 +76,6 @@ exports.habitComplete = async (req, res) => {
   const habitId = req.params.id;
   const result = await habitService.habitComplete(habitId, user, req.body);
   if (result === -1) {return sendError(res, 403, req.__('cantEditOtherUsersHabits'))}
+  if (result === -2) {return sendError(res, 400, req.__('habitNotYetDue'));}
   return sendSuccess(res, 200, req.__('operationSuccess'), result);
 }

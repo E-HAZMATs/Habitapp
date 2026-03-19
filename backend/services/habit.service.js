@@ -73,6 +73,9 @@ exports.habitComplete = async (habitId, user, reqBody) => {
     const habit = await Habit.findByPk(habitId);
     if (habit.userId !== user.id) // User can't complete another user's habits.
         return -1
+    const diffHours = Math.floor((new Date(habit.nextDueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60));
+    if (diffHours > 0)
+        return -2
     const nextDueDate = calculateNextDueDate(habit, reqBody.completedAt);
     const result = await HabitLog.create({
         habitId: habitId,

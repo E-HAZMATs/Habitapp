@@ -37,5 +37,6 @@
 	"habitFrequencyAmountMin": "Frequency amount must be at least 1.",
 	"habitDayOfWeekInvalid": "Day of week must be between 0 and 6.",
 	"habitDayOfMonthInvalid": "Day of month must be between 1 and 31.",
-	"tooManyReqs": "You have reached the maximum allowed number of attempts, please try again later."
+	"tooManyReqs": "You have reached the maximum allowed number of attempts, please try again later.",
+	"habitNotYetDue": "This habit is not due yet."
 }
