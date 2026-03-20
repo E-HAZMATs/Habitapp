@@ -11,7 +11,6 @@ import { habit } from '../../core/models/habit.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { compareDateDays, getNextDayDate } from '../../core/utils/dates';
 
 @Component({
   selector: 'app-dashboard',
@@ -113,7 +112,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   protected async completeHabit(habitId: string){
-    // TODO: Add validation? is it time for completion now?
     this.setHabitLoading(habitId, true);
     try {
       await this.habitService.habitComplete(habitId, new Date().toISOString())

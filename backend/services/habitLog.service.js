@@ -7,7 +7,8 @@ exports.getLogsByUser = async (userId, page = 1, size = 10) => {
     include: [{
       model: Habit,
       where: { userId },
-      attributes: ['name', 'description', 'frequencyType']
+      attributes: ['name', 'description', 'frequencyType'],
+      paranoid: false
     }],
     order: [['completedAt', 'DESC']],
     limit: size,
