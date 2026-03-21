@@ -9,7 +9,7 @@ import {
   habitResponse,
   updateHabitDto,
 } from '../models/habit.model';
-import { HabitLogsResponse } from '../models/habit-log.model';
+import { HabitLogsResponse, HabitLogCreatedResponse } from '../models/habit-log.model';
 import { ENDPOINTS } from '../constants/api-endpoints';
 @Injectable({
   providedIn: 'root',
@@ -99,10 +99,10 @@ export class HabitService {
     }
   }
 
-  async habitComplete(habitId: string, completedAt : string): Promise<any> {
+  async habitComplete(habitId: string, completedAt : string): Promise<HabitLogCreatedResponse> {
   try {
     const response = await firstValueFrom(
-      this.api.post<ApiResponse<any>>(`${ENDPOINTS.habit.habitComplete}/${habitId}`, {completedAt})
+      this.api.post<ApiResponse<HabitLogCreatedResponse>>(`${ENDPOINTS.habit.habitComplete}/${habitId}`, {completedAt})
     );
     
     const msg = response.message;

@@ -30,3 +30,5 @@ export interface HabitLogsResponse {
   logs: HabitLog[];
   pagination: HabitLogPagination;
 }
+
+export type HabitLogCreatedResponse = Pick<HabitLog, 'id' | 'habitId' | 'completedAt' | 'status' | 'dueDate' | 'nextDueDate' | 'timezone'>;
