@@ -64,6 +64,8 @@
 	"dueInOneHour": "مطلوب خلال ساعة",
 	"dueInXDays": "مطلوب خلال {{number}} أيام",
 	"dueInOneDay": "مطلوب خلال يوم",
+	"dueInMoreThanXDays": "مطلوب خلال +99 يوم",
+	"dueInDaysTooltip": "مطلوب خلال {{number}} أيام",
 	"update": "تحديث",
 	"operationSuccess": "تمت العملية بنجاح",
 	"timezone": "المنطقة الزمنية",

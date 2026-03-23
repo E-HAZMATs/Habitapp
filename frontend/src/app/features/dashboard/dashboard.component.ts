@@ -11,11 +11,12 @@ import { habit } from '../../core/models/habit.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-dashboard',
   imports: [CreateHabitModal, MatButton, MatIconButton, MatIcon, MatCard, MatCardContent, MatCardSubtitle, MatCardTitle,
-    MatProgressSpinner, TranslatePipe
+    MatProgressSpinner, TranslatePipe, MatTooltip
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   protected habits = signal<habit[] | null>(null)
   protected loadingHabitIds = signal<Set<string>>(new Set())
   private dueInInterval: ReturnType<typeof setInterval> | null = null
+  private static readonly DAY_CAP = 99;
 
   protected isHabitLoading(habitId: string): boolean {
     return this.loadingHabitIds().has(habitId);
@@ -130,11 +132,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return { diffDays, diffHours }
   }
 
-  protected getCompleteBtnText(habit: habit){
+  protected getCompleteBtnText(habit: habit): string {
     const diffHours = habit.dueIn.diffHours;
     const diffDays = habit.dueIn.diffDays;
     if (diffHours <= 0) {return this.translate.instant('complete')}
-    
     switch(habit.frequencyType){
       case "daily":
         if (diffHours === 1) return this.translate.instant('dueInOneHour')
@@ -142,14 +143,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
           return this.translate.instant('dueInXHours', {"number": diffHours})
         }
         else if (diffDays === 1) {return this.translate.instant('dueInOneDay')} // usless?
+        else if (diffDays > DashboardComponent.DAY_CAP) return this.translate.instant('dueInMoreThanXDays');
         else  return this.translate.instant('dueInXDays', {"number": diffDays})
         break;
       case "weekly":
       case "monthly":
         if (diffDays === 1) return this.translate.instant('dueInOneDay')  
+        else if (diffDays > DashboardComponent.DAY_CAP) return this.translate.instant('dueInMoreThanXDays');
         else return this.translate.instant('dueInXDays', {"number": diffDays})
-        break;
+      
+      default:
+        return '';
     }
+  }
+
+  protected getCompleteBtnTooltip(habit: habit): string | undefined {
+    const diffDays = habit.dueIn.diffDays;
+    if (habit.dueIn.diffHours <= 0) return undefined;
+    if (diffDays > DashboardComponent.DAY_CAP)
+      return this.translate.instant('dueInDaysTooltip', { number: diffDays });
+    return undefined;
   }
   
 }

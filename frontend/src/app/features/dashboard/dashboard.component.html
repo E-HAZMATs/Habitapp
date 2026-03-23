@@ -28,13 +28,19 @@
                         @let isDue = habit.dueIn.diffHours <= 0;
                         @let isLoading = isHabitLoading(habit.id);
                         <!-- @if (habit.dueIn.diffHours <= 0){ -->
-                         <!-- TODO: Make btn same size no matter what content. And handle possible large text. -->
                           <!-- TODOIMP: Make due time update like a countdown. **Already done sort of, but not counting down seconds. -->
                                 @if (isLoading) {
                                     <mat-progress-spinner diameter="24" mode="indeterminate" />
                                 } @else {
-                                <button matButton="filled" (click)="completeHabit(habit.id)" [disabled]="!isDue"
-                                    class="!truncate">{{getCompleteBtnText(habit)}}</button>
+                                @let tooltip = getCompleteBtnTooltip(habit);
+                                <span [matTooltip]="tooltip">
+                                    <button matButton="filled"
+                                        (click)="completeHabit(habit.id)"
+                                        [disabled]="!isDue"
+                                        class="complete-btn">
+                                        {{getCompleteBtnText(habit)}}
+                                    </button>
+                                </span>
                                 <!-- existing time of day isn't populated in the modal. -->
                                 <button matIconButton (click)="openEditDialog(habit)">
                                     <mat-icon>edit</mat-icon>

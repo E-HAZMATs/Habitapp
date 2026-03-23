@@ -64,6 +64,8 @@
 	"dueInOneHour": "Due in an hour",
 	"dueInXDays": "Due in {{number}} days",
 	"dueInOneDay": "Due in a day",
+	"dueInMoreThanXDays": "Due in 99+ days",
+	"dueInDaysTooltip": "Due in {{number}} days",
 	"update": "Update",
 	"operationSuccess": "Operation success",
 	"timezone": "Time zone",
