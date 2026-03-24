@@ -91,10 +91,10 @@ export class CreateHabitModal {
     timeOfDay: new FormControl<Date | null>(
       this.editHabit?.timeOfDay ? this.sqlTimeToDate(this.editHabit.timeOfDay) : null
     ),
-    dayOfWeek: new FormControl<number | null>(this.editHabit?.dayOfWeek ?? null, {
+    dayOfWeek: new FormControl<number | null>(this.editHabit?.dayOfWeek ?? new Date().getDay(), {
       validators: [Validators.max(6), Validators.min(0)],
-    }), // TODO: Make required? or make value (in case weekly is chosen) (already done) today's day of week (still not done)? Same for month?
-    dayOfMonth: new FormControl<number | null>(this.editHabit?.dayOfMonth ?? null, {
+    }),
+    dayOfMonth: new FormControl<number | null>(this.editHabit?.dayOfMonth ?? new Date().getDate(), {
       validators: [
         Validators.max(HABIT_VALIDATION_CONSTS.DAY_OF_MONTH_MAX),
         Validators.min(1),
@@ -112,19 +112,23 @@ export class CreateHabitModal {
     this.submitting.set(true);
     try {
       const values = this.form.getRawValue();
+      const isWeekly = values.frequencyType === 'weekly';
+      const isMonthly = values.frequencyType === 'monthly';
       if (this.isEditMode) {
         const payload = {
           ...values,
           description: values.description ?? undefined,
           timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : undefined,
-          dayOfWeek: values.dayOfWeek ?? undefined,
-          dayOfMonth: values.dayOfMonth ?? undefined,
+          dayOfWeek: isWeekly ? (values.dayOfWeek ?? undefined) : undefined,
+          dayOfMonth: isMonthly ? (values.dayOfMonth ?? undefined) : undefined,
         };
         await this.habitService.update(this.editHabit!.id, payload);
       } else {
         const payload = {
           ...values,
           timeOfDay: values.timeOfDay ? this.dateToSqlTime(values.timeOfDay) : null,
+          dayOfWeek: isWeekly ? values.dayOfWeek : null,
+          dayOfMonth: isMonthly ? values.dayOfMonth : null,
         };
         await this.habitService.create(payload);
       }
@@ -206,8 +210,8 @@ export class CreateHabitModal {
         ...(type === 'monthly' ? [Validators.required] : []),
       ]);
 
-      if (type !== 'weekly') dayOfWeekControl.setValue(null);
-      if (type !== 'monthly') dayOfMonthControl.setValue(null);
+      if (type !== 'weekly') dayOfWeekControl.setValue(new Date().getDay());
+      if (type !== 'monthly') dayOfMonthControl.setValue(new Date().getDate());
 
       dayOfWeekControl.updateValueAndValidity();
       dayOfMonthControl.updateValueAndValidity();
