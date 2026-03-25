@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs')
 const { User, Role } = require('../models')
+const userService = require('./user.service')
+
 exports.createUser = async (data) => {
     const hashed = await bcrypt.hash(data.password, 10)
     const memberRoleId = await Role.findOne({

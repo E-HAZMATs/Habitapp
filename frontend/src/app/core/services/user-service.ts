@@ -44,7 +44,7 @@ export class UserService  {
     async updateCurrentUser(newUser: UpdateProfileDto) {
       try {
         const res = await firstValueFrom(
-          this.api.patch<ApiResponse<{user: user; habitsUpdatedAmount: number}>>(ENDPOINTS.user.me, newUser) // TODO: make a patch version of the me endpoint.
+          this.api.patch<ApiResponse<{user: user; habitsUpdatedAmount: number}>>(ENDPOINTS.user.me, newUser)
         )
       if(res.data)
         this._user.set(res.data.user)
