@@ -38,5 +38,6 @@
 	"habitDayOfWeekInvalid": "Day of week must be between 0 and 6.",
 	"habitDayOfMonthInvalid": "Day of month must be between 1 and 31.",
 	"tooManyReqs": "You have reached the maximum allowed number of attempts, please try again later.",
-	"habitNotYetDue": "This habit is not due yet."
+	"habitNotYetDue": "This habit is not due yet.",
+	"memberRoleNotFound": "Registration failed due to absence of member role."
 }
