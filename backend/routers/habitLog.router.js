@@ -8,5 +8,6 @@ const wrappedController = wrapController(habitLogController);
 
 router.use(authMiddleware);
 router.get('/getByUser', wrappedController.getLogsByUser);
+router.patch('/:id/skip', wrappedController.markAsSkipped); //todo: find better name than skip? or just mark as forgotten complete?
 
 module.exports = router;

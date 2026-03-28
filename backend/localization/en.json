@@ -39,5 +39,8 @@
 	"habitDayOfMonthInvalid": "Day of month must be between 1 and 31.",
 	"tooManyReqs": "You have reached the maximum allowed number of attempts, please try again later.",
 	"habitNotYetDue": "This habit is not due yet.",
-	"memberRoleNotFound": "Registration failed due to absence of member role."
+	"memberRoleNotFound": "Registration failed due to absence of member role.",
+	"logNotFound": "Log entry not found.",
+	"logNotMissed": "Only missed habits can be marked as skipped.",
+	"markedAsSkipped": "Marked as skipped."
 }

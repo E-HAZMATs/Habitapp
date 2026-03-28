@@ -12,3 +12,10 @@ exports.getLogsByUser = async (req, res) => {
   
   return sendSuccess(res, 200, req.__('operationSuccess'), result);
 };
+
+exports.markAsSkipped = async (req, res) => {
+  const logId = req.params.id;
+  const userId = req.user.id;
+  await habitLogService.markAsSkipped(logId, userId);
+  return sendSuccess(res, 200, req.__('operationSuccess'));
+};
