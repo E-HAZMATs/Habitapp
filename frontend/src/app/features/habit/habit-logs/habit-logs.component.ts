@@ -22,6 +22,7 @@ import { LocalizationService } from '../../../core/services/localization-service
     MatDivider,
     TranslatePipe,
     DatePipe,
+    MatTooltip,
   ],
   templateUrl: './habit-logs.component.html',
   styleUrl: './habit-logs.component.css',
@@ -34,7 +35,25 @@ export class HabitLogsComponent implements OnInit {
   protected pagination = signal<HabitLogPagination | null>(null);
   protected loading = signal(false);
   protected currentPage = signal(1);
-  protected pageSize = 10; // Should add more sizes. 
+  protected pageSize = 10;
+  protected skippingLogIds = signal<Set<string>>(new Set());
+
+  protected isSkipping(logId: string): boolean {
+    return this.skippingLogIds().has(logId);
+  }
+
+  protected async markAsSkipped(logId: string): Promise<void> {
+    this.skippingLogIds.update(s => new Set(s).add(logId));
+    try {
+      await this.habitService.markLogAsSkipped(logId);
+      this.logs.update(logs => logs.map(l =>
+        l.id === logId ? { ...l, status: 'skipped' as const } : l
+      ));
+    } catch {
+    } finally {
+      this.skippingLogIds.update(s => { const n = new Set(s); n.delete(logId); return n; });
+    }
+  }
 
   async ngOnInit() {
     await this.loadLogs();

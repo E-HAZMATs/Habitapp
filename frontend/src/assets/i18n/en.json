@@ -87,5 +87,6 @@
 	"currentPassword": "Current Password",
 	"newPassword": "New Password",
 	"confirmPassword": "Confirm New Password",
-	"validationError": "Invalid input"
+	"validationError": "Invalid input",
+	"markAsSkipped": "I have completed this habit but forgot to log the completion"
 }
