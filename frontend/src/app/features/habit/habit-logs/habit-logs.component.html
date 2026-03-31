@@ -29,7 +29,7 @@
             </div>
             <!-- When no description, this looks bad. -->
              <!-- Should chips be of same width? -->
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1 w-[120px]">
               <mat-chip
                 [class]="
                   log.status === 'completed' ? 'chip-completed' :
@@ -38,7 +38,6 @@
                 class="text-xs !h-6">
                 {{ log.status | translate }}
               </mat-chip>
-              <!-- TODO: Make chips in same place always? the check btn makes them not aligned. -->
               @if (log.status === 'missed') {
                 @if (isSkipping(log.id)) {
                   <mat-spinner diameter="18" />
@@ -49,6 +48,8 @@
                     <mat-icon class="!text-lg">check</mat-icon>
                   </button>
                 }
+              } @else {
+                <span class="inline-block w-10 h-10"></span>
               }
             </div>
 
