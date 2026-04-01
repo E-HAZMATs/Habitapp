@@ -4,3 +4,7 @@ export const HABIT_VALIDATION_CONSTS = {
   FREQUENCY_AMOUNT_MAX: 99,
   DAY_OF_MONTH_MAX: 31,
 } as const;
+
+export const AUTH_VALIDATION_CONSTS = {
+  PASSWORD_MIN_LENGTH: 8,
+} as const;

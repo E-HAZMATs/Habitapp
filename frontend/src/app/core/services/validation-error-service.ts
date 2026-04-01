@@ -13,6 +13,7 @@ export const VALIDATION_ERROR_KEYS = {
   },
   password: {
     required: "passwordRequired",
+    minlength: "passwordShort",
   },
   confirmPassword: {
     required: "confirmPasswordRequired",

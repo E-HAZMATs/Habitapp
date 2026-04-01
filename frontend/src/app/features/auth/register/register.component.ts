@@ -29,6 +29,7 @@ import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../core/constants/app-routes';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { confirmPasswordMatchValidator, noWhitespaceValidator } from '../../../core/validators/field-validators';
+import { AUTH_VALIDATION_CONSTS } from '../../../core/constants/habit-validation.constants';
 @Component({
   selector: 'app-register',
   imports: [
@@ -71,7 +72,7 @@ export class Register {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required /*Validators.minLength(6)*/],
+      validators: [Validators.required, Validators.minLength(AUTH_VALIDATION_CONSTS.PASSWORD_MIN_LENGTH)],
     }),
     confirmPassword: new FormControl('', {
       nonNullable: true,

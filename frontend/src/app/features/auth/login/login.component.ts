@@ -26,6 +26,7 @@ import { ValidationErrorService } from '../../../core/services/validation-error-
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../core/constants/app-routes';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AUTH_VALIDATION_CONSTS } from '../../../core/constants/habit-validation.constants';
 @Component({
   selector: 'app-login',
   imports: [
@@ -62,7 +63,7 @@ export class Login {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required /*Validators.minLength(6)*/], //TODO: Add min length validation later. But for now I allow 1 char passwords for quickness.
+      validators: [Validators.required, Validators.minLength(AUTH_VALIDATION_CONSTS.PASSWORD_MIN_LENGTH)],
     }),
   });
 
