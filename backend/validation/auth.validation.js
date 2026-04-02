@@ -11,7 +11,7 @@ exports.registerSchema = Joi.object({
     "any.required": "usernameRequired",
     "string.pattern.base": "userNameValidationMsg"
   }),
-  password: Joi.string().min(1).required().messages({    //TODO: change min to suitble limit.
+  password: Joi.string().min(8).required().messages({
     "any.required": "passwordRequired",
     "string.min": "passwordShort"
   }), 
@@ -23,7 +23,7 @@ exports.loginSchema = Joi.object({
     "string.email": "invalidEmail",
     "any.required": "emailRequired",
   }),
-  password: Joi.string().min(1).required().messages({
+  password: Joi.string().min(8).required().messages({
     "string.min": "passwordShort",
     "any.required": "passwordRequired",
   }),

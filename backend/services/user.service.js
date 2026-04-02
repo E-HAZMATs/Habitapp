@@ -14,7 +14,7 @@ exports.findByEmail = async (email) => {
 
 exports.deleteById = async (id) => {
     const user = await exports.findById(id)
-    if(!user) throw new AppError('userNotExist', 400) // TODOIMP: Localize. Problem is i18n is only accessible via req (attached in server.js). i have to pass req or make a localization service.
+    if(!user) throw new AppError('userNotExist', 400)
     return user.destroy()
 }
 
