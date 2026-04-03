@@ -1,12 +1,11 @@
-// TODO: UPDATE TO PASCAL CASE FOR TYPES/INTERFACES
-export type frequencyType = 'daily' | 'weekly' | 'monthly';
+export type FrequencyType = 'daily' | 'weekly' | 'monthly';
 
-export interface habit {
+export interface Habit {
   id: string;
   userId: string;
   name: string;
   description?: string;
-  frequencyType: frequencyType;
+  frequencyType: FrequencyType;
   frequencyAmount: number;
   dayOfWeek?: number;
   dayOfMonth?: number;
@@ -18,30 +17,30 @@ export interface habit {
   dueIn?: any
 }
 
-export interface createHabitDto {
+export interface CreateHabitDto {
   name: string;
   description: string | null;
-  frequencyType: frequencyType;
+  frequencyType: FrequencyType;
   frequencyAmount: number;
   dayOfWeek: number | null;
   dayOfMonth: number | null;
   timeOfDay: string | null;
 }
 
-export interface updateHabitDto {
+export interface UpdateHabitDto {
   name?: string;
   description?: string;
-  frequencyType?: frequencyType;
+  frequencyType?: FrequencyType;
   frequencyAmount?: number;
   dayOfWeek?: number;
   dayOfMonth?: number;
   timeOfDay?: string;
 }
 
-export interface habitResponse {
-  habit: habit;
+export interface HabitResponse {
+  habit: Habit;
 }
 
-export interface habitsListResponse {
-  habits: habit[];
+export interface HabitsListResponse {
+  habits: Habit[];
 }

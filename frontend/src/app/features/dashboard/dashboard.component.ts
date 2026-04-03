@@ -7,7 +7,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { BidiModule } from "@angular/cdk/bidi";
 import { HabitService } from '../../core/services/habit-service';
-import { habit } from '../../core/models/habit.model';
+import { Habit } from '../../core/models/habit.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private localizationService = inject(LocalizationService)
   private translate = inject(TranslateService)
   private habitService = inject(HabitService)
-  protected habits = signal<habit[] | null>(null)
+  protected habits = signal<Habit[] | null>(null)
   protected loadingHabitIds = signal<Set<string>>(new Set())
   private dueInInterval: ReturnType<typeof setInterval> | null = null
   private static readonly DAY_CAP = 99;
@@ -73,17 +73,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   
   async getHabits(){
     let result = await this.habitService.getAllByUser() as any
-    result.sort((a: habit, b: habit) => {
+    result.sort((a: Habit, b: Habit) => {
     return new Date(a.nextDueDate).getTime() - new Date(b.nextDueDate).getTime();
   });
   
-    result.forEach((habit: habit) => {
+    result.forEach((habit: Habit) => {
       habit.dueIn = this.getDueIn(habit.nextDueDate);
     })
     this.habits.set(result);
   }
 
-  openEditDialog(habit: habit) {
+  openEditDialog(habit: Habit) {
     const currentLang = this.localizationService.currentLanguage();
     const dialogRef = this.dialog.open(CreateHabitModal, {
       direction: currentLang === 'ar' ? 'rtl' : 'ltr',
@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return { diffDays, diffHours }
   }
 
-  protected getCompleteBtnText(habit: habit): string {
+  protected getCompleteBtnText(habit: Habit): string {
     const diffHours = habit.dueIn.diffHours;
     const diffDays = habit.dueIn.diffDays;
     if (diffHours <= 0) {return this.translate.instant('complete')}
@@ -157,7 +157,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected getCompleteBtnTooltip(habit: habit): string | undefined {
+  protected getCompleteBtnTooltip(habit: Habit): string | undefined {
     const diffDays = habit.dueIn.diffDays;
     if (habit.dueIn.diffHours <= 0) return undefined;
     if (diffDays > DashboardComponent.DAY_CAP)

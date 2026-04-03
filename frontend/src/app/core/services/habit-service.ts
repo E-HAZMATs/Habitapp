@@ -4,10 +4,10 @@ import { ToastService } from './toast-service';
 import { ApiResponse, ApiError } from '../models/api-response.model';
 import { firstValueFrom } from 'rxjs';
 import { 
-  createHabitDto, 
-  habit, 
-  habitResponse,
-  updateHabitDto,
+  CreateHabitDto, 
+  Habit, 
+  HabitResponse,
+  UpdateHabitDto,
 } from '../models/habit.model';
 import { HabitLogsResponse, HabitLogCreatedResponse } from '../models/habit-log.model';
 import { ENDPOINTS } from '../constants/api-endpoints';
@@ -18,10 +18,10 @@ export class HabitService {
   private api = inject(ApiService);
   private toastService = inject(ToastService);
 
-  async create(habitDto: createHabitDto): Promise<habit> {
+  async create(habitDto: CreateHabitDto): Promise<Habit> {
     try {
       const response = await firstValueFrom(
-        this.api.post<ApiResponse<habitResponse>>(ENDPOINTS.habit.create, habitDto)
+        this.api.post<ApiResponse<HabitResponse>>(ENDPOINTS.habit.create, habitDto)
       );
       
       const msg = response.message;
@@ -34,10 +34,10 @@ export class HabitService {
     }
   }
 
-  async getAllByUser(): Promise<habit[]> {
+  async getAllByUser(): Promise<Habit[]> {
     try{
       const response = await firstValueFrom(
-        this.api.get<ApiResponse<habit[]>>(ENDPOINTS.habit.getAllByUser)
+        this.api.get<ApiResponse<Habit[]>>(ENDPOINTS.habit.getAllByUser)
       )
       return response.data!;
     }
@@ -47,10 +47,10 @@ export class HabitService {
     }
   }
 
-  async getById(id: string): Promise<habit> {
+  async getById(id: string): Promise<Habit> {
     try{
       const response = await firstValueFrom(
-        this.api.get<ApiResponse<habit>>(ENDPOINTS.habit.getById + '/' + id)
+        this.api.get<ApiResponse<Habit>>(ENDPOINTS.habit.getById + '/' + id)
       )
       return response.data!;
     }
@@ -60,7 +60,7 @@ export class HabitService {
     }
   }
 
-  async update(habitId: string, habitDto: updateHabitDto): Promise<void> {
+  async update(habitId: string, habitDto: UpdateHabitDto): Promise<void> {
     try {
       const response = await firstValueFrom(
         this.api.patch<ApiResponse<void>>(`${ENDPOINTS.habit.update}/${habitId}`, habitDto)

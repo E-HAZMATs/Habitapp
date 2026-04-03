@@ -14,7 +14,7 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { TranslatePipe } from '@ngx-translate/core';
 import { daysOfWeek } from '../../../core/constants/days-of-week';
 import { HabitService } from '../../../core/services/habit-service';
-import { frequencyType, habit } from '../../../core/models/habit.model';
+import { FrequencyType, Habit } from '../../../core/models/habit.model';
 import { ValidationErrorService } from '../../../core/services/validation-error-service';
 import { HABIT_VALIDATION_CONSTS } from '../../../core/constants/habit-validation.constants';
 import { MatTimepicker, MatTimepickerToggle, MatTimepickerInput } from '@angular/material/timepicker';
@@ -56,7 +56,7 @@ export class CreateHabitModal {
   private readonly _adapter =
     inject<DateAdapter<unknown, unknown>>(DateAdapter);
     
-    protected editHabit: habit | null = inject(MAT_DIALOG_DATA, { optional: true });
+    protected editHabit: Habit | null = inject(MAT_DIALOG_DATA, { optional: true });
     protected isEditMode = !!this.editHabit;
     protected submitting = signal(false);
     private dialogRef = inject(MatDialogRef<CreateHabitModal>);
@@ -76,7 +76,7 @@ export class CreateHabitModal {
         Validators.maxLength(HABIT_VALIDATION_CONSTS.DESCRIPTION_MAX_LENGTH),
       ],
     }),
-    frequencyType: new FormControl<frequencyType>(this.editHabit?.frequencyType ?? 'daily', {
+    frequencyType: new FormControl<FrequencyType>(this.editHabit?.frequencyType ?? 'daily', {
       nonNullable: true,
       validators: [Validators.required],
     }),
