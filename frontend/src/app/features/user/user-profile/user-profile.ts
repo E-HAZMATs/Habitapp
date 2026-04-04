@@ -10,6 +10,7 @@ import { user, UpdateProfileDto } from '../../../core/models/user.model';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPasswordMatchValidator } from '../../../core/validators/field-validators';
+import { AUTH_VALIDATION_CONSTS } from '../../../core/constants/habit-validation.constants';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatInput } from "@angular/material/input";
 import { MatOption, MatSelect } from '@angular/material/select';
@@ -76,7 +77,7 @@ export class UserProfile implements OnInit {
       }),
       password: new FormControl('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(8)],
+        validators: [Validators.required, Validators.minLength(AUTH_VALIDATION_CONSTS.PASSWORD_MIN_LENGTH)],
       }),
       confirmPassword: new FormControl('', { //These  names are the same as the controllers in the register form. Needs to be same name for validator.
         nonNullable: true,
