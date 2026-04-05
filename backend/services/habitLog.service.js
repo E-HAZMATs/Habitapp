@@ -31,6 +31,46 @@ exports.getLogsByUser = async (userId, page = 1, size = 10) => {
   };
 };
 
+exports.getStatsByUser = async (userId) => {
+
+  const logs = await HabitLog.findAll({
+    include: [{
+      model: Habit,
+      where: { userId },
+      attributes: ['id', 'name'],
+      paranoid: false,
+    }],
+    order: [['dueDate', 'DESC']],
+    paranoid: false,
+  });
+
+  // Storing each logs in their corrosponding habit.
+  const byHabit = {};
+  for (const log of logs) {
+    const hid = log.habitId;
+    if (!byHabit[hid]) byHabit[hid] = { name: log.Habit.name, logs: [] };
+    byHabit[hid].logs.push(log);
+  }
+
+  const stats = {};
+  for (const [habitId, { name, logs: habitLogs }] of Object.entries(byHabit)) {
+    let streak = 0;
+    for (const log of habitLogs) {
+      if (log.status === 'missed') break;
+      streak++;
+    }
+
+    const completed = habitLogs.filter(l => l.status === 'completed').length;
+    const missed = habitLogs.filter(l => l.status === 'missed').length;
+    const total = completed + missed;
+    const completionRate = total === 0 ? null : Math.round((completed / total) * 100);
+
+    stats[habitId] = { habitId, name, streak, completionRate };
+  }
+
+  return stats;
+};
+
 exports.markAsSkipped = async (logId, userId) => {
   const log = await HabitLog.findByPk(logId, {
     include: [{ model: Habit, attributes: ['userId'], paranoid: false }]

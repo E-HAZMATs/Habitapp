@@ -19,3 +19,9 @@ exports.markAsSkipped = async (req, res) => {
   await habitLogService.markAsSkipped(logId, userId);
   return sendSuccess(res, 200, req.__('operationSuccess'));
 };
+
+exports.getStatsByUser = async (req, res) => {
+  const userId = req.user.id;
+  const stats = await habitLogService.getStatsByUser(userId);
+  return sendSuccess(res, 200, req.__('operationSuccess'), stats);
+};
