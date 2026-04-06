@@ -12,6 +12,7 @@ export const ENDPOINTS = {
     },
     habitLog: {
         getByUser: '/habitlogs/getByUser',
+        stats: '/habitlogs/stats',
         markAsSkipped: '/habitlogs',
     },
     habit: {

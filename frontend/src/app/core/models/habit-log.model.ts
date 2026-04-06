@@ -32,3 +32,12 @@ export interface HabitLogsResponse {
 }
 
 export type HabitLogCreatedResponse = Pick<HabitLog, 'id' | 'habitId' | 'completedAt' | 'status' | 'dueDate' | 'nextDueDate' | 'timezone'>;
+
+export interface HabitStat {
+  habitId: string;
+  name: string;
+  streak: number;
+  completionRate: number | null; // Null for when new habits weren't due yet.
+}
+
+export type HabitStatsMap = Record<string, HabitStat>;

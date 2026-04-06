@@ -9,7 +9,7 @@ import {
   HabitResponse,
   UpdateHabitDto,
 } from '../models/habit.model';
-import { HabitLogsResponse, HabitLogCreatedResponse } from '../models/habit-log.model';
+import { HabitLogsResponse, HabitLogCreatedResponse, HabitStatsMap } from '../models/habit-log.model';
 import { ENDPOINTS } from '../constants/api-endpoints';
 @Injectable({
   providedIn: 'root',
@@ -115,16 +115,28 @@ export class HabitService {
   }
 }
 
-  async markLogAsSkipped(logId: string): Promise<void> {
+async markLogAsSkipped(logId: string): Promise<void> {
+  try {
+    const response = await firstValueFrom(
+      this.api.patch<ApiResponse<void>>(`${ENDPOINTS.habitLog.markAsSkipped}/${logId}/skip`, {})
+    );
+    this.toastService.show(response.message, 'success');
+  } catch (err) {
+    this.toastService.handleErrorToast(err as ApiError);
+    throw err;
+  }
+}
+
+  async getStats(): Promise<HabitStatsMap> {
     try {
       const response = await firstValueFrom(
-        this.api.patch<ApiResponse<void>>(`${ENDPOINTS.habitLog.markAsSkipped}/${logId}/skip`, {})
+        this.api.get<ApiResponse<HabitStatsMap>>(ENDPOINTS.habitLog.stats)
       );
-      this.toastService.show(response.message, 'success');
-    } catch (err) {
-      this.toastService.handleErrorToast(err as ApiError);
-      throw err;
-    }
+    return response.data!;
+  } catch (err) {
+    this.toastService.handleErrorToast(err as ApiError);
+    throw err;
   }
+}
 
 }
