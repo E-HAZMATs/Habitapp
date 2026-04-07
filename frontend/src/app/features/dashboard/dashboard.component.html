@@ -8,27 +8,31 @@
         @if (habits() !== null){
             @for (habit of habits(); track habit.id){
                 <mat-card class="mt-2 me-2">
-                    <mat-card-content class="!grid grid-cols-12 gap-4 items-center">
-                        <!-- <div class="h-full flex items-center p-5">
-                            <h2 class="font-bold">{{habit.name}}</h2>
-                        </div> -->
-                        <div class="col-span-3">
-                            <mat-card-title>{{habit.name}}</mat-card-title>
+                    <mat-card-content class="!grid grid-cols-[2fr_3fr_auto_auto] gap-4 items-start py-3">
+                        <div class="min-w-0">
+                            <mat-card-title class="truncate">{{habit.name}}</mat-card-title>
                         </div>
-                        
-                        <div class="col-span-5">
+
+                        <div class="min-w-0">
                             @if (habit.description){
-                                <!-- <p>{{habit.description}}</p> -->
                                 <mat-card-subtitle>{{habit.description}}</mat-card-subtitle>
                             }
                         </div>
-                        
-                        <!-- Show complete btn if habit is at specified time, else count down? -->
-                        <div class="col-span-4 flex justify-end items-center gap-1">
+
+                        @let stat = getHabitStat(habit.id);
+                        <div class="flex items-center gap-2">
+                          @let rate = stat?.completionRate ?? null;
+                          <div class="stat-box"
+                            [class.stat-box--no-data]="rate === null"
+                            [style.background-color]="rate !== null ? completionRateColor(rate) : null"
+                            [matTooltip]="'completionRateTooltip' | translate">
+                            <span class="stat-number">{{ rate !== null ? rate + '%' : '—' }}</span>
+                          </div>
+                        </div>
+
+                        <div class="flex justify-end items-center gap-1">
                         @let isDue = habit.dueIn.diffHours <= 0;
                         @let isLoading = isHabitLoading(habit.id);
-                        <!-- @if (habit.dueIn.diffHours <= 0){ -->
-                          <!-- TODOIMP: Make due time update like a countdown. **Already done sort of, but not counting down seconds. -->
                                 @if (isLoading) {
                                     <mat-progress-spinner diameter="24" mode="indeterminate" />
                                 } @else {

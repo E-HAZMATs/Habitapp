@@ -8,6 +8,7 @@ import { MatIcon } from '@angular/material/icon';
 import { BidiModule } from "@angular/cdk/bidi";
 import { HabitService } from '../../core/services/habit-service';
 import { Habit } from '../../core/models/habit.model';
+import { HabitStatsMap } from '../../core/models/habit-log.model';
 import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private translate = inject(TranslateService)
   private habitService = inject(HabitService)
   protected habits = signal<Habit[] | null>(null)
+  protected stats = signal<HabitStatsMap>({})
   protected loadingHabitIds = signal<Set<string>>(new Set())
   private dueInInterval: ReturnType<typeof setInterval> | null = null
   private static readonly DAY_CAP = 99;
@@ -57,7 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    await this.getHabits();
+    await Promise.all([this.getHabits(), this.loadStats()]);
     this.dueInInterval = setInterval(() => {
       const habitsTemp = this.habits();
       if (!habitsTemp) return;
@@ -71,6 +73,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
   
+  async loadStats() {
+    try {
+      const result = await this.habitService.getStats();
+      this.stats.set(result);
+    } catch { }
+  }
+
   async getHabits(){
     let result = await this.habitService.getAllByUser() as any
     result.sort((a: Habit, b: Habit) => {
@@ -81,6 +90,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
       habit.dueIn = this.getDueIn(habit.nextDueDate);
     })
     this.habits.set(result);
+  }
+
+  protected getHabitStat(habitId: string) {
+    return this.stats()[habitId] ?? null;
+  }
+
+  protected completionRateColor(rate: number): string {
+    if (rate === 100) return '#16a34a';
+    if (rate >= 75)  return '#65a30d';
+    if (rate >= 50)  return '#ca8a04';
+    if (rate >= 25)  return '#ea580c';
+    return '#dc2626';                 
   }
 
   openEditDialog(habit: Habit) {

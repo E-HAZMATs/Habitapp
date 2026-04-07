@@ -89,5 +89,6 @@
 	"confirmPassword": "Confirm New Password",
 	"validationError": "Invalid input",
 	"markAsSkipped": "I have completed this habit but forgot to log the completion",
-	"passwordShort": "Password must be at least 8 characters"
+	"passwordShort": "Password must be at least 8 characters",
+	"completionRateTooltip": "Overall completion rate"
 }
