@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private habitService = inject(HabitService)
   protected habits = signal<Habit[] | null>(null)
   protected stats = signal<HabitStatsMap>({})
+  protected statsLoading = signal(true)
   protected loadingHabitIds = signal<Set<string>>(new Set())
   private dueInInterval: ReturnType<typeof setInterval> | null = null
   private static readonly DAY_CAP = 99;
@@ -74,10 +75,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   
   async loadStats() {
+    this.statsLoading.set(true);
     try {
       const result = await this.habitService.getStats();
       this.stats.set(result);
     } catch { }
+    finally { this.statsLoading.set(false); }
   }
 
   async getHabits(){

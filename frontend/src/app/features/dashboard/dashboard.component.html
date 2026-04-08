@@ -21,13 +21,19 @@
 
                         @let stat = getHabitStat(habit.id);
                         <div class="flex items-center gap-2">
-                          @let rate = stat?.completionRate ?? null;
-                          <div class="stat-box"
-                            [class.stat-box--no-data]="rate === null"
-                            [style.background-color]="rate !== null ? completionRateColor(rate) : null"
-                            [matTooltip]="'completionRateTooltip' | translate">
-                            <span class="stat-number">{{ rate !== null ? rate + '%' : '—' }}</span>
-                          </div>
+                          @if (statsLoading()) {
+                            <div class="stat-box stat-box--no-data">
+                              <mat-progress-spinner diameter="16" mode="indeterminate" />
+                            </div>
+                          } @else {
+                            @let rate = stat?.completionRate ?? null;
+                            <div class="stat-box"
+                              [class.stat-box--no-data]="rate === null"
+                              [style.background-color]="rate !== null ? completionRateColor(rate) : null"
+                              [matTooltip]="'completionRateTooltip' | translate">
+                              <span class="stat-number">{{ rate !== null ? rate + '%' : '—' }}</span>
+                            </div>
+                          }
                         </div>
 
                         <div class="flex justify-end items-center gap-1">
