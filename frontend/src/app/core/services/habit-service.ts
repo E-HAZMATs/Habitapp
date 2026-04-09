@@ -115,17 +115,17 @@ export class HabitService {
   }
 }
 
-async markLogAsSkipped(logId: string): Promise<void> {
-  try {
-    const response = await firstValueFrom(
-      this.api.patch<ApiResponse<void>>(`${ENDPOINTS.habitLog.markAsSkipped}/${logId}/skip`, {})
-    );
-    this.toastService.show(response.message, 'success');
-  } catch (err) {
-    this.toastService.handleErrorToast(err as ApiError);
-    throw err;
+  async markLogAsSkipped(logId: string): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this.api.patch<ApiResponse<void>>(`${ENDPOINTS.habitLog.markAsSkipped}/${logId}/skip`, {})
+      );
+      this.toastService.show(response.message, 'success');
+    } catch (err) {
+      this.toastService.handleErrorToast(err as ApiError);
+      throw err;
+    }
   }
-}
 
   async getStats(): Promise<HabitStatsMap> {
     try {

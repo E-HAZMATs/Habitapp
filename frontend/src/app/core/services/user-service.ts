@@ -17,10 +17,6 @@ export class UserService  {
     private tokenService = inject(TokenService)
     user = this._user.asReadonly();
 
-    getCurrentUser() {
-      this.api.get(ENDPOINTS.user.me);
-    }
-
     setUser(user: user){
       this._user.set(user);
     }
