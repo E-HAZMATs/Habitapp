@@ -8,7 +8,7 @@ exports.create = async (data) => {
     return await Habit.create(data);
 }
 
-exports.update = async (id, userId, data) => {
+exports.update = async (id, userId, timezone, data) => {
     const habit = await Habit.findByPk(id)
     if(!habit)
         return 0
@@ -32,7 +32,7 @@ exports.update = async (id, userId, data) => {
     };
 
     if (scheduleChanged)
-        updates.nextDueDate = calculateInitialDueDate(data);
+        updates.nextDueDate = calculateInitialDueDate({ ...data, timezone });
 
     return await habit.update(updates);
 }
@@ -76,7 +76,7 @@ exports.habitComplete = async (habitId, user, reqBody) => {
     const diffHours = Math.floor((new Date(habit.nextDueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60));
     if (diffHours > 0)
         return -2
-    const nextDueDate = calculateNextDueDate(habit, reqBody.completedAt);
+    const nextDueDate = calculateNextDueDate(habit, reqBody.completedAt, user.timezone);
     const result = await HabitLog.create({
         habitId: habitId,
         completedAt: reqBody.completedAt,
@@ -95,13 +95,12 @@ exports.habitComplete = async (habitId, user, reqBody) => {
 
 exports.getOverdueHabits = async () => {
   const now = new Date();
-  now.setHours(0, 0, 0, 0); // CHECK: Will this make it retrieve habits due on Day before now's date?
   const habits = await Habit.findAll({
     where: {
       isActive: true,
       deletedAt: null,
       nextDueDate: {
-        [Op.lt]: now 
+        [Op.lt]: now
       }
     },
     include: [{
@@ -115,8 +114,7 @@ exports.getOverdueHabits = async () => {
 
 exports.logMissedHabit = async (habit, userTimezone) => {
   const now = new Date();
-  const nextDueDate = calculateNextDueDate(habit, habit.nextDueDate); // CHECK: This will return wrong (not necessarily wrong, but the supposed nextduedate which could way before now) nextdue date incase of habits due days ago but not logged as missed. 
-  // It's no issue, cus once db is reset no data will have false stuff?
+  const nextDueDate = calculateNextDueDate(habit, habit.nextDueDate, userTimezone);
   
   const log = await HabitLog.create({
     habitId: habit.id,

@@ -9,6 +9,7 @@ exports.create = async (req, res) => {
   const data = req.body;
   const habit = await habitService.create({
     userId,
+    timezone: req.user.timezone,
     name: data.name,
     description: data.description,
     frequencyType: data.frequencyType,
@@ -31,7 +32,7 @@ exports.update = async (req, res) => {
   const { error } = habitCreateSchema.validate(req.body);
   if (error) return sendError(res, 400, req.__(error.details[0].message))
 
-  const response = await habitService.update(habitId, req.user.id, req.body);
+  const response = await habitService.update(habitId, req.user.id, req.user.timezone, req.body);
   if (response === 0) return sendError(res, 404, req.__('habitNoExist'));
   else if (response === -1)
     return sendError(res, 400, req.__("cantEditOtherUsersHabits"))
