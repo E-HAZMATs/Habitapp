@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   MatCard,
   MatCardContent,
@@ -48,7 +48,7 @@ import { MatIcon } from '@angular/material/icon';
 export class UserProfile implements OnInit {
   private userService = inject(UserService);
   private validationErrorService = inject(ValidationErrorService)
-  protected user = this.userService.user as WritableSignal<user>;
+  protected user = this.userService.user;
   protected profileForm!: FormGroup
   protected saving = signal(false);
   protected passwordForm!: FormGroup;
