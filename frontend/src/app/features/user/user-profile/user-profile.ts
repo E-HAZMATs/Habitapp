@@ -133,6 +133,7 @@ export class UserProfile implements OnInit {
         timezone: this.profileForm.value.timezone,
       };
       await this.userService.updateCurrentUser(updateData);
+      this.profileForm.markAsPristine();
     } catch (err) {
     } finally {
       this.saving.set(false);

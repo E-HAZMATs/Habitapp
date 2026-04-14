@@ -36,7 +36,7 @@
 
                 <div class="flex gap-2">
                     <button matButton="filled" type="submit"
-                        [disabled]="saving() || profileForm.invalid">
+                        [disabled]="saving() || profileForm.invalid || !profileForm.dirty">
                         @if(saving()){
                             <mat-spinner diameter="20"></mat-spinner>
                         } @else {
