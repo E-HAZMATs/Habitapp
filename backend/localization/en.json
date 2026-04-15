@@ -42,5 +42,6 @@
 	"memberRoleNotFound": "Registration failed due to absence of member role.",
 	"logNotFound": "Log entry not found.",
 	"logNotMissed": "Only missed habits can be marked as skipped.",
-	"markedAsSkipped": "Marked as skipped."
+	"markedAsSkipped": "Marked as skipped.",
+	"maximumXChars": "Input exceeds the maximum allowed length."
 }

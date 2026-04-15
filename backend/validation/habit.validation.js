@@ -1,11 +1,12 @@
 const Joi = require("joi");
 
 exports.habitCreateSchema = Joi.object({
-  name: Joi.string().required().messages({
+  name: Joi.string().max(20).required().messages({
     'any.required': 'habitNameRequired',
     'string.empty': 'habitNameRequired',
+    'string.max': 'maximumXChars',
   }),
-  description: Joi.string().allow("", null),
+  description: Joi.string().max(250).allow("", null),
   frequencyType: Joi.string().valid("daily", "weekly", "monthly").required().messages({
     'any.required': 'habitFrequencyTypeRequired',
     'any.only': 'habitFrequencyTypeInvalid',
