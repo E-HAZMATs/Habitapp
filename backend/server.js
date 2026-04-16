@@ -54,8 +54,19 @@ async function startServer() {
     const PORT = process.env.PORT || 3333;
     
     await connectToDB();
-    habitWorker.start(); // Should be stopped?
-    app.listen(PORT, () => console.log(`server running on port ${PORT}`));
+    habitWorker.start();
+    const server = app.listen(PORT, () => console.log(`server running on port ${PORT}`));
+
+    const shutdown = async (signal) => {
+        console.log(`${signal} received, shutting down...`);
+        habitWorker.stop();
+        server.close(() => {
+            console.log('HTTP server closed');
+            process.exit(0);
+        });
+    };
+    
+    process.on('SIGINT', () => shutdown('SIGINT'));
 }
 
 startServer();
