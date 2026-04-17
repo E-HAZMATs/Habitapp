@@ -27,9 +27,21 @@
 
                 <mat-form-field>
                     <mat-label>{{ "timezone" | translate }}</mat-label>
+                    <!-- TODO: Direction appears as current dir when page was opened and doesn't update when switching lang. Fix that.  -->
                     <mat-select formControlName="timezone">
-                        @for (tz of timezones; track tz) {
-                        <mat-option [value]="tz">{{ tz }}</mat-option>
+                        <mat-option>
+                            <ngx-mat-select-search
+                                [formControl]="tzSearchCtrl"
+                                [placeholderLabel]="translate.instant('search')"
+                                [noEntriesFoundLabel]="translate.instant('noEntriesFound')">
+                            </ngx-mat-select-search>
+                        </mat-option>
+                        @for (group of filteredGroups; track group.region) {
+                            <mat-optgroup [label]="group.region">
+                                @for (tz of group.zones; track tz) {
+                                    <mat-option [value]="tz">{{ tz }}</mat-option>
+                                }
+                            </mat-optgroup>
                         }
                     </mat-select>
                 </mat-form-field>

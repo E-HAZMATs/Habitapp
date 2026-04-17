@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import {
   MatCard,
   MatCardContent,
@@ -13,7 +13,7 @@ import { confirmPasswordMatchValidator } from '../../../core/validators/field-va
 import { AUTH_VALIDATION_CONSTS } from '../../../core/constants/habit-validation.constants';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatInput } from "@angular/material/input";
-import { MatOption, MatSelect } from '@angular/material/select';
+import { MatOption, MatSelect, MatOptgroup } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
 import { ToastService } from '../../../core/services/toast-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,6 +21,8 @@ import { ValidationErrorService } from '../../../core/services/validation-error-
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { LocalizationService } from '../../../core/services/localization-service';
 
 @Component({
   selector: 'app-user-profile',
@@ -40,10 +42,13 @@ import { MatIcon } from '@angular/material/icon';
     MatButton,
     MatProgressSpinner,
     MatDivider,
-    MatIcon
+    MatIcon,
+    MatOptgroup,
+    NgxMatSelectSearchModule
 ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserProfile implements OnInit {
   private userService = inject(UserService);
@@ -54,17 +59,38 @@ export class UserProfile implements OnInit {
   protected passwordForm!: FormGroup;
   protected savingPassword = signal(false);
   protected showChangePassword = signal(false);
-
-  protected timezones = [
-    'Asia/Riyadh',
-    'America/New_York',
-    'Europe/London',
-    'Asia/Tokyo',
-    'Australia/Sydney',
-    "Asia/Shanghai"
-  ];
-
+  protected translate = inject(TranslateService)
+  private localizationService = inject(LocalizationService);
+  protected currentLanguage = this.localizationService.currentLanguage;
+  
+  protected timezoneGroups: { region: string; zones: string[] }[] = (() => {
+    const all = Intl.supportedValuesOf('timeZone');
+    const map = new Map<string, string[]>();
+    for (const tz of all) {
+      const region = tz.split('/')[0];
+      if (!map.has(region)) map.set(region, []);
+      map.get(region)!.push(tz);
+    }
+    return Array.from(map.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([region, zones]) => ({ region, zones }));
+  })();
+  
+  protected tzSearchCtrl = new FormControl('');
+  protected filteredGroups!: { region: string; zones: string[] }[];
+  
   ngOnInit(): void {
+    this.filteredGroups = this.timezoneGroups;
+    this.tzSearchCtrl.valueChanges.subscribe(q => {
+      const query = (q ?? '').toLowerCase();
+      if (!query) {
+        this.filteredGroups = this.timezoneGroups;
+        return;
+      }
+      this.filteredGroups = this.timezoneGroups
+        .map(g => ({ region: g.region, zones: g.zones.filter(tz => tz.toLowerCase().includes(query)) }))
+        .filter(g => g.zones.length > 0);
+    });
     this.initForm();
     this.initPasswordForm();
   }

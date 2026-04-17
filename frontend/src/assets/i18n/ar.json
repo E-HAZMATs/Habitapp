@@ -90,5 +90,7 @@
 	"validationError": "مدخل غير صحيح",
 	"markAsSkipped": "أنجزت هذه العادة لكن نسيت تسجيل الإنجاز",
 	"passwordShort": "كلمة المرور يجب أن تتكون من 8 رموز على الأقل",
-	"completionRateTooltip": "نسبة الإتمام الإجمالية"
+	"completionRateTooltip": "نسبة الإتمام الإجمالية",
+	"search": "بحث",
+	"noEntriesFound": "لا توجد نتائج"
 }
