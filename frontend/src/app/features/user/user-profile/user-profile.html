@@ -28,7 +28,7 @@
                 <mat-form-field>
                     <mat-label>{{ "timezone" | translate }}</mat-label>
                     <!-- TODO: Direction appears as current dir when page was opened and doesn't update when switching lang. Fix that.  -->
-                    <mat-select formControlName="timezone">
+                    <mat-select formControlName="timezone" [dir]="currentLanguage() === 'ar' ? 'rtl' : 'ltr'">
                         <mat-option>
                             <ngx-mat-select-search
                                 [formControl]="tzSearchCtrl"
