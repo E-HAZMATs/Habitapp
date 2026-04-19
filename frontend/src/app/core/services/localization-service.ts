@@ -28,7 +28,7 @@ export class LocalizationService {
 
   toggleLanguage(): void {
     const newLang = this.currentLanguage() === 'en' ? 'ar' : 'en';
-    this.setLanguage(newLang);
+    localStorage.setItem(this.LANG_KEY, newLang);
     window.location.reload();
   }
 
