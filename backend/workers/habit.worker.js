@@ -1,7 +1,7 @@
 // workers/habitWorker.js
 const cron = require('node-cron');
 const habitService = require('../services/habit.service');
-const { getMidnightUTC } = require('../utils/habitHelper');
+const { getStartOfDayUTC } = require('../utils/habitHelper');
 
 class HabitWorker {
   constructor() {
@@ -42,7 +42,7 @@ class HabitWorker {
     try {
       const userTimezone = habit.User?.timezone || 'UTC';
       // Catch only if day is next day to due day in the user's timezone
-      const userMidnight = getMidnightUTC(userTimezone);
+      const userMidnight = getStartOfDayUTC(userTimezone);
       if (habit.nextDueDate >= userMidnight) return;
       await habitService.logMissedHabit(habit, userTimezone);
     } catch (error) {
