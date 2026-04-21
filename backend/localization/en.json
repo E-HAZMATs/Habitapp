@@ -43,5 +43,6 @@
 	"logNotFound": "Log entry not found.",
 	"logNotMissed": "Only missed habits can be marked as skipped.",
 	"markedAsSkipped": "Marked as skipped.",
-	"maximumXChars": "Input exceeds the maximum allowed length."
+	"maximumXChars": "Input exceeds the maximum allowed length.",
+	"usernameUsed": "Username is already taken."
 }
